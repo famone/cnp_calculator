@@ -1,0 +1,15 @@
+<template>
+	<section id="main" class="container">
+		
+			<div class="col-lg-12 wow fadeInUp">
+				<h3>CNP Калькулятор 2.0</h3>
+				<h1>Добро пожаловать <br>
+					в калькулятор <br>
+ 					для составления сметы</h1>
+ 				<router-link tag="a" to="/page-1">
+ 					<button class="blue-btn">Поехали</button>
+ 				</router-link>
+			</div>
+
+	</section>
+</template>
