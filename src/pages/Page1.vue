@@ -48,9 +48,12 @@
 				
 			</div>
 		</div>
+		<!-- <button class="blue-btn" @click="calcPrice()">ПОСЧИТАТЬ</button> -->
 
 
 			<nextstep />
+
+
 
 
 
@@ -94,7 +97,59 @@ import {mapState, mapGetters} from 'vuex'
 				})
 
 				pageObj.value = e.target.value
-			}
+			},
+
+			// calcPrice(){
+
+			// 	let pages = []
+			// 	this.calc.forEach(page => {
+
+			// 		if(page.calculated == true){
+			// 			pages.push(page)
+			// 		}
+			// 	})
+
+			// 	// console.log(pages)
+
+			// 	let categories = []
+
+			// 	pages.forEach(page =>{
+			// 		let onePole = page.subsItems
+
+			// 		onePole.forEach(item =>{
+			// 			categories.push(item)
+			// 		})
+			// 	})
+
+			// 	// console.log(categories)
+
+
+			// 	let polya = []
+
+			// 	categories.forEach(cat =>{
+			// 		let oneFields = cat.fields
+
+			// 		oneFields.forEach(item =>{
+
+			// 			if(item.radio_value){
+			// 				polya.push(item)
+			// 			}
+						
+			// 		})
+
+			// 	})
+
+			// 	let finalPrice = 0
+
+			// 	polya.forEach(item =>{
+			// 		finalPrice += item.radio_value.stoimost
+			// 	})
+
+			// 	return finalPrice
+
+			// }
+
+
 		},
 		computed: {
 			...mapGetters({ calc: "smeta/getCalc"}),
@@ -105,7 +160,6 @@ import {mapState, mapGetters} from 'vuex'
 
 				return page
 			}
-			
 		}
 	}
 </script>

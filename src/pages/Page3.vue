@@ -55,7 +55,7 @@
 					<div class="variants" v-if="item.value">
 						<v-radio-group v-model="item.radio_value">
 			      		<v-radio v-for="variant in item.options.varianty" 
-			      		:label="variant.nazvanie + ' ' + variant.stoimost + ' ₽' " 
+			      		:label="variant.nazvanie + ' ' + variant.stoimost.toLocaleString() + ' ₽' " 
 			      		:value="variant"></v-radio>
 
 			      			
@@ -85,40 +85,7 @@
 			</div>
 		</div>
 
-		
 
-
-		<!-- <div class="container">
-			<div class="col-lg-6">
-
-
-			<div class="data-row">
-				<h3>Возраст целевой аудитории</h3>
-				<p class="white-txt">
-					<span class="blue-txt">от {{vozrast[0]}} до {{vozrast[1]}} лет</span>
-				</p>
-				<v-range-slider class="my-double" v-model="vozrast" min="0" max="100" thumb-size="64"></v-range-slider>	
-			</div>
-
-
-
-			<div class="data-row">
-				<h1 style="font-size: 64px;line-height: 60px;">Описание продукта
-				или услуги</h1>
-			</div>
-
-
-
-
-
-  
-				
-
-<nextstep />
-
-
-			</div>
-		</div> -->
 	</div>
 </template>
 
@@ -132,7 +99,6 @@ import {mapState, mapGetters} from 'vuex'
 		components: {Inner, nextstep, editDirector},
 		data(){
 			return{
-				vozrast: [18, 55],
 				edit_director: false,
 				editing_director: [],
 				editing_category: null
@@ -153,16 +119,12 @@ import {mapState, mapGetters} from 'vuex'
 				this.edit_director = true
 				this.editing_director = param
 				this.editing_category = subsl_id
-
-				console.log(this.editing_category)
 			},
 			closeEditDirector(){
 				this.edit_director = false
 				this.editing_director = []
 			},
 			getPriceFrom(variks){
-
-			
 				let compare1 = variks[0].stoimost
 				let compare2 = variks[1].stoimost
 
@@ -190,7 +152,6 @@ import {mapState, mapGetters} from 'vuex'
 				pageObj.value = val
 			},
 			showVal(e, inp, subsl_id){
-
 
 				let page = this.calc.find(item => {
 					return item.id == 31

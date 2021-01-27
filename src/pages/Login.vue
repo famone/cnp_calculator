@@ -32,8 +32,21 @@ export default{
 	},
 	methods: {
 		login(){
-			this.$store.dispatch("smeta/LOGIN", this.user).then(() => {
-        		this.$router.replace("/");
+			const newUser = {
+				avatar: 'https://www.kinonews.ru/insimgs/2019/newsimg/newsimg87089.jpg',
+				name: 'Константин',
+				surname: 'Тимофеев',
+				date: '29.12.2020',
+				status: 'Без подписки',
+				nick: 'famzayka',
+				tel: '+7 964 384-34-54',
+				mail: 'kt@webink.site',
+				presets: []
+			}
+
+			console.log(newUser)
+			this.$store.dispatch("auth/LOGIN", newUser).then(() => {
+        		this.$router.replace("/profile");
 			});
 		}
 	}

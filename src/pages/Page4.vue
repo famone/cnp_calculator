@@ -1,121 +1,109 @@
 <template>
-	<div>
-		<Inner :innerTxt="innerTxt"/>
+	<div v-if="calc">
 
-		<div class="container-fluid">
-			<div class="row data-row">
-				<div class="col-lg-2 col-sm-4 col-md-3" v-for="(cam, index) in cameras" :key="index">
-				<div class="rent-box">
-					<img :src="cam.img" alt="">
-					<p class="black-txt">{{cam.name}}</p>
-					<p class="price-cam">{{cam.price}} ₽ / смена</p>
-				
-					<div class="quantity" v-if="cam.quantity > 0">
-						<div class="minus" @click="minCam(index)"></div>
-						<span>{{cam.quantity}}</span>
-						<div class="plus" @click="addCam(index)"></div>
+		<section id="switchSec">
+			<div class="container">
+				<div class="col-lg-12 text-center">
+					<div class="switch-cat">
+						<button v-for="(filter, index) in filters"
+						@click="changeFilter(index, filter.txt)" 
+						:class="{acFiletr : filter.active}">{{filter.txt}}</button>
 					</div>
-					<button class="add-to-cart-btn" @click="addCam(index)" v-else>Добавить</button>
 				</div>
 			</div>
+		</section>	
+		
+
+	<section v-for="cat in getCalcPage.products.cat">
+
+
+		<div v-for="category in cat.subsItems" v-if="cat.name === filtered "> <!-- v-if="category.items.length !== 0" -->
+			<Inner :innerTxt="category.name"/>
+
+			<div class="container-fluid">
+			<div class="row data-row">
+				<div class="col-lg-2 col-sm-4 col-md-3" v-for="(cam, index) in category.items" :key="index">
+					<div class="rent-box">
+						<img :src="cam.image" alt="">
+						<p class="black-txt">{{cam.name}}</p>
+						<p class="price-cam">{{cam.price}} ₽ / смена</p>
+
+				
+						<div class="quantity" v-if="cam.count > 0">
+							<div class="minus" @click="minCam(cam)"></div>
+							<span>{{cam.count}}</span>
+							<div class="plus" @click="addCam(cam)"></div>
+						</div>
+						<button class="add-to-cart-btn" @click="addCam(cam)" v-else>Добавить</button>
+					</div>
+				</div>
+				</div>
 			</div>
 
 
-			<nextstep />
 		</div>
+		
+
+		
+
+	</section>
+
+
+		<div class="container">
+			<div class="col-lg-6">
+				<nextstep />
+			</div>
+		</div>
+
+
 	</div>
 </template>
 
 <script>
 import Inner from '../components/Inner.vue'
 import nextstep from '../components/nextstep.vue'
+import {mapState, mapGetters} from 'vuex'
 
 	export default{
 		components: {Inner, nextstep},
+		computed: {
+			...mapGetters({ calc: "smeta/getCalc"}),
+			getCalcPage(){
+				let page = this.calc.find(item => {
+					return item.id == 23
+				})
+				return page
+			}
+		},
 		methods: {
-			addCam(index){
-				this.cameras[index].quantity++
+			addCam(cam){
+				cam.count++
 			},
-			minCam(index){
-				this.cameras[index].quantity--
+			minCam(cam){
+				cam.count--
 			},
+			changeFilter(index, txt){
+
+				this.filters.forEach(item =>{
+					item.active = false
+				})
+
+				this.filters[index].active = true
+				this.filtered = txt
+			}
 		},
 		data(){
 			return{
-				innerTxt: 'Камеры',
-				cameras: [
+				filtered: 'Видео оборудование',
+				filters: [
 					{
-						name: 'Комплект RED GEMINI 5K EF',
-						price: 12000,
-						img: require('../assets/img/cam1.png'),
-						quantity: 0
+						txt: 'Видео оборудование',
+						active: true
 					},
 					{
-						name: 'Комплект RED GEMINI 5K EF',
-						price: 12000,
-						img: require('../assets/img/cam2.png'),
-						quantity: 0
-					},
-					{
-						name: 'Комплект RED GEMINI 5K EF',
-						price: 12000,
-						img: require('../assets/img/cam3.png'),
-						quantity: 0
-					},
-					{
-						name: 'Комплект RED GEMINI 5K EF',
-						price: 12000,
-						img: require('../assets/img/cam1.png'),
-						quantity: 0
-					},
-					{
-						name: 'Комплект RED GEMINI 5K EF',
-						price: 12000,
-						img: require('../assets/img/cam2.png'),
-						quantity: 0
-					},
-					{
-						name: 'Комплект RED GEMINI 5K EF',
-						price: 12000,
-						img: require('../assets/img/cam3.png'),
-						quantity: 0
-					},
-					{
-						name: 'Комплект RED GEMINI 5K EF',
-						price: 12000,
-						img: require('../assets/img/cam1.png'),
-						quantity: 0
-					},
-					{
-						name: 'Комплект RED GEMINI 5K EF',
-						price: 12000,
-						img: require('../assets/img/cam2.png'),
-						quantity: 0
-					},
-					{
-						name: 'Комплект RED GEMINI 5K EF',
-						price: 12000,
-						img: require('../assets/img/cam3.png'),
-						quantity: 0
-					},
-					{
-						name: 'Комплект RED GEMINI 5K EF',
-						price: 12000,
-						img: require('../assets/img/cam1.png'),
-						quantity: 0
-					},
-					{
-						name: 'Комплект RED GEMINI 5K EF',
-						price: 12000,
-						img: require('../assets/img/cam2.png'),
-						quantity: 0
-					},
-					{
-						name: 'Комплект RED GEMINI 5K EF',
-						price: 12000,
-						img: require('../assets/img/cam3.png'),
-						quantity: 0
-					},
+						txt: 'Свет',
+						active: false
+					}
 				]
 			}
 		}

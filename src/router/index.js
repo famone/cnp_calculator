@@ -14,7 +14,12 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
 
-	console.log(store.getters["smeta/getCalc"])
+    let calc  = store.getters["smeta/getCalc"]
+
+	if(calc){
+        console.log(calc)
+    }
+
 	next()
 
     // if (store.getters["smeta/getAuthenticated"]) {

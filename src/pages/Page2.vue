@@ -57,39 +57,6 @@
 		</div>
 
 		
-
-
-		<!-- <div class="container">
-			<div class="col-lg-6">
-
-
-			<div class="data-row">
-				<h3>Возраст целевой аудитории</h3>
-				<p class="white-txt">
-					<span class="blue-txt">от {{vozrast[0]}} до {{vozrast[1]}} лет</span>
-				</p>
-				<v-range-slider class="my-double" v-model="vozrast" min="0" max="100" thumb-size="64"></v-range-slider>	
-			</div>
-
-
-
-			<div class="data-row">
-				<h1 style="font-size: 64px;line-height: 60px;">Описание продукта
-				или услуги</h1>
-			</div>
-
-
-
-
-
-  
-				
-
-<nextstep />
-
-
-			</div>
-		</div> -->
 	</div>
 </template>
 
@@ -100,11 +67,6 @@ import {mapState, mapGetters} from 'vuex'
 
 	export default{
 		components: {Inner, nextstep},
-		data(){
-			return{
-				vozrast: [18, 55],
-			}
-		},
 		computed: {
 			...mapGetters({ calc: "smeta/getCalc"}),
 			getCalcPage(){

@@ -1,6 +1,5 @@
 <template>
 	<div class="edit-pop" @click="closeEditDirector($emit)">
-		<!-- <div class="cross" @click="closeEditDirector($emit)">✕</div> -->
 		<div class="edit-pop-box text-center" @click.stop>
 			<h3 class="text-left">{{editing.name}}</h3>
 
@@ -32,13 +31,10 @@
 			},
 			showVal(e, index){
 	
-				console.log(index)
 				parseInt(e.target.value)
 
-
 				this.editing.options.varianty[index].stoimost = parseInt(e.target.value)
-				console.log(this.editing)
-
+				
 				// let page = this.calc.find(item => {
 				// 	return item.id == 22
 				// })
