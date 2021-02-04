@@ -13,7 +13,7 @@
 					<button class="servers"><img src="../assets/img/servers.svg" alt="">Сервисы</button> -->
 
 					<div v-if="user" class="avatar" :style="{'background-image': 'url(' + user.avatar + ')'}"></div>
-					<p v-if="user" class="white-txt" style="margin: 0 0 0 10px;">{{user.nick}}</p>
+					<p v-if="user" class="white-txt" style="margin: 0 0 0 10px;">{{user.user_nicename}}</p>
 					<router-link v-if="user" tag="button" to="/profile" class="lk-btn">
 						<span class="mdi mdi-account-outline"></span>
 						Личный кабинет

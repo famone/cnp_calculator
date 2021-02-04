@@ -619,7 +619,14 @@ h2{
 	height: 100px;
 	width: 100px;
 	border-radius: 50px;
-	/*background-image: url('https://www.kinonews.ru/insimgs/2019/newsimg/newsimg87089.jpg');*/
+	position: relative;
+	background-image: url('https://www.kinonews.ru/insimgs/2019/newsimg/newsimg87089.jpg');
+}
+.verified{
+	position: absolute;
+	height: 30px;
+	top: 0;
+	left: 0;
 }
 .small-grey{
 	font-size: 14px;
@@ -631,6 +638,7 @@ h2{
 	font-size: 16px;
 	color: #2E97E5;
 	padding:5px;
+	position: relative;
 }
 .new-avatar img{
 	margin-right: 8px;
@@ -876,7 +884,9 @@ a:hover{
 a:focus{
 	text-decoration: none;
 }
-
+.pointer{
+	cursor: pointer;
+}
 /*
 
 

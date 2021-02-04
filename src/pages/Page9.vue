@@ -146,11 +146,19 @@ import {mapState, mapGetters} from 'vuex'
 				item.smen++
 			},
 			addToPreset(){
-				this.$store.dispatch('auth/addToPreset', this.calc)
+				let pres = {
+					user_id: this.user.id,
+					json: this.calc,
+					name: 'Новый пресет'
+				}
+				this.$store.dispatch('auth/addToPreset', pres)
 			}
 		},
 		computed: {
-			...mapGetters({ calc: "smeta/getCalc"}),
+			...mapGetters({ 
+				calc: "smeta/getCalc",
+				user: "auth/getAuthenticated"
+			}),
 
 			getVvodnie(){
 				let page = this.calc.find(item => {

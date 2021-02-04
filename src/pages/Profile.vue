@@ -14,37 +14,44 @@
 					<div class="data-row">
 						<h3>Основное</h3>
 						<div class="avatar-box">
-							<div class="avatar" :style="{'background-image': 'url(' + user.avatar + ')'}"></div>
+							<div class="avatar" :style="{'background-image': 'url(' + user.avatar + ')'}">
+								<img src="../assets/img/verified.svg" class="verified" 
+								v-if="user.roles.includes('administrator')">
+							</div>
 								<div>
 									<p class="small-grey">Вы можете загрузить изображение в формате JPG, GIF или PNG. 
 									<br>600px на 600px JPG/GIF/PNG Подходят лучше всего</p>
-									<button class="new-avatar"><img src="../assets/img/reboot.svg" alt="">Обновить изображение</button>
+									<div class="new-avatar" >
+										<input type="file" id="myfile" name="upload" ref="file" @change="changeAvatar"/>
+										<img src="../assets/img/reboot.svg" alt="">
+										Обновить изображение
+									</div>
+									<!-- <input type="file" ref="file" @change="changeAvatar"> -->
+									
 								</div>
 						</div>
 					</div>
 
 					<div class="data-row">
-						<h2>{{user.name}} {{user.surname}}</h2>
+						<h2>{{user.user_display_name}}</h2>
 						<p class="white-txt">Присоединился: <span class="blue-txt">{{user.date}}</span></p>
 						<p class="white-txt">Тип профиля: <span class="blue-txt">{{user.status}}</span></p>
 						<button class="blue-btn">Оплатить подписку</button>
 					</div>
 
+
 					<div class="data-row profile-fields">
 						<label for="">Никнейм</label>
-						<input type="text" :value="user.nick" data-field="nick" @input="changeProf($event)">
+						<input type="text" :value="user.user_nicename" data-field="nick">
 
-						<label for="">Имя</label>
-						<input type="text" :value="user.name" data-field="name" @input="changeProf($event)">
-
-						<label for="">Фамилия</label>
-						<input type="text" :value="user.surname" data-field="surname" @input="changeProf($event)">
+						<label for="">Имя и фамилия</label>
+						<input type="text" :value="user.user_display_name" data-field="name">
 
 						<label for="">Телефон</label>
-						<input type="text" :value="user.tel" data-field="tel" @input="changeProf($event)">
+						<input type="text" :value="user.tel" data-field="tel">
 
 						<label for="">E-mail</label>
-						<input type="text" :value="user.mail" data-field="mail" @input="changeProf($event)">
+						<input type="text" :value="user.user_email" data-field="mail">
 					</div>
 
 					<button class="blue-btn">Сохранить</button>
@@ -60,9 +67,9 @@
 								<div class="plus"></div>
 								Добавить <br> пресет
 							</div>
-							<div class="preset-btn" v-for="item in user.presets">
+							<div class="preset-btn" v-for="item in presets.data">
 								<div class="take-preset"><span class="mdi mdi-lead-pencil"></span></div>
-								Пресет 1
+								{{item.name}} <br> от {{item.price}}
 							</div>
 						</div>
 					</div>
@@ -79,20 +86,59 @@
 
 
 <script>
-	import {mapGetters} from 'vuex'
+import {mapGetters} from 'vuex'
+import axios from 'axios'
 
 	export default{
+		data(){
+			return{
+				file: null,
+			}
+		},
 		computed: {
-			...mapGetters({ user: "auth/getAuthenticated"})
+			...mapGetters({ 
+				user: "auth/getAuthenticated",
+				presets: "auth/getPresets"
+			})
 		},
 		methods: {
-			changeProf(e){
-				console.log(e.target.getAttribute('data-field'))
+			changeAvatar(){
+				this.file = this.$refs.file.files[0];
 
-				let fieldName = e.target.getAttribute('data-field')
+				let userData = {
+					avatar: this.file,
+					id: this.user.id
+				}
+				var form2 = new FormData();
 
-				this.user[fieldName] = e.target.value
+				for (var field in userData){
+					form2.append(field, userData[field]);
+				};
+
+				 axios
+				 .post('https://nikitapugachev.com/wp-json/np/v1/add/avatar', form2)
+				 .then(res =>{
+				 	console.log(res)
+				 })
 			}
 		}
 	}
 </script>
+
+
+<style>
+#myfile {
+  height: 100%;
+  cursor: pointer;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 2;
+  opacity: 0;
+  cursor: pointer;
+}
+#myfile:focus{
+    outline: none!important;
+    outline-offset:none!important;
+}
+</style>

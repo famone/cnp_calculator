@@ -1,5 +1,5 @@
 <template>
-	<div class="bottom-bar"  v-if="this.$route.path !== '/' && this.$route.path !== '/enter' && this.$route.path !== '/profile'  && this.$route.path !== '/page-9' ">
+	<div class="bottom-bar"  v-if="this.$route.path !== '/' && this.$route.path !== '/enter' && this.$route.path !== '/profile'  ">
 		<!-- <div class="progress" :style="{width: prgrss * 10 + '%'}"></div> -->
 
 		<div class="progress" :style="{width: (100/9) * prgrss + '%'}"></div>
@@ -21,9 +21,14 @@
 				<div class="col-lg-6" v-if="calc">
 
 					<div class="additions">
-						<p class="white-txt"><img src="../assets/img/addition.svg" alt="">Музыка</p>
+						<p class="white-txt" v-if="calc[0].fields[0].value">
+							<img src="../assets/img/addition.svg" alt="">
+							{{calc[0].fields[0].value}}
+						</p>
 						<!-- <p class="white-txt"><img src="../assets/img/time.svg" alt="">{{getRoliks}} сек</p> -->
-						<p class="white-txt"><img src="../assets/img/date.svg" alt="">14.03.2020</p>
+						<p class="white-txt"><img src="../assets/img/date.svg" alt="">
+							{{todayIs.toLocaleDateString()}}
+						</p>
 						<p class="white-txt"><img src="../assets/img/smen.svg" alt="">
 							{{calc[2].subsItems[0].fields[0].value}} смены
 						</p>
@@ -34,7 +39,9 @@
 					<div class="downloads">
 						<p class="white-txt">XLS</p>
 						<p class="white-txt">PDF</p>
-						<p class="white-txt"><img src="../assets/img/trash.svg" alt="">Очистить</p>
+						<p class="white-txt pointer" @click="clearCalc">
+							<img src="../assets/img/trash.svg" alt="">Очистить
+						</p>
 					</div>
 				</div>
 
@@ -47,6 +54,16 @@
 import {mapGetters} from 'vuex'
 
 	export default{
+		data(){
+			return{
+				todayIs: new Date()
+			}
+		},
+		methods: {
+			clearCalc(){
+				this.$store.dispatch('smeta/getCalc')
+			}
+		},
 		props: {
 			prgrss: {
 				required: true,

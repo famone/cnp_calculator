@@ -17,6 +17,11 @@ import ru from 'vuetify/es5/locale/ru'
 
 import 'swiper/css/swiper.css'
 
+const user = JSON.parse(localStorage.getItem("user"))
+store.dispatch("auth/VALIDATE", user);
+
+
+
 Vue.use(VueRouter) 
 Vue.use(Vuelidate)
 Vue.use(require('vue-cookies'))

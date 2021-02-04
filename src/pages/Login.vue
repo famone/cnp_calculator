@@ -3,7 +3,7 @@
 		<div class="col-lg-12 text-center">
 			<img src="../assets/img/logo.svg" alt="" class="logo">
 			<h3>Авторизация</h3>
-			<form @submit.prevent="login()" class="text-center">
+			<form class="text-center"  @submit.prevent="login">
 				<div class="form-box">
 					<input type="text" v-model="user.login" placeholder="Логин">
 				</div>
@@ -12,7 +12,8 @@
 				</div>
 
 				<div class="form-box">
-					<button class="blue-btn">Войти</button>
+					<loading v-if="loadingLog" /> 
+					<button class="blue-btn" v-else>Войти</button>
 				</div>
 
 			</form>
@@ -21,31 +22,42 @@
 </template>
 
 <script>
+import loading from '../components/loading.vue'
+
 export default{
+	components: {loading},
 	data(){
 		return{
 			user: {
 				login: '',
 				password: ''
-			}
+			},
+			loadingLog: false
 		}
 	},
 	methods: {
 		login(){
-			const newUser = {
-				avatar: 'https://www.kinonews.ru/insimgs/2019/newsimg/newsimg87089.jpg',
-				name: 'Константин',
-				surname: 'Тимофеев',
-				date: '29.12.2020',
-				status: 'Без подписки',
-				nick: 'famzayka',
-				tel: '+7 964 384-34-54',
-				mail: 'kt@webink.site',
-				presets: []
+			this.loadingLog = true
+			// const newUser = {
+			// 	avatar: 'https://www.kinonews.ru/insimgs/2019/newsimg/newsimg87089.jpg',
+			// 	name: 'Константин',
+			// 	surname: 'Тимофеев',
+			// 	date: '29.12.2020',
+			// 	status: 'Без подписки',
+			// 	nick: 'famzayka',
+			// 	tel: '+7 964 384-34-54',
+			// 	mail: 'kt@webink.site',
+			// 	presets: []
+			// }
+			const form = {
+				username: this.user.login,
+	        	password: this.user.password,
 			}
+			
 
-			console.log(newUser)
-			this.$store.dispatch("auth/LOGIN", newUser).then(() => {
+			// console.log(newUser)
+			this.$store.dispatch("auth/AUTH_REQUEST", form).then(() => {
+				this.loadingLog = false
         		this.$router.replace("/profile");
 			});
 		}

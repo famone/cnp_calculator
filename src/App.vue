@@ -8,7 +8,7 @@
       	<router-view></router-view>
       </transition>	
 
-      <Footer :prgrss="returnRoute" />
+      <!-- <Footer :prgrss="returnRoute" /> -->
       
     </v-app>
 </template>

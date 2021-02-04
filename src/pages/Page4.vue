@@ -31,7 +31,7 @@
 				
 						<div class="quantity" v-if="cam.count > 0">
 							<div class="minus" @click="minCam(cam)"></div>
-							<span>{{cam.count}}</span>
+							<span>{{cam.count}} шт</span>
 							<div class="plus" @click="addCam(cam)"></div>
 						</div>
 						<button class="add-to-cart-btn" @click="addCam(cam)" v-else>Добавить</button>

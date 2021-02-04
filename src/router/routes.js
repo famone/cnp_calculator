@@ -48,7 +48,19 @@ const routes = [
 		},
 		{
 			path: '/profile',
-			component: Profile
+			component: Profile,
+			beforeEnter: (to, from, next) => {
+				if (store.getters["auth/getAuthenticated"]) {
+					next()
+				} else {
+					if (to.path != "/enter") {
+						next("/enter")
+					}
+					else {
+						next()
+					}
+				}
+			}
 		},
 		{
 			path: '/*',
