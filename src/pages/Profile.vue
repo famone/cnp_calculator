@@ -59,7 +59,7 @@
 
 				</div>
 
-				<div class="col-lg-5">
+				<div class="col-lg-5" v-if="presets">
 					<div class="data-row">
 						<h3>Пресеты</h3>
 						<div class="presets">
@@ -68,8 +68,12 @@
 								Добавить <br> пресет
 							</div>
 							<div class="preset-btn" v-for="item in presets.data">
-								<div class="take-preset"><span class="mdi mdi-lead-pencil"></span></div>
-								{{item.name}} <br> от {{item.price}}
+								<div class="take-preset" @click="setActivePreset(item.json)">
+									<span class="mdi mdi-lead-pencil"></span>
+								</div>
+								{{item.nazvanie}}
+								
+								<div class="delite-preset" @click="delitePreset(item.slug)">✕</div>
 							</div>
 						</div>
 					</div>
@@ -95,13 +99,34 @@ import axios from 'axios'
 				file: null,
 			}
 		},
+		created(){
+			this.$store.dispatch('preset/GET_PRESETS', this.user.id)
+		},
 		computed: {
 			...mapGetters({ 
 				user: "auth/getAuthenticated",
-				presets: "auth/getPresets"
+				presets: "preset/getPresets"
 			})
 		},
 		methods: {
+			delitePreset(slug){
+				console.log(slug)
+				console.log(this.user.id)
+
+				let preset = {
+					playlist_slug: slug,
+					user_id: this.user.id
+				}
+
+
+				axios
+				 .get(`https://nikitapugachev.ru/wp-json/np/v1/delete/calc/presets?user_id=${this.user.id}&playlist_slug=${slug}`)
+				 .then(res =>{
+				 	console.log(res)
+				 })
+
+
+			},
 			changeAvatar(){
 				this.file = this.$refs.file.files[0];
 
@@ -116,10 +141,17 @@ import axios from 'axios'
 				};
 
 				 axios
-				 .post('https://nikitapugachev.com/wp-json/np/v1/add/avatar', form2)
+				 .post('https://nikitapugachev.ru/wp-json/np/v1/add/avatar', form2)
 				 .then(res =>{
 				 	console.log(res)
 				 })
+			},
+			setActivePreset(preset){
+
+				this.$store.dispatch('preset/loadActivePreset', preset).then(() => {
+        			this.$router.replace("/page-3/kt/12");
+				});
+				
 			}
 		}
 	}

@@ -684,6 +684,14 @@ h2{
 	margin-bottom: 16px;
 	background-color: #3a3a3a;
 	height: 160px;
+	position: relative;
+}
+.delite-preset{
+	position: absolute;
+	color: #fff;
+	font-size: 14px;
+	top: 10px;
+	right: 10px;
 }
 .add-preset{
 	background-color: transparent;
@@ -973,6 +981,8 @@ input[type=range]::-moz-range-thumb {
 	left: -11px!important;
     top: -11px!important;
 }*/
+
+
 
 
 

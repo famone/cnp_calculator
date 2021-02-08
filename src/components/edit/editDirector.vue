@@ -26,7 +26,6 @@
 				this.$emit('closeEditDirector')
 			},
 			saveDirector(editing){
-				console.log(editing)
 				this.$emit('saveEdit', )
 			},
 			showVal(e, index){

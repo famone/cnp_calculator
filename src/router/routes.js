@@ -63,9 +63,25 @@ const routes = [
 			}
 		},
 		{
+			path: '/page-1/:name/:id',
+			component: Page1,
+		},
+		{
+			path: '/page-2/:name/:id',
+			component: Page2,
+		},
+		{
+			path: '/page-3/:name/:id',
+			component: Page3,
+		},
+		{
+			path: '/page-9/:name/:id',
+			component: Page9,
+		},
+		{
 			path: '/*',
 			component: Notfound
-		}
+		},
 	]
 
 export default routes;

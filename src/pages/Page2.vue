@@ -67,12 +67,30 @@ import {mapState, mapGetters} from 'vuex'
 
 	export default{
 		components: {Inner, nextstep},
+		data(){
+			return{
+				presetMode: false
+			}
+		},
 		computed: {
-			...mapGetters({ calc: "smeta/getCalc"}),
+			...mapGetters({ 
+				calc: "smeta/getCalc",
+				activePreset: "preset/getActivePreset"
+			}),
 			getCalcPage(){
-				let page = this.calc.find(item => {
-					return item.id == 28
-				})
+				let page = ''
+
+				if(this.presetMode){
+					console.log(this.activePreset)
+					page = this.activePreset.find(item => {
+						return item.id == 28
+					})
+				}else{
+					page = this.calc.find(item => {
+						return item.id == 28
+					})
+				}
+				
 
 				return page
 			}
@@ -112,6 +130,13 @@ import {mapState, mapGetters} from 'vuex'
 				})
 
 				pageObj.value = e.target.value
+			}
+		},
+		created(){
+			if(this.$route.params.id !== undefined){
+				this.presetMode = true
+			}else{
+				this.presetMode = false
 			}
 		}
 	}

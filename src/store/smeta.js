@@ -22,7 +22,7 @@ const smeta = {
 		
 		getCalc({commit}){
 			axios
-			.get('https://nikitapugachev.com/wp-json/np/v1/get/calc')
+			.get('https://nikitapugachev.ru/wp-json/np/v1/get/calc')
 			.then(res =>{
 				console.log(res.data)
 				commit('SET_CALC', res.data.data)

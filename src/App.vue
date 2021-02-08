@@ -2,7 +2,8 @@
     <v-app>
    	  <preloader v-if="preloader" />
       <Header />
-      <Tabs />
+      <Tabs v-if="this.$route.params.id === undefined" />
+      <Tabs2 v-else />
 
       <transition name="slide" mode="out-in">
       	<router-view></router-view>
@@ -18,11 +19,12 @@ import './assets/css/style.css'
 import {mapState} from 'vuex'
 import Header from './components/Header.vue'
 import Tabs from './components/Tabs.vue'
+import Tabs2 from './components/Tabs2.vue'
 import Footer from './components/Footer.vue'
 import preloader from './components/preloader.vue'
 
 export default{
-    components: {Header, Footer, Tabs, preloader},
+    components: {Header, Footer, Tabs, Tabs2, preloader},
     computed: {
     	returnRoute(){
     		return parseInt(this.$route.path.match(/\d+/))

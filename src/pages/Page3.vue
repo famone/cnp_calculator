@@ -52,18 +52,25 @@
 						<span class="blue-txt op-5">от {{getPriceFrom(item.options.varianty)}} ₽</span>
 					</p> 
 
+					<p class="red">{{item}}</p>
+					<br>
+
+					<p class="red">{{item.radio_value}}</p>
+
 					<div class="variants" v-if="item.value">
 						<v-radio-group v-model="item.radio_value">
-			      		<v-radio v-for="variant in item.options.varianty" 
-			      		:label="variant.nazvanie + ' ' + variant.stoimost.toLocaleString() + ' ₽' " 
-			      		:value="variant"></v-radio>
+
+			      			<v-radio v-for="variant in item.options.varianty" 
+			      			:label="variant.nazvanie + ' ' + variant.stoimost.toLocaleString() + ' ₽' " 
+			      			:value="variant.tip" @click="showValRadio(variant, item)"></v-radio>
+			      		
 
 			      			
-			      			<div v-if="item.radio_value.tip === 'range' ">
+			      			<div v-if="item.radio_value === 'range' ">
 			      				<p class="white-txt">Кол-во дней 
-			      					<span class="blue-txt">{{item.radio_value.add_value}} cмен / от {{item.radio_value.add_value * item.radio_value.stoimost}} ₽</span>
+			      					<span class="blue-txt">{{item.radio_itog.add_value}} cмен / от {{item.radio_itog.add_value * item.radio_itog.stoimost}} ₽</span>
 			      				</p>
-			      				<v-slider step="1" min="1" max="30" v-model="item.radio_value.add_value"></v-slider>
+			      				<v-slider step="1" min="1" max="30" v-model="item.radio_itog.add_value"></v-slider>
 			      			</div>
 
 			    		</v-radio-group>
@@ -99,17 +106,30 @@ import {mapState, mapGetters} from 'vuex'
 		components: {Inner, nextstep, editDirector},
 		data(){
 			return{
+				presetMode: false,
 				edit_director: false,
 				editing_director: [],
 				editing_category: null
 			}
 		},
 		computed: {
-			...mapGetters({ calc: "smeta/getCalc"}),
+			...mapGetters({ 
+				calc: "smeta/getCalc",
+				activePreset: "preset/getActivePreset"
+			}),
 			getCalcPage(){
-				let page = this.calc.find(item => {
-					return item.id == 31
-				})
+				let page = ''
+
+				if(this.presetMode){
+					page = this.activePreset.find(item => {
+						return item.id == 31
+					})
+				}else{
+					page = this.calc.find(item => {
+						return item.id == 31
+					})
+				}
+				
 
 				return page
 			}
@@ -135,27 +155,36 @@ import {mapState, mapGetters} from 'vuex'
 					return compare2
 				}
 			},
-			showValRadio(val, obj, subsl_id){
+			showValRadio(variant, item){
 
-				let page = this.calc.find(item => {
-					return item.id == 28
-				})
+				let page = ''
 
-				let category = page.subsItems.find(item =>{
-					return item.id == subsl_id
-				})
-
-				let pageObj = category.fields.find(item =>{
-					return item.id == obj.id
-				})
-
-				pageObj.value = val
+				if(this.presetMode){
+					page = this.activePreset.find(item => {
+						return item.id == 28
+					})
+				}else{
+					page = this.calc.find(item => {
+						return item.id == 28
+					})
+				}
+				
+				item.radio_itog = variant
 			},
 			showVal(e, inp, subsl_id){
 
-				let page = this.calc.find(item => {
-					return item.id == 31
-				})
+				let page = ''
+
+				if(this.presetMode){
+					console.log(this.activePreset)
+					page = this.activePreset.find(item => {
+						return item.id == 31
+					})
+				}else{
+					page = this.calc.find(item => {
+						return item.id == 31
+					})
+				}
 
 
 				let category = page.subsItems.find(item =>{
@@ -167,6 +196,13 @@ import {mapState, mapGetters} from 'vuex'
 				})
 
 				pageObj.value = e.target.value
+			}
+		},
+		created(){
+			if(this.$route.params.id !== undefined){
+				this.presetMode = true
+			}else{
+				this.presetMode = false
 			}
 		}
 	}

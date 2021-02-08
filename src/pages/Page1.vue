@@ -1,6 +1,9 @@
 <template>
 	<div>
+		
 		<Inner v-if="calc" :innerTxt="getCalcPage.name"/>
+
+		
 
 	<div class="container">
 			<div class="col-lg-6">
@@ -70,7 +73,8 @@ import {mapState, mapGetters} from 'vuex'
 		components: {Inner, nextstep},
 		data(){
 			return{
-				ex2: 5
+				ex2: 5,
+				presetMode: false
 			}
 		},
 		methods: {
@@ -98,67 +102,35 @@ import {mapState, mapGetters} from 'vuex'
 
 				pageObj.value = e.target.value
 			},
-
-			// calcPrice(){
-
-			// 	let pages = []
-			// 	this.calc.forEach(page => {
-
-			// 		if(page.calculated == true){
-			// 			pages.push(page)
-			// 		}
-			// 	})
-
-			// 	// console.log(pages)
-
-			// 	let categories = []
-
-			// 	pages.forEach(page =>{
-			// 		let onePole = page.subsItems
-
-			// 		onePole.forEach(item =>{
-			// 			categories.push(item)
-			// 		})
-			// 	})
-
-			// 	// console.log(categories)
-
-
-			// 	let polya = []
-
-			// 	categories.forEach(cat =>{
-			// 		let oneFields = cat.fields
-
-			// 		oneFields.forEach(item =>{
-
-			// 			if(item.radio_value){
-			// 				polya.push(item)
-			// 			}
-						
-			// 		})
-
-			// 	})
-
-			// 	let finalPrice = 0
-
-			// 	polya.forEach(item =>{
-			// 		finalPrice += item.radio_value.stoimost
-			// 	})
-
-			// 	return finalPrice
-
-			// }
-
-
 		},
 		computed: {
-			...mapGetters({ calc: "smeta/getCalc"}),
+			...mapGetters({ 
+				calc: "smeta/getCalc",
+				activePreset: "preset/getActivePreset"
+			}),
 			getCalcPage(){
-				let page = this.calc.find(item => {
-					return item.id == 22
-				})
+				let page = ''
+
+				if(this.presetMode){
+					console.log(this.activePreset)
+					page = this.activePreset.find(item => {
+						return item.id == 22
+					})
+				}else{
+					page = this.calc.find(item => {
+						return item.id == 22
+					})
+				}
+				
 
 				return page
+			}
+		},
+		created(){
+			if(this.$route.params.id !== undefined){
+				this.presetMode = true
+			}else{
+				this.presetMode = false
 			}
 		}
 	}

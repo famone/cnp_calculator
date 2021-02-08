@@ -1,7 +1,7 @@
 <template>
 	<div v-if="calc">
 
-		<section id="itogoInner">
+		<!-- <section id="itogoInner">
 			<div class="container">
 				<div class="col-lg-7">
 					<h3>Бюджет проекта</h3>
@@ -10,7 +10,7 @@
 						{{ Math.round((calcPrice + getOborudItog)/100 * calc[0].fields[7].value).toLocaleString() }} ₽</p>
 				</div>
 			</div>
-		</section>
+		</section> -->
 
 
 		<!-- вводные -->
@@ -46,11 +46,11 @@
 				<div class="col-lg-12">
 					<div class="flex-row">
 						<h2>Специалисты</h2>
-						<h3>{{getSpecialItog.toLocaleString()}} ₽</h3>
+						<!-- <h3>{{getSpecialItog.toLocaleString()}} ₽</h3> -->
 					</div>
 					
 
-					<table>
+					<!-- <table>
 						<tr v-for="item in getSpecial" v-if="item.value && item.radio_value !== '' ">
         					<td><p class="wh-table">{{item.name}}</p></td>
 
@@ -68,7 +68,24 @@
         					</td>
         					<td class="text-right" v-else>{{item.radio_value.stoimost.toLocaleString()}} ₽</td>
     					</tr>
+					</table> -->
+
+
+					<table>
+						<tr v-for="item in getSpecial" v-if="item.value && item.radio_value !== '' ">
+        					<td><p class="wh-table">{{item.name}}</p></td>
+
+        					<td v-if="item.type === 'Number' "></td>
+        					<td v-else-if="item.radio_value === 'range'">{{item.radio_value}} смен</td>
+        					<td v-else>За проект</td>
+
+
+    					</tr>
 					</table>
+
+
+
+
 				</div>
 			</div>
 		</section>
@@ -76,7 +93,7 @@
 		<!-- Специалисты -->
 
 
-		<section id="itogTable">
+<!-- 		<section id="itogTable">
 			<div class="container">
 				<div class="col-lg-12">
 					<div class="flex-row">
@@ -106,7 +123,7 @@
 					</table>
 				</div>
 			</div>
-		</section>
+		</section> -->
 
 
 
@@ -129,6 +146,11 @@ import {mapState, mapGetters} from 'vuex'
 
 	export default{
 		components: {Inner},
+		data(){
+			return{
+				presetMode: false
+			}
+		},
 		methods: {
 			minCount(item){
 				item.count--
@@ -151,26 +173,44 @@ import {mapState, mapGetters} from 'vuex'
 					json: this.calc,
 					name: 'Новый пресет'
 				}
-				this.$store.dispatch('auth/addToPreset', pres)
+				this.$store.dispatch('preset/addToPreset', pres)
 			}
 		},
 		computed: {
 			...mapGetters({ 
 				calc: "smeta/getCalc",
-				user: "auth/getAuthenticated"
+				user: "auth/getAuthenticated",
+				activePreset: "preset/getActivePreset"
 			}),
 
 			getVvodnie(){
-				let page = this.calc.find(item => {
-					return item.id == 22
-				})
+				let page = ''
+
+				if(this.presetMode){
+					page = this.activePreset.find(item => {
+						return item.id == 22
+					})
+				}else{
+					page = this.calc.find(item => {
+						return item.id == 22
+					})
+				}
+				
 
 				return page
 			},
 			getSpecial(){
-				let page = this.calc.find(item => {
-					return item.id == 31
-				})
+				let page = ''
+				
+				if(this.presetMode){
+					page = this.activePreset.find(item => {
+						return item.id == 31
+					})
+				}else{
+					page = this.calc.find(item => {
+						return item.id == 31
+					})
+				}
 
 				let allSubs = []
 
@@ -210,9 +250,17 @@ import {mapState, mapGetters} from 'vuex'
 				return total
 			},
 			getOborudovanie(){
-				let page = this.calc.find(item => {
-					return item.id == 23
-				})
+				let page = ''
+				
+				if(this.presetMode){
+					page = this.activePreset.find(item => {
+						return item.id == 23
+					})
+				}else{
+					page = this.calc.find(item => {
+						return item.id == 23
+					})
+				}
 
 				let categories = []
 
@@ -253,13 +301,26 @@ import {mapState, mapGetters} from 'vuex'
 			// ИТОГОВЫЕ ЦИФРЫ ВСЕГО
 
 			calcPrice(){
-				let pages = []
-				this.calc.forEach(page => {
 
-					if(page.calculated == true){
-						pages.push(page)
-					}
-				})
+
+				let pages = []
+
+				if(this.presetMode){
+					this.activePreset.forEach(page => {
+						if(page.calculated == true){
+							pages.push(page)
+						}
+					})
+				}else{
+					this.calc.forEach(page => {
+						if(page.calculated == true){
+							pages.push(page)
+						}
+					})
+				}
+
+				
+
 				let categories = []
 
 				pages.forEach(page =>{
@@ -301,6 +362,13 @@ import {mapState, mapGetters} from 'vuex'
 
 				return FINAL_PRICE
 
+			}
+		},
+		created(){
+			if(this.$route.params.id !== undefined){
+				this.presetMode = true
+			}else{
+				this.presetMode = false
 			}
 		}
 	}

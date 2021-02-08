@@ -17,7 +17,7 @@ router.beforeEach((to, from, next) => {
     let calc  = store.getters["smeta/getCalc"]
 
 	if(calc){
-        console.log(calc)
+        // console.log(calc)
     }
 
 	next()
