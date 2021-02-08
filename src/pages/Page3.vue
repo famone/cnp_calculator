@@ -52,11 +52,6 @@
 						<span class="blue-txt op-5">от {{getPriceFrom(item.options.varianty)}} ₽</span>
 					</p> 
 
-					<p class="red">{{item}}</p>
-					<br>
-
-					<p class="red">{{item.radio_value}}</p>
-
 					<div class="variants" v-if="item.value">
 						<v-radio-group v-model="item.radio_value">
 
