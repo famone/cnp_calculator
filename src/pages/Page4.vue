@@ -67,11 +67,24 @@ import {mapState, mapGetters} from 'vuex'
 	export default{
 		components: {Inner, nextstep},
 		computed: {
-			...mapGetters({ calc: "smeta/getCalc"}),
+			...mapGetters({ 
+				calc: "smeta/getCalc",
+				activePreset: "preset/getActivePreset"
+			}),
 			getCalcPage(){
-				let page = this.calc.find(item => {
-					return item.id == 23
-				})
+				let page = ''
+
+				if(this.presetMode){
+					page = this.activePreset.find(item => {
+						return item.id == 23
+					})
+				}else{
+					page = this.calc.find(item => {
+						return item.id == 23
+					})
+				}
+				
+
 				return page
 			}
 		},
@@ -94,6 +107,7 @@ import {mapState, mapGetters} from 'vuex'
 		},
 		data(){
 			return{
+				presetMode: false,
 				filtered: 'Видео оборудование',
 				filters: [
 					{
@@ -105,6 +119,13 @@ import {mapState, mapGetters} from 'vuex'
 						active: false
 					}
 				]
+			}
+		},
+		created(){
+			if(this.$route.params.id !== undefined){
+				this.presetMode = true
+			}else{
+				this.presetMode = false
 			}
 		}
 	}

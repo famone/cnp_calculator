@@ -1,5 +1,5 @@
 <template>
-	<div class="bottom-bar"  v-if="this.$route.path !== '/' && this.$route.path !== '/enter' && this.$route.path !== '/profile'  ">
+	<div class="bottom-bar"  v-if="this.$route.path !== '/' && this.$route.path !== '/enter' && this.$route.path !== '/profile' && this.$route.name !== 'calc-route' ">
 		<!-- <div class="progress" :style="{width: prgrss * 10 + '%'}"></div> -->
 
 		<div class="progress" :style="{width: (100/9) * prgrss + '%'}"></div>
@@ -11,9 +11,9 @@
 
 				<div class="col-lg-3" v-if="calc">
 					<div class="totals">
-						<p class="white-txt">Всего: {{calcPrice.toLocaleString()}} ₽</p>
-						<p class="white-txt">Налог {{calc[0].fields[7].value}}% : 
-						{{ (calcPrice/100 * calc[0].fields[7].value).toLocaleString() }} ₽</p>
+						<p class="white-txt">Всего: {{(calcPrice + getOborudItog).toLocaleString()}} ₽</p>
+						<p class="white-txt">Налог {{nalog}}% : 
+						{{  Math.round((calcPrice + getOborudItog)/100 * nalog).toLocaleString() }} ₽</p>
 						<!-- <p class="white-txt">С налогом: {{calcPrice + (calcPrice/100 * calc[0].fields[7].value)}}</p> -->
 					</div>
 				</div>
@@ -21,16 +21,16 @@
 				<div class="col-lg-6" v-if="calc">
 
 					<div class="additions">
-						<p class="white-txt" v-if="calc[0].fields[0].value">
+						<p class="white-txt" v-if="videoType">
 							<img src="../assets/img/addition.svg" alt="">
-							{{calc[0].fields[0].value}}
+							{{videoType}}
 						</p>
 						<!-- <p class="white-txt"><img src="../assets/img/time.svg" alt="">{{getRoliks}} сек</p> -->
 						<p class="white-txt"><img src="../assets/img/date.svg" alt="">
 							{{todayIs.toLocaleDateString()}}
 						</p>
 						<p class="white-txt"><img src="../assets/img/smen.svg" alt="">
-							{{calc[2].subsItems[0].fields[0].value}} смены
+							{{smens}} смены
 						</p>
 					</div>
 				</div>
@@ -56,7 +56,8 @@ import {mapGetters} from 'vuex'
 	export default{
 		data(){
 			return{
-				todayIs: new Date()
+				todayIs: new Date(),
+				presetMode: false
 			}
 		},
 		methods: {
@@ -71,17 +72,28 @@ import {mapGetters} from 'vuex'
 			}
 		},
 		computed: {
-			...mapGetters({ calc: "smeta/getCalc"}),
+			...mapGetters({ 
+				calc: "smeta/getCalc",
+				activePreset: "preset/getActivePreset"
+			}),
 
 			calcPrice(){
 
 				let pages = []
-				this.calc.forEach(page => {
 
-					if(page.calculated == true){
-						pages.push(page)
-					}
-				})
+				if(this.checkIfPreset){
+					this.activePreset.forEach(page => {
+						if(page.calculated == true){
+							pages.push(page)
+						}
+					})
+				}else{
+					this.calc.forEach(page => {
+						if(page.calculated == true){
+							pages.push(page)
+						}
+					})
+				}
 
 				let categories = []
 
@@ -114,10 +126,10 @@ import {mapGetters} from 'vuex'
 
 				polya.forEach(item =>{
 					if(item.value){
-						if(item.radio_value.tip === 'range'){
-							priceArr.push(item.radio_value.stoimost * item.radio_value.add_value)
+						if(item.radio_value === 'range'){
+							priceArr.push(item.radio_itog.stoimost * item.radio_itog.add_value)
 						}else{
-							priceArr.push(item.radio_value.stoimost)
+							priceArr.push(item.radio_itog.stoimost)
 						}
 						
 					}
@@ -131,6 +143,93 @@ import {mapGetters} from 'vuex'
 
 				return FINAL_PRICE
 
+			},
+			videoType(){
+					
+				if(this.checkIfPreset){
+					return this.activePreset[0].fields[0].value
+				}else{
+					return this.calc[0].fields[0].value
+				}
+			},
+			nalog(){
+				if(this.checkIfPreset){
+					return this.activePreset[0].fields[7].value
+				}else{
+					return this.calc[0].fields[7].value
+				}
+			},
+			smens(){
+				
+
+				
+				if(this.checkIfPreset){
+					return this.activePreset[2].subsItems[0].fields[0].value
+				}else{
+					return this.calc[2].subsItems[0].fields[0].value
+				}
+			},
+			getOborudovanie(){
+				let page = ''
+				
+				if(this.presetMode){
+					page = this.activePreset.find(item => {
+						return item.id == 23
+					})
+				}else{
+					page = this.calc.find(item => {
+						return item.id == 23
+					})
+				}
+
+				let categories = []
+
+				page.products.cat.forEach(item =>{
+					item.subsItems.forEach(sub =>{
+						categories.push(sub)
+					})
+				})
+
+				let products = []
+
+				categories.forEach(item =>{
+					item.items.forEach(prod =>{
+						products.push(prod)
+					})
+				})
+
+				return products
+			},
+			getOborudItog(){
+				let prices = []
+				this.getOborudovanie.forEach(item =>{
+					if(item.count !== 0){
+						prices.push(item.price * item.count * item.smen)
+					}
+				})
+				let final = 0
+
+				prices.forEach(item =>{
+					final += item
+				})
+
+				return final
+			},
+			checkIfPreset(){
+				if(this.$route.params.id !== undefined){
+					this.presetMode = true
+					return true
+				}else{
+					this.presetMode = false
+					return false
+				}
+			}
+		},
+		created() {
+			if(this.$route.params.id !== undefined){
+				this.presetMode = true
+			}else{
+				this.presetMode = false
 			}
 		}
 	}

@@ -1,16 +1,16 @@
 <template>
 	<div v-if="calc">
 
-		<!-- <section id="itogoInner">
+		<section id="itogoInner">
 			<div class="container">
 				<div class="col-lg-7">
 					<h3>Бюджет проекта</h3>
 					<h1>{{(calcPrice + getOborudItog).toLocaleString()}} ₽</h1>
-					<p class="grey-txt">Налог {{calc[0].fields[7].value}}% : 
-						{{ Math.round((calcPrice + getOborudItog)/100 * calc[0].fields[7].value).toLocaleString() }} ₽</p>
+					<p class="grey-txt">Налог {{nalog}}% : 
+						{{ Math.round((calcPrice + getOborudItog)/100 * nalog).toLocaleString() }} ₽</p>
 				</div>
 			</div>
-		</section> -->
+		</section>
 
 
 		<!-- вводные -->
@@ -46,38 +46,30 @@
 				<div class="col-lg-12">
 					<div class="flex-row">
 						<h2>Специалисты</h2>
-						<!-- <h3>{{getSpecialItog.toLocaleString()}} ₽</h3> -->
+						<h3>{{getSpecialItog.toLocaleString()}} ₽</h3>
 					</div>
 					
 
-					<!-- <table>
+					<table>
 						<tr v-for="item in getSpecial" v-if="item.value && item.radio_value !== '' ">
         					<td><p class="wh-table">{{item.name}}</p></td>
 
-        					<td v-if="item.type === 'Number' "></td>
-        					<td v-else-if="item.radio_value.tip === 'range'">{{item.radio_value.add_value}} смен</td>
-        					<td v-else>За проект</td>
+        					<td class="text-center" v-if="item.type === 'Number' "></td>
+        					<td class="text-center" v-else-if="item.radio_value === 'range'">{{item.radio_itog.add_value}} смен</td>
+        					<td class="text-center" v-else>За проект</td>
+
 
         					<td class="text-right" v-if="item.type === 'Number' ">
         						{{item.value}} 
         						<span v-if="item.id == 420"> смен</span>
         						<span v-if="item.id == 422"> часов</span>
         					</td>
-        					<td class="text-right" v-else-if="item.radio_value.tip === 'range'">
-        						{{(item.radio_value.stoimost * item.radio_value.add_value).toLocaleString()}} ₽
+
+
+        					<td class="text-right" v-else-if="item.radio_value === 'range'">
+        						{{(item.radio_itog.stoimost * item.radio_itog.add_value).toLocaleString()}} ₽
         					</td>
-        					<td class="text-right" v-else>{{item.radio_value.stoimost.toLocaleString()}} ₽</td>
-    					</tr>
-					</table> -->
-
-
-					<table>
-						<tr v-for="item in getSpecial" v-if="item.value && item.radio_value !== '' ">
-        					<td><p class="wh-table">{{item.name}}</p></td>
-
-        					<td v-if="item.type === 'Number' "></td>
-        					<td v-else-if="item.radio_value === 'range'">{{item.radio_value}} смен</td>
-        					<td v-else>За проект</td>
+        					<td class="text-right" v-else>{{item.radio_itog.stoimost.toLocaleString()}} ₽</td>
 
 
     					</tr>
@@ -90,16 +82,16 @@
 			</div>
 		</section>
 
-		<!-- Специалисты -->
+		<!-- Оборудование -->
 
 
-<!-- 		<section id="itogTable">
+		<section id="itogTable">
 			<div class="container">
 				<div class="col-lg-12">
-					<div class="flex-row">
+					<!-- <div class="flex-row">
 						<h2>Оборудование</h2>
 						<h3>{{getOborudItog.toLocaleString()}} ₽</h3>
-					</div>
+					</div> -->
 				
 					<table>
 						<tr v-for="item in getOborudovanie" v-if="item.count !== 0">
@@ -123,17 +115,20 @@
 					</table>
 				</div>
 			</div>
-		</section> -->
+		</section>
 
 
 
-		<div class="section">
+		<div class="section" >
 			<div class="container">
-				<div class="col-lg-12">
-					<button class="blue-btn" @click="addToPreset()">Добавить в пресет</button>
+				<div class="data-row">
+					<button class="blue-btn" v-if="!presetMode" @click="presPop = !presPop">Добавить в пресет</button>
 				</div>
 			</div>
 		</div>
+
+
+		<presetPop v-if="presPop" @closePop="closePop" />
 
 
 
@@ -143,12 +138,14 @@
 <script>
 import Inner from '../components/Inner.vue'
 import {mapState, mapGetters} from 'vuex'
+import presetPop from '../components/presetPop.vue'
 
 	export default{
-		components: {Inner},
+		components: {Inner, presetPop},
 		data(){
 			return{
-				presetMode: false
+				presetMode: false,
+				presPop: false
 			}
 		},
 		methods: {
@@ -167,13 +164,8 @@ import {mapState, mapGetters} from 'vuex'
 			addSmen(item){
 				item.smen++
 			},
-			addToPreset(){
-				let pres = {
-					user_id: this.user.id,
-					json: this.calc,
-					name: 'Новый пресет'
-				}
-				this.$store.dispatch('preset/addToPreset', pres)
+			closePop(){
+				this.presPop = false
 			}
 		},
 		computed: {
@@ -214,6 +206,7 @@ import {mapState, mapGetters} from 'vuex'
 
 				let allSubs = []
 
+
 				page.subsItems.forEach(item =>{
 					allSubs.push(item)
 				})
@@ -235,10 +228,10 @@ import {mapState, mapGetters} from 'vuex'
 				this.getSpecial.forEach(item =>{
 					if(item.id !== 420 && item.id !== 422 ){
 						if(item.value && item.radio_value !== ''){
-							if(item.radio_value.tip === 'fix' ){
-								withPrice.push(item.radio_value.stoimost)
+							if(item.radio_itog.tip === 'fix' ){
+								withPrice.push(item.radio_itog.stoimost)
 							}else{
-								withPrice.push(item.radio_value.stoimost * item.radio_value.add_value )
+								withPrice.push(item.radio_itog.stoimost * item.radio_itog.add_value )
 							}
 						}
 					}
@@ -295,6 +288,13 @@ import {mapState, mapGetters} from 'vuex'
 
 				return final
 			},
+			nalog(){
+				if(this.presetMode){
+					return this.activePreset[0].fields[7].value
+				}else{
+					return this.calc[0].fields[7].value
+				}
+			},
 
 
 
@@ -345,10 +345,10 @@ import {mapState, mapGetters} from 'vuex'
 				let priceArr = []
 				polya.forEach(item =>{
 					if(item.value){
-						if(item.radio_value.tip === 'range'){
-							priceArr.push(item.radio_value.stoimost * item.radio_value.add_value)
+						if(item.radio_value === 'range'){
+							priceArr.push(item.radio_itog.stoimost * item.radio_itog.add_value)
 						}else{
-							priceArr.push(item.radio_value.stoimost)
+							priceArr.push(item.radio_itog.stoimost)
 						}
 						
 					}

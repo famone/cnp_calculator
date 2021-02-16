@@ -34,7 +34,7 @@
 
 					<div class="data-row">
 						<h2>{{user.user_display_name}}</h2>
-						<p class="white-txt">Присоединился: <span class="blue-txt">{{user.date}}</span></p>
+						<p class="white-txt">Присоединился: <span class="blue-txt">{{user.registred}}</span></p>
 						<p class="white-txt">Тип профиля: <span class="blue-txt">{{user.status}}</span></p>
 						<button class="blue-btn">Оплатить подписку</button>
 					</div>
@@ -47,8 +47,8 @@
 						<label for="">Имя и фамилия</label>
 						<input type="text" :value="user.user_display_name" data-field="name">
 
-						<label for="">Телефон</label>
-						<input type="text" :value="user.tel" data-field="tel">
+						<!-- <label for="">Телефон</label>
+						<input type="text" :value="user.tel" data-field="tel"> -->
 
 						<label for="">E-mail</label>
 						<input type="text" :value="user.user_email" data-field="mail">
@@ -68,11 +68,10 @@
 								Добавить <br> пресет
 							</div>
 							<div class="preset-btn" v-for="item in presets.data">
-								<div class="take-preset" @click="setActivePreset(item.json)">
+								<div class="take-preset" @click="setActivePreset(item.json, item.slug)">
 									<span class="mdi mdi-lead-pencil"></span>
 								</div>
-								{{item.nazvanie}}
-								
+								{{item.nazvanie}}								
 								<div class="delite-preset" @click="delitePreset(item.slug)">✕</div>
 							</div>
 						</div>
@@ -110,8 +109,6 @@ import axios from 'axios'
 		},
 		methods: {
 			delitePreset(slug){
-				console.log(slug)
-				console.log(this.user.id)
 
 				let preset = {
 					playlist_slug: slug,
@@ -122,7 +119,7 @@ import axios from 'axios'
 				axios
 				 .get(`https://nikitapugachev.ru/wp-json/np/v1/delete/calc/presets?user_id=${this.user.id}&playlist_slug=${slug}`)
 				 .then(res =>{
-				 	console.log(res)
+				 	this.$store.dispatch('preset/GET_PRESETS', this.user.id)
 				 })
 
 
@@ -146,10 +143,15 @@ import axios from 'axios'
 				 	console.log(res)
 				 })
 			},
-			setActivePreset(preset){
-
+			setActivePreset(preset, slug){
+				let clientPres = {
+					login: this.user.user_nicename,
+					preset: slug
+				}
 				this.$store.dispatch('preset/loadActivePreset', preset).then(() => {
-        			this.$router.replace("/page-3/kt/12");
+					this.$store.dispatch('preset/setPresetSlugs', clientPres)
+        			this.$router.replace(`/page-1/${this.user.user_nicename}/${slug}`);
+        			
 				});
 				
 			}

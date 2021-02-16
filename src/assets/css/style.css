@@ -47,6 +47,7 @@ h3{
 	background-color: #fff;
 }
 
+
 header{
 	padding: 10px 0;
 	position: relative;
@@ -590,8 +591,25 @@ input[type="number"]{
 	color: #000;
 	font-weight: 600!important;
 }
+.ed-inp-row input[type="text"]{
+	display:block;
+	width: 100%;
+	margin-bottom: 20px;
+	padding: 13px 20px;
+	border:none;
+	border-radius: 5px;
+	background-color: #fff!important;
+	color: #000;
+	font-weight: 600!important;
+}
 .edit-pop-box .blue-btn{
 	margin-top: 20px;
+	padding:13px 30px;
+}
+.edit-pop-box .exit-btn{
+	padding:13px 30px;
+	font-size: 16px;
+	margin-right: 10px;
 }
 
 /*profile*/

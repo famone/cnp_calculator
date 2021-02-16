@@ -1,11 +1,14 @@
 
 import axios from 'axios'
+import router from '../router/routes'
 
 const preset = {
 	namespaced: true,
 	state: {
         presets: null,
-        activePreset: 123
+        activePreset: [],
+        allow: false,
+        presetSlugs: {}
   	},
 	mutations: {
         SET_PRESETS(state, payload){
@@ -13,6 +16,9 @@ const preset = {
         },
         SET_ACTIVE_PRESET(state, preset){
             state.activePreset = preset
+        },
+        SET_PRES_SLUGS(state, payload){
+            state.presetSlugs = payload
         }
 	},
 	actions: {
@@ -34,7 +40,11 @@ const preset = {
         },
         loadActivePreset({commit}, preset){
             commit("SET_ACTIVE_PRESET", preset)
+        },
+        setPresetSlugs({commit}, payload){
+            commit("SET_PRES_SLUGS", payload)
         }
+
 	},
 	getters: {
         getPresets(state){
@@ -42,6 +52,9 @@ const preset = {
         },
         getActivePreset(state){
             return state.activePreset
+        },
+        getPresetSlugs(state){
+            return state.presetSlugs
         }
 	}
 }

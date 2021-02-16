@@ -24,7 +24,6 @@ const smeta = {
 			axios
 			.get('https://nikitapugachev.ru/wp-json/np/v1/get/calc')
 			.then(res =>{
-				console.log(res.data)
 				commit('SET_CALC', res.data.data)
 				commit('SET_NALOG', res.data.data)
 			})

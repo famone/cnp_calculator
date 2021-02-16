@@ -1,6 +1,6 @@
 <template>
 	<div class="tabs" 
-	v-if="$route.path !== '/' && this.$route.path !== '/login' && this.$route.path !== '/enter' && this.$route.path !== '/profile' ">
+	v-if="$route.path !== '/' && this.$route.path !== '/login' && this.$route.path !== '/enter' && this.$route.path !== '/profile'  && this.$route.name !== 'calc-route' ">
 			<div class="container-fluid">
 				<div class="tabs-row">
 					<router-link tag="button" to="/page-1">Вводные</router-link>
