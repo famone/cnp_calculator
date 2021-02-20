@@ -15,6 +15,7 @@
     "swiper": "^5.4.5",
     "vue": "^2.5.11",
     "vue-awesome-swiper": "^4.1.1",
+    "vue-clipboard2": "^0.3.1",
     "vue-cookies": "^1.7.0",
     "vue-nouislider": "^1.0.1",
     "vue-router": "^3.3.4",

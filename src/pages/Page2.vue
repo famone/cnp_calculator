@@ -52,7 +52,7 @@
 
 		<div class="container">
 			<div class="col-lg-6">
-				<nextstep />
+				<!-- <nextstep /> -->
 			</div>
 		</div>
 

@@ -117,6 +117,24 @@ import {mapGetters} from 'vuex'
 						if(item.radio_value){
 							polya.push(item)
 						}
+
+						if(item.type === 'SimpleRange'){
+							polya.push(item)
+						}
+
+						if(item.type === 'SingleSlider'){
+							polya.push(item)
+						}
+
+						if(item.type === 'Acter'){
+							polya.push(item)
+						}
+
+						if(item.type === 'Montazh'){
+							polya.push(item)
+						}
+
+						
 						
 					})
 
@@ -126,7 +144,28 @@ import {mapGetters} from 'vuex'
 
 				polya.forEach(item =>{
 					if(item.value){
-						if(item.radio_value === 'range'){
+						if(item.type === 'SimpleRange'){
+							priceArr.push(item.options.kol_vo_dnej.stoimost * item.options.kol_vo_dnej.add_value + item.options.pererabtka.stoimost * item.options.pererabtka.add_value)
+						}else if(item.type === 'SingleSlider'){
+							priceArr.push(item.options.stoimost * item.options.add_value)
+						}else if(item.type === 'Acter'){
+
+							// let prices = [] 
+							item.options.forEach(actor =>{
+								let prices = []
+								actor.vybrannaya_oblast.forEach(obl =>{
+									prices.push(parseInt(obl.stoimst * actor.kol_vo_smen))	
+								})
+								let result = Math.max.apply(Math, prices)
+								priceArr.push(result)
+							})
+
+						}else if(item.type === 'Montazh'){
+							item.options.forEach(rolik =>{
+								let prices = []
+								priceArr.push(rolik.stoimost * rolik.vremya)
+							})
+						}else if(item.radio_value === 'range' && item.type !== 'SimpleRange'){
 							priceArr.push(item.radio_itog.stoimost * item.radio_itog.add_value)
 						}else{
 							priceArr.push(item.radio_itog.stoimost)

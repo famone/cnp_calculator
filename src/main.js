@@ -8,7 +8,7 @@ import VueTheMask from 'vue-the-mask'
 import Vuelidate from 'vuelidate'
 import 'vuetify/dist/vuetify.min.css'
 import Vuetify from 'vuetify'
- 
+import VueClipboard from 'vue-clipboard2'
 
 Vue.use(Vuetify)
 import ru from 'vuetify/es5/locale/ru'
@@ -25,7 +25,7 @@ store.dispatch("auth/VALIDATE", user);
 Vue.use(VueRouter) 
 Vue.use(Vuelidate)
 Vue.use(require('vue-cookies'))
-
+Vue.use(VueClipboard)
 
 new Vue({
   el: '#app',

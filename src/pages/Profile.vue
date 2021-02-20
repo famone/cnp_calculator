@@ -59,24 +59,31 @@
 
 				</div>
 
-				<div class="col-lg-5" v-if="presets">
+				<div class="col-lg-5">
 					<div class="data-row">
-						<h3>Пресеты</h3>
-						<div class="presets">
-							<div class="preset-btn add-preset">
+						<h3>Отдельные калькуляторы со своими ценами</h3>
+						<div class="presets" v-if="presets">
+							<router-link tag="div" to="/page-1" class="preset-btn add-preset">
 								<div class="plus"></div>
 								Добавить <br> пресет
-							</div>
+							</router-link>
 							<div class="preset-btn" v-for="item in presets.data">
-								<div class="take-preset" @click="setActivePreset(item.json, item.slug)">
-									<span class="mdi mdi-lead-pencil"></span>
+								<div class="preset-actions">
+									<div class="take-preset" @click="setActivePreset(item.json, item.slug)">
+										<span class="mdi mdi-lead-pencil"></span>
+									</div>
+									<div class="take-preset" v-clipboard:copy="linkConstructor(item)">
+										<span class="mdi mdi-link-variant"></span>
+									</div>
 								</div>
 								{{item.nazvanie}}								
 								<div class="delite-preset" @click="delitePreset(item.slug)">✕</div>
 							</div>
 						</div>
+						<loading v-else /> 
 					</div>
 				</div>
+				
 			</div>
 		</section>	
 
@@ -89,13 +96,15 @@
 
 
 <script>
+import loading from '../components/loading.vue'
 import {mapGetters} from 'vuex'
 import axios from 'axios'
 
 	export default{
+		components: {loading},
 		data(){
 			return{
-				file: null,
+				file: null
 			}
 		},
 		created(){
@@ -105,9 +114,21 @@ import axios from 'axios'
 			...mapGetters({ 
 				user: "auth/getAuthenticated",
 				presets: "preset/getPresets"
-			})
+			}),
 		},
 		methods: {
+			linkConstructor(item){
+				let newLink = window.location.origin + '/calc/' + this.user.user_nicename + '/' + item.slug
+
+				return newLink
+			},
+			copyLink(item){
+				let newLink = window.location.origin + '/calc/' + this.user.user_nicename + '/' + item.slug
+
+				// newLink.select()
+				document.execCommand("newLink");
+				
+			},
 			delitePreset(slug){
 
 				let preset = {

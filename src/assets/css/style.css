@@ -730,12 +730,17 @@ h2{
 	height: 30px;
 	width: 30px;
 	border-radius: 30px;
-	margin:0 auto;
+	margin:0 10px;
 	background-color: #2E97E5;
 	margin-bottom: 20px;
 	display:flex;
 	align-items: center;
 	justify-content: center;
+}
+.preset-actions{
+	display: flex;
+	justify-content: center;
+	align-content: center;
 }
 
 
@@ -840,6 +845,25 @@ table tr td:last-child{
 .calc-td .plus{
 	margin-left: 14px;
 }
+
+
+/*actor box*/
+
+
+.actor-box{
+	position: relative;
+	border-radius: 10px;
+	padding: 15px;
+	margin-bottom: 15px;
+	background-color: #1d1c1c;
+}
+.delite-actor{
+	position: absolute;
+	cursor: pointer;
+	top: 10px;	
+	right: 15px;
+	color: #fff;
+	}
 
 
 /*ADAPTIIIIIIIIIV*/

@@ -7,6 +7,7 @@ const preset = {
 	state: {
         presets: null,
         activePreset: [],
+        activePresetName: '',
         allow: false,
         presetSlugs: {}
   	},
@@ -27,6 +28,7 @@ const preset = {
             axios
             .post('https://nikitapugachev.ru/wp-json/np/v1/set/calc/presets', payload)
             .then(res => {
+                // пресет добавлен
                 console.log(res)
             })
 		},
@@ -34,7 +36,6 @@ const preset = {
             axios
             .get('https://nikitapugachev.ru/wp-json/np/v1/get/calc/presets?user_id=' + id)
             .then(res =>{
-                console.log(res.data)
                 commit("SET_PRESETS", res.data)
             })
         },
@@ -43,6 +44,18 @@ const preset = {
         },
         setPresetSlugs({commit}, payload){
             commit("SET_PRES_SLUGS", payload)
+        },
+        updatePreset({commit}, pres){
+
+            let jsonObj = {
+                json: pres.json
+            }
+
+            axios
+            .post(`https://nikitapugachev.ru/wp-json/np/v1/edit/calc/presets?user_id=${pres.user_id}&playlist_slug=${pres.name}`, jsonObj)
+            .then(res =>{
+                console.log(res.data)
+            })
         }
 
 	},

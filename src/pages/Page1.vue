@@ -54,7 +54,7 @@
 		<!-- <button class="blue-btn" @click="calcPrice()">ПОСЧИТАТЬ</button> -->
 
 
-			<nextstep />
+			<!-- <nextstep /> -->
 
 
 

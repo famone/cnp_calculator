@@ -4,6 +4,10 @@ import Page1 from '../pages/Page1.vue'
 import Page2 from '../pages/Page2.vue'
 import Page3 from '../pages/Page3.vue'
 import Page4 from '../pages/Page4.vue'
+import Page5 from '../pages/Page5.vue'
+import Page6 from '../pages/Page6.vue'
+import Page7 from '../pages/Page7.vue'
+import Page8 from '../pages/Page8.vue'
 import Page9 from '../pages/Page9.vue'
 import Login from '../pages/Login.vue'
 import Profile from '../pages/Profile.vue'
@@ -38,6 +42,22 @@ const routes = [
 		{
 			path: '/page-4',
 			component: Page4
+		},
+		{
+			path: '/page-5',
+			component: Page5
+		},
+		{
+			path: '/page-6',
+			component: Page6
+		},
+		{
+			path: '/page-7',
+			component: Page7
+		},
+		{
+			path: '/page-8',
+			component: Page8
 		},
 		{
 			path: '/page-9',
@@ -80,8 +100,24 @@ const routes = [
 			component: Page4,
 		},
 		{
+			path: '/page-5/:name/:id',
+			component: Page5,
+		},
+		{
+			path: '/page-6/:name/:id',
+			component: Page6,
+		},
+		{
+			path: '/page-7/:name/:id',
+			component: Page7,
+		},
+		{
 			path: '/page-9/:name/:id',
 			component: Page9,
+		},
+		{
+			path: '/page-8/:name/:id',
+			component: Page8,
 		},
 		{
 			path: '/calc/:login/:preset',

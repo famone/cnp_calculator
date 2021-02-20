@@ -1,7 +1,7 @@
 <template>
 	<section id="p404">
 		<div class="container text-center">
-			<h1>🛸 Загружаем пресет</h1>
+			<h1>Загружаем пресет</h1>
 		</div>
 	</section>
 </template>
