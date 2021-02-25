@@ -1,6 +1,10 @@
 <template>
 	<div v-if="calc">
 
+		<p class="red hidden">
+			{{allSmens}}
+		</p>
+
 		<section id="switchSec">
 			<div class="container">
 				<div class="col-lg-12 text-center">
@@ -27,7 +31,7 @@
 						<img :src="cam.image" alt="">
 						<p class="black-txt">{{cam.name}}</p>
 						<p class="price-cam" v-if="cam.count < 1">{{cam.price}} ₽ / смена</p>
-						<p class="price-cam" v-else>{{cam.price * cam.count}} ₽ / {{cam.count}} смен</p>
+						<p class="price-cam" v-else>{{cam.price * cam.count * cam.smen}} ₽ / {{cam.smen}} смен</p>
 
 				
 						<div class="quantity" v-if="cam.count > 0">
@@ -128,6 +132,6 @@ import {mapState, mapGetters} from 'vuex'
 			}else{
 				this.presetMode = false
 			}
-		}
+		},
 	}
 </script>

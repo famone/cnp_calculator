@@ -34,7 +34,7 @@
 							<span v-else>часов</span>
 						</span>
 					</p>
-					<v-slider step="1" :min="item.options.rminimalnoe" :max="item.options.rmaksimalnoe" v-model="item.value" ></v-slider>
+					<v-slider step="1" :min="item.options.rminimalnoe" :max="item.options.rmaksimalnoe" v-model="item.value" @input="allSmens(item)"></v-slider>
 				</div>
 
 
@@ -242,6 +242,46 @@ import {mapState, mapGetters} from 'vuex'
 				})
 
 				pageObj.value = e.target.value
+			},
+			allSmens(item){
+				// приводим оборудование к общему кол-ву смен
+
+				
+
+				if(item.id !== 420){
+					return
+				}
+
+
+
+				if(this.presetMode){
+					let page = this.activePreset.find(item => {
+									return item.id == 23
+								})
+					let smenAmount = this.activePreset[2].subsItems[0].fields[0].value
+				page.products.cat.forEach(category =>{
+						category.subsItems.forEach(sub =>{
+							sub.items.forEach(item =>{
+								item.smen = smenAmount
+							})
+						})
+					})
+				}else{
+					let page = this.calc.find(item => {
+									return item.id == 23
+								})
+					let smenAmount = this.calc[2].subsItems[0].fields[0].value
+				page.products.cat.forEach(category =>{
+						category.subsItems.forEach(sub =>{
+							sub.items.forEach(item =>{
+								item.smen = smenAmount
+							})
+						})
+					})
+				}
+
+
+
 			}
 		},
 		created(){
