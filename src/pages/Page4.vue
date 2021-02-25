@@ -1,15 +1,14 @@
 <template>
 	<div v-if="calc">
 
-		<p class="red hidden">
-			{{allSmens}}
-		</p>
+		
+
 
 		<section id="switchSec">
 			<div class="container">
 				<div class="col-lg-12 text-center">
 					<div class="switch-cat">
-						<button v-for="(filter, index) in filters"
+						<button v-for="(filter, index) in getCategories"
 						@click="changeFilter(index, filter.txt)" 
 						:class="{acFiletr : filter.active}">{{filter.txt}}</button>
 					</div>
@@ -91,6 +90,15 @@ import {mapState, mapGetters} from 'vuex'
 				
 
 				return page
+			},
+			getCategories(){
+				let arr = []
+				this.getCalcPage.products.cat.forEach(item =>{
+					arr.push({txt: item.name, active: false})
+				})
+				arr[0].active = true
+
+				return arr 
 			}
 		},
 		methods: {
@@ -102,11 +110,11 @@ import {mapState, mapGetters} from 'vuex'
 			},
 			changeFilter(index, txt){
 
-				this.filters.forEach(item =>{
+				this.getCategories.forEach(item =>{
 					item.active = false
 				})
 
-				this.filters[index].active = true
+				this.getCategories[index].active = true
 				this.filtered = txt
 			}
 		},
@@ -114,16 +122,7 @@ import {mapState, mapGetters} from 'vuex'
 			return{
 				presetMode: false,
 				filtered: 'Видео оборудование',
-				filters: [
-					{
-						txt: 'Видео оборудование',
-						active: true
-					},
-					{
-						txt: 'Свет',
-						active: false
-					}
-				]
+				filters: []	
 			}
 		},
 		created(){
