@@ -56,6 +56,9 @@ const preset = {
             .then(res =>{
                 console.log(res.data)
             })
+        },
+        clearActivePreset({commit}){
+            commit("SET_ACTIVE_PRESET", null)
         }
 
 	},

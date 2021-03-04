@@ -30,13 +30,13 @@
 					</div>
 
 					<p class="white-txt" v-if="!item.value">
-						<span class="blue-txt op-5">от {{item.options.stoimost}} ₽</span>
+						<span class="blue-txt op-5">от {{(item.options.stoimost).toLocaleString()}} ₽</span>
 					</p> 
 
 
 					<div v-if="item.value">
 			      		<p class="white-txt">
-			      			<span class="blue-txt">{{item.options.add_value}} шт / от {{item.options.stoimost * item.options.add_value}}  ₽</span>
+			      			<span class="blue-txt">{{item.options.add_value}} шт / от {{(item.options.stoimost * item.options.add_value).toLocaleString()}}  ₽</span>
 			      		</p>
 			      		<v-slider step="1" min="1" max="30" v-model="item.options.add_value"></v-slider>
 			      	</div>
@@ -55,7 +55,7 @@
 
 		<div class="container">
 			<div class="col-lg-6">
-				<!-- <nextstep /> -->
+				<nextstep />
 			</div>
 		</div>
 

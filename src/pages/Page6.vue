@@ -46,7 +46,7 @@
 
 			    		<p class="white-txt">
 			      			<span class="blue-txt">{{actor.kol_vo_smen}}  смен / от 
-			      			{{getLargest(actor.vybrannaya_oblast) * actor.kol_vo_smen}}  ₽</span>
+			      			{{(getLargest(actor.vybrannaya_oblast) * actor.kol_vo_smen).toLocaleString()}}  ₽</span>
 			      		</p>
 			      		<v-slider step="1" min="1" max="30" v-model="actor.kol_vo_smen"></v-slider>
 
@@ -72,18 +72,18 @@
 					</div>
 
 					<p class="white-txt" v-if="!item.value">
-						<span class="blue-txt op-5">от {{item.options.kol_vo_dnej.stoimost}} ₽</span>
+						<span class="blue-txt op-5">от {{(item.options.kol_vo_dnej.stoimost).toLocaleString()}} ₽</span>
 					</p> 
 
 
 					<div v-if="item.value">
 			      		<p class="white-txt">Кол-во дней 
-			      			<span class="blue-txt">{{item.options.kol_vo_dnej.add_value}} cмен / от {{item.options.kol_vo_dnej.stoimost * item.options.kol_vo_dnej.add_value}}  ₽</span>
+			      			<span class="blue-txt">{{item.options.kol_vo_dnej.add_value}} cмен / от {{(item.options.kol_vo_dnej.stoimost * item.options.kol_vo_dnej.add_value).toLocaleString()}}  ₽</span>
 			      		</p>
 			      		<v-slider step="1" min="1" max="30" v-model="item.options.kol_vo_dnej.add_value"></v-slider>
 
 			      		<p class="white-txt">Переработка
-			      			<span class="blue-txt">{{item.options.pererabtka.add_value}} час / от {{item.options.pererabtka.stoimost * item.options.pererabtka.add_value}}  ₽</span>
+			      			<span class="blue-txt">{{item.options.pererabtka.add_value}} час / от {{(item.options.pererabtka.stoimost * item.options.pererabtka.add_value).toLocaleString()}}  ₽</span>
 			      		</p>
 			      		<v-slider step="1" min="0" max="30" v-model="item.options.pererabtka.add_value"></v-slider>
 			      	</div>
@@ -105,7 +105,7 @@
 
 		<div class="container">
 			<div class="col-lg-6">
-				<!-- <nextstep /> -->
+				<nextstep />
 			</div>
 		</div>
 

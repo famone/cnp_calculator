@@ -28,9 +28,13 @@
 				<div v-if="item.type === 'Number' ">
 					<h3>{{item.name}}</h3>
 					<p class="white-txt">
-						<span v-html="item.desc"></span>
+						<span v-if="item.options.edinicza === 'number' ">Кол-во дней </span>
+						<span v-else-if="item.options.edinicza === 'smen' ">Кол-во дней </span>
+						<span v-else="item.options.edinicza === 'smen' ">Кол-во часов </span>
+						 
 						<span class="blue-txt">{{item.value}} 
 							<span v-if="item.options.edinicza === 'number' ">смен</span>
+							<span v-else-if="item.options.edinicza === 'smen' ">дней</span>
 							<span v-else>часов</span>
 						</span>
 					</p>
@@ -54,7 +58,7 @@
 
 				
 					<p class="white-txt" v-if="!item.value">
-						<span class="blue-txt op-5">от {{getPriceFrom(item.options.varianty)}} ₽</span>
+						<span class="blue-txt op-5">от {{getPriceFrom(item.options.varianty).toLocaleString()}} ₽</span>
 					</p> 
 
 					<div class="variants" v-if="item.value">
@@ -68,7 +72,8 @@
 			      			
 			      			<div v-if="item.radio_value === 'range' ">
 			      				<p class="white-txt">Кол-во дней 
-			      					<span class="blue-txt">{{item.radio_itog.add_value}} cмен / от {{item.radio_itog.add_value * item.radio_itog.stoimost}} ₽</span>
+			      					<span class="blue-txt">{{item.radio_itog.add_value}} cмен / от 
+			      					{{(item.radio_itog.add_value * item.radio_itog.stoimost).toLocaleString()}} ₽</span>
 			      				</p>
 			      				<v-slider step="1" min="1" max="30" v-model="item.radio_itog.add_value"></v-slider>
 			      			</div>
@@ -90,18 +95,19 @@
 					</div>
 
 					<p class="white-txt" v-if="!item.value">
-						<span class="blue-txt op-5">от {{item.options.kol_vo_dnej.stoimost}} ₽</span>
+						<span class="blue-txt op-5">от {{(item.options.kol_vo_dnej.stoimost).toLocaleString()}} ₽</span>
 					</p> 
 
 
 					<div v-if="item.value">
 			      		<p class="white-txt">Кол-во дней 
-			      			<span class="blue-txt">{{item.options.kol_vo_dnej.add_value}} cмен / от {{item.options.kol_vo_dnej.stoimost * item.options.kol_vo_dnej.add_value}}  ₽</span>
+			      			<span class="blue-txt">{{item.options.kol_vo_dnej.add_value}} cмен / от 
+			      			{{(item.options.kol_vo_dnej.stoimost * item.options.kol_vo_dnej.add_value).toLocaleString()}}  ₽</span>
 			      		</p>
 			      		<v-slider step="1" min="1" max="30" v-model="item.options.kol_vo_dnej.add_value"></v-slider>
 
 			      		<p class="white-txt">Переработка
-			      			<span class="blue-txt">{{item.options.pererabtka.add_value}} час / от {{item.options.pererabtka.stoimost * item.options.pererabtka.add_value}}  ₽</span>
+			      			<span class="blue-txt">{{item.options.pererabtka.add_value}} час / от {{(item.options.pererabtka.stoimost * item.options.pererabtka.add_value).toLocaleString()}}  ₽</span>
 			      		</p>
 			      		<v-slider step="1" min="0" max="30" v-model="item.options.pererabtka.add_value"></v-slider>
 			      	</div>
@@ -260,11 +266,13 @@ import {mapState, mapGetters} from 'vuex'
 								})
 					let smenAmount = this.activePreset[2].subsItems[0].fields[0].value
 				page.products.cat.forEach(category =>{
-						category.subsItems.forEach(sub =>{
-							sub.items.forEach(item =>{
-								item.smen = smenAmount
+						if(category.subsItems){
+							category.subsItems.forEach(sub =>{
+								sub.items.forEach(item =>{
+									item.smen = smenAmount
+								})
 							})
-						})
+						}				
 					})
 				}else{
 					let page = this.calc.find(item => {
@@ -272,11 +280,13 @@ import {mapState, mapGetters} from 'vuex'
 								})
 					let smenAmount = this.calc[2].subsItems[0].fields[0].value
 				page.products.cat.forEach(category =>{
-						category.subsItems.forEach(sub =>{
-							sub.items.forEach(item =>{
-								item.smen = smenAmount
+						if(category.subsItems){
+							category.subsItems.forEach(sub =>{
+								sub.items.forEach(item =>{
+									item.smen = smenAmount
+								})
 							})
-						})
+						}	
 					})
 				}
 

@@ -5,7 +5,7 @@
 
 
 		<section id="switchSec">
-			<div class="container">
+			<div class="container-fluid">
 				<div class="col-lg-12 text-center">
 					<div class="switch-cat">
 						<button v-for="(filter, index) in getCategories"
@@ -29,8 +29,8 @@
 					<div class="rent-box">
 						<img :src="cam.image" alt="">
 						<p class="black-txt">{{cam.name}}</p>
-						<p class="price-cam" v-if="cam.count < 1">{{cam.price}} ₽ / смена</p>
-						<p class="price-cam" v-else>{{cam.price * cam.count * cam.smen}} ₽ / {{cam.smen}} смен</p>
+						<p class="price-cam" v-if="cam.count < 1">{{cam.price.toLocaleString()}} ₽ / смена</p>
+						<p class="price-cam" v-else>{{(cam.price * cam.count * cam.smen).toLocaleString()}} ₽ / {{cam.smen}} смен</p>
 
 				
 						<div class="quantity" v-if="cam.count > 0">
@@ -55,7 +55,7 @@
 
 		<div class="container">
 			<div class="col-lg-6">
-				<!-- <nextstep /> -->
+				<nextstep />
 			</div>
 		</div>
 

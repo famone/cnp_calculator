@@ -44,9 +44,15 @@
 				<!-- чекбокс-->
 
 				<div v-if="item.type === 'Checkbox'">
+
 					<h3>{{item.name}}</h3>
 					<v-checkbox v-for="check in item.options.variants" v-model="item.value"
 					:label="check.tekst" :value="check.tekst"></v-checkbox>
+					<!-- <div v-if="item.id == 437 && item.value.includes('Другой')">
+						<label for="">Укажите город :</label>
+						<input type="text" placeholder="Название города" 
+						@input="changeCity(item, $event)" >
+					</div> -->
 				</div>
 				
 			</div>
@@ -54,7 +60,7 @@
 		<!-- <button class="blue-btn" @click="calcPrice()">ПОСЧИТАТЬ</button> -->
 
 
-			<!-- <nextstep /> -->
+			<nextstep />
 
 
 
@@ -78,6 +84,29 @@ import {mapState, mapGetters} from 'vuex'
 			}
 		},
 		methods: {
+			// changeCity(item, e){
+			// 	if(item.value.includes('Другой')){
+			// 		let page = ''
+
+			// 		if(this.presetMode){
+			// 			page = this.activePreset.find(item => {
+			// 				return item.id == 22
+			// 			})
+			// 		}else{
+			// 			page = this.calc.find(item => {
+			// 				return item.id == 22
+			// 			})
+			// 		}
+
+			// 		let pageObj = page.fields.find(item =>{
+			// 			return item.id == 437
+			// 		})
+
+			// 		pageObj.value = e.target.value
+
+
+			// 	}
+			// },
 			showValRadio(val, obj){
 
 				let page = this.calc.find(item => {
@@ -135,3 +164,21 @@ import {mapState, mapGetters} from 'vuex'
 		}
 	}
 </script>
+
+<style scoped>
+input[type="text"]{
+	display:block;
+	width: 100%;
+	padding: 15px;
+	border:none;
+	border-radius: 5px;
+	background-color: #fff!important;
+	color: #000;
+	font-weight: 600!important;
+}
+label{
+	color: #2E97E6;
+    font-weight: 400;
+    font-size: 14px;
+}
+</style>

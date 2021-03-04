@@ -50,8 +50,10 @@ h3{
 
 header{
 	padding: 10px 0;
-	position: relative;
+	position: sticky;
+	top: 0;
 	background-color: #1A1A1A;
+	z-index: 100;
 }
 .logo{
 	cursor: pointer;
@@ -153,7 +155,7 @@ header .avatar{
 .tabs{
 	position: sticky;
 	width: 100%;
-	top: 0;
+	top: 57px;
 	background-color: #111;
 	z-index: 100;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -432,6 +434,15 @@ textarea{
 	padding: 10px;
 	border-radius: 5px;
 	margin-bottom: 0px;
+	-webkit-touch-callout: none; 
+  -webkit-user-select: none;   
+  -khtml-user-select: none;   
+  -moz-user-select: none;      
+  -ms-user-select: none;      
+  user-select: none; 
+}
+.rent-box .black-txt{
+	min-height: 51px;
 }
 .rent-box img{
 	margin: auto;
@@ -652,6 +663,9 @@ h2{
 	color: #fff;
 	opacity: .5;
 }
+.bottom-bar .small-grey{
+	margin-bottom: 0!important;
+}
 .new-avatar{
 	font-size: 16px;
 	color: #2E97E5;
@@ -683,7 +697,12 @@ h2{
 	font-weight: 400;
 	transform: translate(16px, 30px);
 }
-
+.clearAll{
+	transition: all .3s ease;
+}
+.clearAll:hover{
+	color: #2E97E6;
+}
 .presets{
 	display:flex;
 	justify-content: flex-start;
@@ -764,13 +783,13 @@ h2{
 	position: relative;
 	border-radius: 50px;
 	z-index: 5;
-	padding: 10px 30px;
+	padding: 10px 25px;
 	font-size: 14px;
 	color: #fff;
 	background-color: transparent;
 	border:none;
 	font-weight: 400;
-	width: 216px;
+	/*width: 216px;*/
 	transition: all .3s ease;
 	white-space: nowrap;
 }
@@ -809,6 +828,12 @@ table{
 	font-size: 16px;
 	color: #808080;
 	table-layout: fixed;
+	-webkit-touch-callout: none; 
+  -webkit-user-select: none;   
+  -khtml-user-select: none;   
+  -moz-user-select: none;      
+  -ms-user-select: none;      
+  user-select: none;
 }
 .wh-table{
 	font-size: 18px;
@@ -1014,15 +1039,16 @@ input[type=range]::-moz-range-thumb {
 	position: absolute;
 	left: 0;
 }
-/*.v-slider__thumb{
-	top: 2px!important;
-	height: 15px!important;
-    width: 15px!important;
+.v-slider__thumb{
+	height: 24px!important;
+    width: 24px!important;
 }
 .v-slider__thumb:before{
-	left: -11px!important;
-    top: -11px!important;
-}*/
+	height: 72px!important;
+    width: 72px!important;
+    left: -24px!important;
+    top: -24px!important;
+}
 
 
 

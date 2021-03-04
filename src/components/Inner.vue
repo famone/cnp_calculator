@@ -1,6 +1,6 @@
 <template>
 	<section id="inner">
-		<div class="container">
+		<div :class="this.$route.path.includes('page-4') ? 'container-fluid' : 'container' ">
 			<div class="col-lg-7">
 				<h1>{{innerTxt}}</h1>
 				<!-- <h3>{{innerTxt.subtitle}}</h3> -->

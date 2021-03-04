@@ -34,13 +34,13 @@
 					</div>
 
 					<p class="white-txt" v-if="!item.value">
-						<span class="blue-txt op-5">от {{item.options.stoimost}} ₽</span>
+						<span class="blue-txt op-5">от {{(item.options.stoimost).toLocaleString()}} ₽</span>
 					</p> 
 
 
 					<div v-if="item.value">
 			      		<p class="white-txt">
-			      			<span class="blue-txt">{{item.options.add_value}} шт / от {{item.options.stoimost * item.options.add_value}}  ₽</span>
+			      			<span class="blue-txt">{{item.options.add_value}} шт / от {{(item.options.stoimost * item.options.add_value).toLocaleString()}}  ₽</span>
 			      		</p>
 			      		<v-slider step="1" min="1" max="30" v-model="item.options.add_value"></v-slider>
 			      	</div>
@@ -56,6 +56,10 @@
 							<span class="mdi mdi-lead-pencil"> <span class="hidden-xs">Настроть</span></span>
 						</button>
 					</div>
+					<!-- <p class="red">{{}}</p> -->
+					<p class="white-txt" v-if="!item.value">
+						<span class="blue-txt op-5">от {{item.options[0].stoimost}} ₽</span>
+					</p> 
 
 				
 					<div v-if="item.value">
@@ -67,7 +71,7 @@
 			      			<p class="white-txt">
 			      			{{index+1}}-й ролик	<span class="blue-txt">{{rolik.vremya}} сек / от {{rolik.vremya * rolik.stoimost}}  ₽</span>
 			      			</p>
-			      			<v-slider step="1" min="1" max="240" v-model="rolik.vremya"></v-slider>
+			      			<v-slider step="5" min="5" max="240" v-model="rolik.vremya"></v-slider>
 			      			<textarea placeholder="Пример описания" v-model="rolik.opisanie"></textarea>
 			      		</div>
 			      		<button class="blue-btn" v-if="item.value && item.options.length < 3"
@@ -85,7 +89,7 @@
 
 		<div class="container">
 			<div class="col-lg-6">
-				<!-- <nextstep /> -->
+				<nextstep />
 			</div>
 		</div>
 

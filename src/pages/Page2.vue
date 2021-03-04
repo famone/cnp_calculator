@@ -17,7 +17,7 @@
 							<p class="white-txt">
 					<span class="blue-txt">от {{item.value[0]}} до {{item.value[1]}} лет</span>
 				</p>
-							<v-range-slider class="my-double" v-model="item.value" min="0" max="100" thumb-size="64"></v-range-slider>	
+							<v-range-slider class="my-double" v-model="item.value" min="14" max="60" thumb-size="64"></v-range-slider>	
 						</div>
 						
 						<!-- текстареа -->
@@ -52,7 +52,7 @@
 
 		<div class="container">
 			<div class="col-lg-6">
-				<!-- <nextstep /> -->
+				<nextstep />
 			</div>
 		</div>
 

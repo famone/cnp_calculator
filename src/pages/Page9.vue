@@ -8,13 +8,13 @@
 <h1>
 {{Math.round((calcPrice + getOborudItog) + (calcPrice + getOborudItog)/100 * nalog + ((calcPrice + getOborudItog) + (calcPrice + getOborudItog)/100 * nalog)/100 * markUp ).toLocaleString()}} ₽
 </h1>
-					<p class="grey-txt">Налог {{nalog}}% : 
+					<p class="grey-txt">Налог включен {{nalog}}% : 
 						{{ Math.round((calcPrice + getOborudItog)/100 * nalog).toLocaleString() }} ₽</p>
-					<p class="grey-txt">MarkUp {{markUp}}% : 
+					<!-- <p class="grey-txt">MarkUp {{markUp}}% : 
 					{{
 						Math.round(((calcPrice + getOborudItog) + (calcPrice + getOborudItog)/100 * nalog)/100 * markUp).toLocaleString() 
 					}} ₽
-						</p>
+						</p> -->
 				</div>
 			</div>
 		</section>
@@ -38,7 +38,9 @@
         					</td>
         					<td class="text-right" v-else>{{item.value}}
         						<span v-if="item.id == 424"> сек</span>
-        						<span v-if="item.id == 439 || item.id == 440 "> %</span>
+        						<span v-if="item.id == 439 || item.id == 440 "> % : {{
+						Math.round(((calcPrice + getOborudItog) + (calcPrice + getOborudItog)/100 * nalog)/100 * markUp).toLocaleString() 
+					}} ₽</span>
         					</td>
     					</tr>
 					</table>
@@ -48,7 +50,7 @@
 
 			<!-- Специалисты -->
 
-		<section id="itogTable">
+		<section id="itogTable" v-if="getSpecialItog !== 0">
 			<div class="container">
 				<div class="col-lg-12">
 					<div class="flex-row">
@@ -88,7 +90,9 @@
     					<tr v-if="item.value && item.type === 'SimpleRange'" v-for="item in getSpecial">
     						<td><p class="wh-table">{{item.name}}</p></td>
     						<td class="text-center">{{item.options.kol_vo_dnej.add_value}} смен</td>
-    						<td class="text-center">Переработка - {{item.options.pererabtka.add_value}} час.</td>
+    						<td class="text-center">
+    							<span v-if="item.options.pererabtka.add_value !== 0">Переработка - {{item.options.pererabtka.add_value}} час.</span>
+    						</td>
     						<td class="text-right">
     							{{(item.options.kol_vo_dnej.stoimost * item.options.kol_vo_dnej.add_value + item.options.pererabtka.stoimost * item.options.pererabtka.add_value).toLocaleString()}}
     						 ₽</td>
@@ -107,7 +111,7 @@
 		<!-- Оборудование -->
 
 
-		<section id="itogTable">
+		<section id="itogTable" v-if="getOborudItog !== 0">
 			<div class="container">
 				<div class="col-lg-12">
 					<div class="flex-row">
@@ -142,7 +146,7 @@
 
 		<!-- Локация -->
 
-		<section id="itogTable">
+		<section id="itogTable" v-if="getLocationItog !== 0">
 			<div class="container">
 				<div class="col-lg-12">
 					<div class="flex-row">
@@ -167,7 +171,7 @@
 
 		<!-- Актеры -->
 
-		<section id="itogTable">
+		<section id="itogTable" v-if="getActorsItog !== 0">
 			<div class="container">
 				<div class="col-lg-12">
 					<div class="flex-row">
@@ -203,7 +207,7 @@
 
 		<!-- Постпродакшн -->
 
-		<section id="itogTable">
+		<section id="itogTable"  v-if="getPostItog !== 0">
 			<div class="container">
 				<div class="col-lg-12">
 					<div class="flex-row">
@@ -236,7 +240,7 @@
 
 		<!-- Остальное -->
 
-		<section id="itogTable">
+		<section id="itogTable" v-if="getOstalnoeItog !== 0">
 			<div class="container">
 				<div class="col-lg-12">
 					<div class="flex-row">
@@ -630,9 +634,11 @@ import presetPop from '../components/presetPop.vue'
 				let categories = []
 
 				page.products.cat.forEach(item =>{
-					item.subsItems.forEach(sub =>{
-						categories.push(sub)
-					})
+					if(item.subsItems){
+							item.subsItems.forEach(sub =>{
+							categories.push(sub)
+						})
+					}
 				})
 
 				let products = []

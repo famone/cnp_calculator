@@ -1,5 +1,6 @@
 <template>
-	<div class="bottom-bar"  v-if="this.$route.path !== '/' && this.$route.path !== '/enter' && this.$route.path !== '/profile' && this.$route.name !== 'calc-route' ">
+	<div>
+		<div class="bottom-bar"  v-if="this.$route.path !== '/' && this.$route.path !== '/enter' && this.$route.path !== '/profile' && this.$route.name !== 'calc-route' ">
 		<!-- <div class="progress" :style="{width: prgrss * 10 + '%'}"></div> -->
 
 		<div class="progress" :style="{width: (100/9) * prgrss + '%'}"></div>
@@ -9,10 +10,12 @@
 			
 
 
-				<div class="col-lg-3" v-if="calc">
+				<div class="col-lg-4" v-if="calc">
 					<div class="totals">
-						<p class="white-txt">Всего: {{(calcPrice + getOborudItog).toLocaleString()}} ₽</p>
-						<p class="white-txt">Налог {{nalog}}% : 
+						<p class="white-txt">Всего: 
+{{Math.round((calcPrice + getOborudItog) + (calcPrice + getOborudItog)/100 * nalog + ((calcPrice + getOborudItog) + (calcPrice + getOborudItog)/100 * nalog)/100 * markUp ).toLocaleString()}}
+						 ₽</p>
+						<p class="small-grey">Включая налоги {{nalog}}% : 
 						{{  Math.round((calcPrice + getOborudItog)/100 * nalog).toLocaleString() }} ₽</p>
 						<!-- <p class="white-txt">С налогом: {{calcPrice + (calcPrice/100 * calc[0].fields[7].value)}}</p> -->
 					</div>
@@ -25,7 +28,13 @@
 							<img src="../assets/img/addition.svg" alt="">
 							{{videoType}}
 						</p>
-						<!-- <p class="white-txt"><img src="../assets/img/time.svg" alt="">{{getRoliks}} сек</p> -->
+						<p class="white-txt" v-if="getMontaj">
+							<img src="../assets/img/monticon.svg" alt="">
+							<span v-for="(timer, index) in getMontaj">{{timer}}
+								<span v-if="index+1 !== getMontaj.length">, </span>
+							</span>
+							сек
+						</p>
 						<p class="white-txt"><img src="../assets/img/date.svg" alt="">
 							{{todayIs.toLocaleDateString()}}
 						</p>
@@ -35,11 +44,11 @@
 					</div>
 				</div>
 
-				<div class="col-lg-3">
+				<div class="col-lg-2">
 					<div class="downloads">
-						<p class="white-txt">XLS</p>
-						<p class="white-txt">PDF</p>
-						<p class="white-txt pointer" @click="clearCalc">
+						<!-- <p class="white-txt">XLS</p>
+						<p class="white-txt">PDF</p> -->
+						<p class="white-txt pointer clearAll" @click="openConfirm = !openConfirm">
 							<img src="../assets/img/trash.svg" alt="">Очистить
 						</p>
 					</div>
@@ -47,22 +56,22 @@
 
 		</div>
 	</div>
+	<Confirm v-if="openConfirm" @closeConfirm="openConfirm = !openConfirm" />
+	</div>
 </template>
 
 
 <script>
 import {mapGetters} from 'vuex'
+import Confirm from '../components/Confirm.vue'
 
 	export default{
+		components: {Confirm},
 		data(){
 			return{
 				todayIs: new Date(),
-				presetMode: false
-			}
-		},
-		methods: {
-			clearCalc(){
-				this.$store.dispatch('smeta/getCalc')
+				presetMode: false,
+				openConfirm: false
 			}
 		},
 		props: {
@@ -198,6 +207,36 @@ import {mapGetters} from 'vuex'
 					return this.calc[0].fields[7].value
 				}
 			},
+			markUp(){
+				if(this.presetMode){
+					return this.activePreset[0].fields[8].value
+				}else{
+					return this.calc[0].fields[8].value
+				}
+			},
+			getMontaj(){
+				if(this.presetMode){
+					if(this.activePreset[7].subsItems[0].fields[0].value){
+						let motajes = []
+						this.activePreset[7].subsItems[0].fields[0].options.forEach(item =>{
+							motajes.push(item.vremya)
+						})
+						return motajes
+					}else{
+						return false
+					}
+				}else{
+					if(this.calc[7].subsItems[0].fields[0].value){
+						let motajes = []
+						this.calc[7].subsItems[0].fields[0].options.forEach(item =>{
+							motajes.push(item.vremya)
+						})
+						return motajes
+					}else{
+						return false
+					}
+				}
+			},
 			smens(){
 				
 
@@ -224,9 +263,12 @@ import {mapGetters} from 'vuex'
 				let categories = []
 
 				page.products.cat.forEach(item =>{
-					item.subsItems.forEach(sub =>{
-						categories.push(sub)
-					})
+						if(item.subsItems){
+							item.subsItems.forEach(sub =>{
+							categories.push(sub)
+						})
+					}
+					
 				})
 
 				let products = []
