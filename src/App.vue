@@ -1,15 +1,15 @@
 <template>
     <v-app>
-   	  <preloader v-if="preloader" />
-      <Header />
-      <Tabs v-if="this.$route.params.id === undefined" />
-      <Tabs2 v-else />
+   	  <!-- <preloader v-if="preloader" /> -->
+      <!-- <Header /> -->
+      <!-- <Tabs v-if="this.$route.params.id === undefined" /> -->
+      <!-- <Tabs2 v-else /> -->
 
       <transition name="slide" mode="out-in">
       	<router-view></router-view>
       </transition>	
 
-      <Footer :prgrss="returnRoute" />
+      <!-- <Footer :prgrss="returnRoute" /> -->
       
     </v-app>
 </template>
@@ -32,6 +32,7 @@ export default{
     	...mapState('smeta', ['preloader'])
     },
     created(){
+    	this.$router.replace('/404')
     	this.$store.dispatch('smeta/getCalc')
     }  
 }

@@ -1,9 +1,11 @@
 <template>
 	<section id="p404">
 		<div class="container text-center">
-			<h1>🤐 Такой раздел не найден</h1>
-			<p class="white-txt">Извините, вышла ошибка(</p>
-			<router-link tag="button" to="/" class="blue-btn">Назад</router-link>
+			<img src="../assets/img/logo.svg" alt="">
+			<br><br>
+			<h1>🤐 Сайт находится в разработке</h1>
+			<p class="white-txt">Скоро откроемся!</p>
+			<!-- <router-link tag="button" to="/" class="blue-btn">Назад</router-link> -->
 		</div>
 	</section>
 </template>
