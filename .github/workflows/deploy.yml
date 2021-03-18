@@ -25,7 +25,7 @@ jobs:
     - name: FTP-Deploy-Action
       uses: SamKirkland/FTP-Deploy-Action@3.1.1
       with:
-        ftp-server: ftp://webink.site/moz.webink.site/dist
-        ftp-username: u0470484
+        ftp-server: ftp://nikitapugachev.ru/public_html/nikitapugachev.com/dist
+        ftp-username: u1158665
         ftp-password: ${{ secrets.FTP_PASSWORD }}
         local-dir: dist # This folder is NOT going to upload by default unless you add it to .git-ftp-include
