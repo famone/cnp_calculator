@@ -121,7 +121,7 @@ import {mapState, mapGetters} from 'vuex'
 		data(){
 			return{
 				presetMode: false,
-				filtered: 'Видео оборудование',
+				filtered: 'Аксессуары',
 				filters: []	
 			}
 		},
@@ -134,3 +134,10 @@ import {mapState, mapGetters} from 'vuex'
 		},
 	}
 </script>
+
+
+<style scoped>
+	.data-row{
+		margin-bottom: 0;
+	}
+</style>
