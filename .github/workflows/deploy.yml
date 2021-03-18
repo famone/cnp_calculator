@@ -24,4 +24,4 @@ jobs:
         server: ftp://nikitapugachev.ru/public_html/nikitapugachev.com/dist
         username: u1158665
         password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: dist
+        local-dir: ./dist/
