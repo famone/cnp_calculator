@@ -22,7 +22,9 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
         server: 31.31.196.65
+        port: 21
+        protocol: ftp
         username: u1158665
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: ./dist/
-        server-dir: /public_html/nikitapugachev.com/dist
+        server-dir: /public_html/nikitapugachev.com/dist/
