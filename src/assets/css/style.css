@@ -218,6 +218,9 @@ header .avatar{
 	color: #2E97E6;
 	font-weight: 400;
 }
+.data-row .white-txt .blue-txt{
+	padding-left: 10px;
+}
 .w-100-btn{
 	width: 100%;
 	font-size: 16px;
@@ -331,7 +334,7 @@ header .avatar{
 	opacity: 0;
 }
 .v-input--selection-controls__ripple:hover{
-	opacity: 0.5;
+	opacity: 0;
 }
 /*checkboxes*/
 .v-input--checkbox{
@@ -397,6 +400,14 @@ textarea{
 .primary--text  label{
 	opacity: 1;
 }
+
+.v-input--checkbox:hover label{
+	color: #fff!important;
+}
+.v-radio:hover label{
+	color: #fff!important;	
+}
+
 
 /*simple range*/
 

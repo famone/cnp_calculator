@@ -72,8 +72,7 @@
 			      			
 			      			<div v-if="item.radio_value === 'range' ">
 			      				<p class="white-txt">Кол-во дней 
-			      					<span class="blue-txt">{{item.radio_itog.add_value}} cмен / от 
-			      					{{(item.radio_itog.add_value * item.radio_itog.stoimost).toLocaleString()}} ₽</span>
+			  					<span class="blue-txt">от {{(item.radio_itog.add_value * item.radio_itog.stoimost).toLocaleString()}} ₽ / {{item.radio_itog.add_value}} cмен</span>
 			      				</p>
 			      				<v-slider step="1" min="1" max="30" v-model="item.radio_itog.add_value"></v-slider>
 			      			</div>
@@ -101,13 +100,12 @@
 
 					<div v-if="item.value">
 			      		<p class="white-txt">Кол-во дней 
-			      			<span class="blue-txt">{{item.options.kol_vo_dnej.add_value}} cмен / от 
-			      			{{(item.options.kol_vo_dnej.stoimost * item.options.kol_vo_dnej.add_value).toLocaleString()}}  ₽</span>
+			      			<span class="blue-txt">от {{(item.options.kol_vo_dnej.stoimost * item.options.kol_vo_dnej.add_value).toLocaleString()}}  ₽ / {{item.options.kol_vo_dnej.add_value}} cмен</span>
 			      		</p>
 			      		<v-slider step="1" min="1" max="30" v-model="item.options.kol_vo_dnej.add_value"></v-slider>
 
 			      		<p class="white-txt">Переработка
-			      			<span class="blue-txt">{{item.options.pererabtka.add_value}} час / от {{(item.options.pererabtka.stoimost * item.options.pererabtka.add_value).toLocaleString()}}  ₽</span>
+			      			<span class="blue-txt">от {{(item.options.pererabtka.stoimost * item.options.pererabtka.add_value).toLocaleString()}}  ₽ / {{item.options.pererabtka.add_value}} час</span>
 			      		</p>
 			      		<v-slider step="1" min="0" max="30" v-model="item.options.pererabtka.add_value"></v-slider>
 			      	</div>

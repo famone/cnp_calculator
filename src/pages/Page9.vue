@@ -183,6 +183,7 @@
 						<tr v-for="(actor, index) in item.options">
 							<td><p class="wh-table">Актер {{index + 1}} - {{actor.pol}}</p></td>
 							<td class="text-center">{{actor.kol_vo_smen}} смен</td>
+							<td></td>
 							<td class="text-right">
 								{{(getLargest(actor.vybrannaya_oblast) * actor.kol_vo_smen).toLocaleString()}} ₽
 							</td>

@@ -24,7 +24,7 @@
 
 						<div v-if="item.type === 'Text' ">
 							<h3>{{item.name}}</h3>
-							<textarea :placeholder="item.name" :value="item.value" @input="showVal($event, item, subsl.id)"></textarea>
+							<textarea :placeholder="item.options.placeholder" :value="item.value" @input="showVal($event, item, subsl.id)"></textarea>
 						</div>
 
 						<!-- радио-->

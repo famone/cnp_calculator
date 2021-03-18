@@ -45,13 +45,14 @@
 			    		</v-radio-group>
 
 			    		<p class="white-txt">
-			      			<span class="blue-txt">{{actor.kol_vo_smen}}  смен / от 
-			      			{{(getLargest(actor.vybrannaya_oblast) * actor.kol_vo_smen).toLocaleString()}}  ₽</span>
+			      			<span class="blue-txt">от 
+			      			{{(getLargest(actor.vybrannaya_oblast) * actor.kol_vo_smen).toLocaleString()}} ₽ / {{actor.kol_vo_smen}}  смен</span>
 			      		</p>
 			      		<v-slider step="1" min="1" max="30" v-model="actor.kol_vo_smen"></v-slider>
 
 			      		<v-checkbox v-for="check in actor.oblast" v-model="actor.vybrannaya_oblast"
-							:label="check.nazvanie + ' от ' + check.stoimst.toLocaleString() + ' ₽' " :value="check"></v-checkbox>
+							:label="check.nazvanie + ' от ' + check.stoimst.toLocaleString() + ' ₽' " :value="check"
+							@click="preventEmpty(actor, check, index)"></v-checkbox>
 
 						<textarea placeholder="Описание внешности" v-model="actor.opisanie"></textarea>
 
@@ -78,12 +79,12 @@
 
 					<div v-if="item.value">
 			      		<p class="white-txt">Кол-во дней 
-			      			<span class="blue-txt">{{item.options.kol_vo_dnej.add_value}} cмен / от {{(item.options.kol_vo_dnej.stoimost * item.options.kol_vo_dnej.add_value).toLocaleString()}}  ₽</span>
+			      			<span class="blue-txt">от {{(item.options.kol_vo_dnej.stoimost * item.options.kol_vo_dnej.add_value).toLocaleString()}} ₽ / {{item.options.kol_vo_dnej.add_value}} cмен </span>
 			      		</p>
 			      		<v-slider step="1" min="1" max="30" v-model="item.options.kol_vo_dnej.add_value"></v-slider>
 
 			      		<p class="white-txt">Переработка
-			      			<span class="blue-txt">{{item.options.pererabtka.add_value}} час / от {{(item.options.pererabtka.stoimost * item.options.pererabtka.add_value).toLocaleString()}}  ₽</span>
+			      			<span class="blue-txt">от {{(item.options.pererabtka.stoimost * item.options.pererabtka.add_value).toLocaleString()}} ₽ / {{item.options.pererabtka.add_value}} час</span>
 			      		</p>
 			      		<v-slider step="1" min="0" max="30" v-model="item.options.pererabtka.add_value"></v-slider>
 			      	</div>
@@ -204,6 +205,20 @@ import {mapState, mapGetters} from 'vuex'
 			closeEditFilmer(){
 				this.edit_filmer = false
 				this.editing_filmer = []
+			},
+			preventEmpty(actor, check, index){
+
+				if(actor.vybrannaya_oblast.length){
+					return
+				}
+
+				setTimeout(()=>{
+					// actor.vybrannaya_oblast = check
+					console.log(this.getCalcPage)
+					this.getCalcPage.subsItems[1].fields[0].options[index].vybrannaya_oblast.push(check)
+
+
+				}, 50)
 			}
 		},
 		created(){
