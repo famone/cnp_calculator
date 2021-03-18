@@ -29,7 +29,9 @@
 							<span v-else>%</span>
 						</span>
 					</p>
-					<v-slider step="5" :min="item.options.rminimalnoe" :max="item.options.rmaksimalnoe" v-model="item.value" @input="allChrono(item)"></v-slider>
+					<v-slider v-if="item.id == 424" step="5" :min="item.options.rminimalnoe" :max="item.options.rmaksimalnoe" v-model="item.value" @input="allChrono(item)"></v-slider>
+
+					<v-slider v-else step="1" :min="item.options.rminimalnoe" :max="item.options.rmaksimalnoe" v-model="item.value"></v-slider>
 				</div>
 
 				<!-- радио-->
@@ -108,12 +110,6 @@ import {mapState, mapGetters} from 'vuex'
 			// 	}
 			// },
 			allChrono(item){
-
-				if(item.id !== 424){
-					return
-				}
-
-
 				//  вешаем хронометраж на цветокор
 				if(this.presetMode){
 					this.activePreset[7].subsItems[0].fields[2].options.add_value = item.value
@@ -122,9 +118,6 @@ import {mapState, mapGetters} from 'vuex'
 					this.calc[7].subsItems[0].fields[2].options.add_value = item.value
 					this.calc[7].subsItems[0].fields[0].options[0].vremya = item.value
 				}
-
-
-
 			},
 			showValRadio(val, obj){
 
