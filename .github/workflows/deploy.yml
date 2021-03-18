@@ -21,7 +21,14 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
+<<<<<<< HEAD
         server: ftp://nikitapugachev.ru/public_html/nikitapugachev.com/dist
         username: u1158665
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: dist
+=======
+        ftp-server: ftp://31.31.196.65/public_html/nikitapugachev.com/dist
+        ftp-username: u1158665
+        ftp-password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: dist # This folder is NOT going to upload by default unless you add it to .git-ftp-include
+>>>>>>> f64ef0d0cfb339ce8735d0cb5f1450276c60be7f
