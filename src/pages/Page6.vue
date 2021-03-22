@@ -86,7 +86,7 @@
 			      		<p class="white-txt">Переработка
 			      			<span class="blue-txt">от {{(item.options.pererabtka.stoimost * item.options.pererabtka.add_value).toLocaleString()}} ₽ / {{item.options.pererabtka.add_value}} час</span>
 			      		</p>
-			      		<v-slider step="1" min="0" max="30" v-model="item.options.pererabtka.add_value"></v-slider>
+			      		<v-slider step="1" min="0" max="12" v-model="item.options.pererabtka.add_value"></v-slider>
 			      	</div>
 
 

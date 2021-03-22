@@ -53,9 +53,9 @@
 	</section>
 
 
-		<div class="container">
-			<div class="col-lg-6">
-				<nextstep />
+		<div class="container-fluid">
+			<div class="col-lg-6" style="padding-left: 0;">
+				<nextstep style="margin-bottom: 100px;margin-top: 30px;" />
 			</div>
 		</div>
 

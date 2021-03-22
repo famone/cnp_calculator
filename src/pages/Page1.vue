@@ -29,7 +29,7 @@
 							<span v-else>%</span>
 						</span>
 					</p>
-					<v-slider v-if="item.id == 424" step="5" :min="item.options.rminimalnoe" :max="item.options.rmaksimalnoe" v-model="item.value" @input="allChrono(item)"></v-slider>
+					<v-slider v-if="item.id == 424" step="5" min="5" max="240" v-model="item.value" @change="allChrono"></v-slider>
 
 					<v-slider v-else step="1" :min="item.options.rminimalnoe" :max="item.options.rmaksimalnoe" v-model="item.value"></v-slider>
 				</div>
@@ -109,16 +109,6 @@ import {mapState, mapGetters} from 'vuex'
 
 			// 	}
 			// },
-			allChrono(item){
-				//  вешаем хронометраж на цветокор
-				if(this.presetMode){
-					this.activePreset[7].subsItems[0].fields[2].options.add_value = item.value
-					this.activePreset[7].subsItems[0].fields[0].options[0].vremya = item.value
-				}else{
-					this.calc[7].subsItems[0].fields[2].options.add_value = item.value
-					this.calc[7].subsItems[0].fields[0].options[0].vremya = item.value
-				}
-			},
 			showValRadio(val, obj){
 
 				let page = this.calc.find(item => {
@@ -142,6 +132,17 @@ import {mapState, mapGetters} from 'vuex'
 				})
 
 				pageObj.value = e.target.value
+			},
+			allChrono(){
+				let chronoAmount = this.calc[0].fields[1].value
+				
+				if(this.presetMode){
+					this.activePreset[7].subsItems[0].fields[2].options.kol_vo = chronoAmount
+					this.activePreset[7].subsItems[0].fields[0].options[0].vremya = chronoAmount
+				}else{
+					this.calc[7].subsItems[0].fields[2].options.kol_vo = chronoAmount
+					this.calc[7].subsItems[0].fields[0].options[0].vremya = chronoAmount
+				}
 			},
 		},
 		computed: {

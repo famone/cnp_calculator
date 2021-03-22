@@ -15,6 +15,8 @@
 		<div v-for="subsl in getCalcPage.subsItems">
 			<Inner :innerTxt="subsl.name"/>
 
+			<!-- <pre>{{getCalcPage}}</pre> -->
+
 
 			<div class="container">
 				<div class="col-lg-6">
@@ -107,7 +109,7 @@
 			      		<p class="white-txt">Переработка
 			      			<span class="blue-txt">от {{(item.options.pererabtka.stoimost * item.options.pererabtka.add_value).toLocaleString()}}  ₽ / {{item.options.pererabtka.add_value}} час</span>
 			      		</p>
-			      		<v-slider step="1" min="0" max="30" v-model="item.options.pererabtka.add_value"></v-slider>
+			      		<v-slider step="1" min="0" max="12" v-model="item.options.pererabtka.add_value"></v-slider>
 			      	</div>
 
 
@@ -124,7 +126,7 @@
 
 		<div class="container">
 			<div class="col-lg-6">
-				<!-- <nextstep /> -->
+				<nextstep />
 			</div>
 		</div>
 
@@ -257,13 +259,14 @@ import {mapState, mapGetters} from 'vuex'
 				}
 
 
-
+				// для оборудования
 				if(this.presetMode){
+					
 					let page = this.activePreset.find(item => {
 									return item.id == 23
 								})
 					let smenAmount = this.activePreset[2].subsItems[0].fields[0].value
-				page.products.cat.forEach(category =>{
+						page.products.cat.forEach(category =>{
 						if(category.subsItems){
 							category.subsItems.forEach(sub =>{
 								sub.items.forEach(item =>{
@@ -272,6 +275,7 @@ import {mapState, mapGetters} from 'vuex'
 							})
 						}				
 					})
+
 				}else{
 					let page = this.calc.find(item => {
 									return item.id == 23
@@ -287,6 +291,48 @@ import {mapState, mapGetters} from 'vuex'
 						}	
 					})
 				}
+
+				// для спецов всех
+
+				if(this.presetMode){
+					let smenAmount = this.activePreset[2].subsItems[0].fields[0].value
+					this.activePreset.forEach(page => {
+						if(page.calculated == true){
+							page.subsItems.forEach(sub => {
+								sub.fields.forEach(field =>{
+									if(field.type === 'SimpleRange'){
+										field.options.kol_vo_dnej.add_value = smenAmount
+									}
+
+									if(field.type === 'SingleSlider'){
+										field.options.kol_vo = smenAmount
+									}
+								})
+							})
+						}
+					})
+				}else{
+					let smenAmount = this.calc[2].subsItems[0].fields[0].value
+					this.calc.forEach(page => {
+						if(page.calculated == true){
+							page.subsItems.forEach(sub => {
+								sub.fields.forEach(field =>{
+									if(field.type === 'SimpleRange'){
+										field.options.kol_vo_dnej.add_value = smenAmount
+									}
+
+									if(field.type === 'SingleSlider' && field.id !== 595){
+										field.options.kol_vo = smenAmount
+									}
+
+								})
+							})
+						}
+					})
+				}
+
+			
+
 
 
 

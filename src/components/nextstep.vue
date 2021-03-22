@@ -32,3 +32,9 @@ import {mapGetters} from 'vuex'
 		}
 	}
 </script>
+
+<style scoped>
+.data-row{
+	margin-bottom: 100px;
+}
+</style>

@@ -20,6 +20,7 @@
     "vue-nouislider": "^1.0.1",
     "vue-router": "^3.3.4",
     "vue-the-mask": "^0.11.1",
+    "vue-tippy": "^4.8.0",
     "vue-yandex-maps": "^0.10.8",
     "vuelidate": "^0.7.5",
     "vuetify": "^2.3.14",

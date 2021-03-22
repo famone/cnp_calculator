@@ -156,7 +156,7 @@ import Confirm from '../components/Confirm.vue'
 						if(item.type === 'SimpleRange'){
 							priceArr.push(item.options.kol_vo_dnej.stoimost * item.options.kol_vo_dnej.add_value + item.options.pererabtka.stoimost * item.options.pererabtka.add_value)
 						}else if(item.type === 'SingleSlider'){
-							priceArr.push(item.options.stoimost * item.options.add_value)
+							priceArr.push(item.options.stoimost * item.options.kol_vo)
 						}else if(item.type === 'Acter'){
 
 							// let prices = [] 

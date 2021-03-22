@@ -158,9 +158,9 @@
 					<table>
 						<tr v-for="item in getLocation" v-if="item.value && item.type === 'SingleSlider'">
         					<td><p class="wh-table">{{item.name}}</p></td>
-        					<td class="text-center">{{item.options.add_value}} шт</td>
+        					<td class="text-center">{{item.options.kol_vo}} шт</td>
         					<td class="text-right">
-        						{{(item.options.stoimost * item.options.add_value).toLocaleString()}} ₽
+        						{{(item.options.stoimost * item.options.kol_vo).toLocaleString()}} ₽
         					</td>
     					</tr>
 					</table>
@@ -229,8 +229,8 @@
 					<table>
 						<tr v-if="item.value && item.type === 'SingleSlider'" v-for="item in getPost">
     						<td><p class="wh-table">{{item.name}}</p></td>
-    						 <td class="text-center">{{item.options.add_value}} шт</td>
-    						<td class="text-right">{{(item.options.add_value * item.options.stoimost).toLocaleString()}} ₽</td> 
+    						 <td class="text-center">{{item.options.kol_vo}} шт</td>
+    						<td class="text-right">{{(item.options.kol_vo * item.options.stoimost).toLocaleString()}} ₽</td> 
     							
     					</tr>
 					</table>
@@ -253,9 +253,9 @@
 					<table>
 						<tr v-for="item in getOstalnoe" v-if="item.value && item.type === 'SingleSlider'">
         					<td><p class="wh-table">{{item.name}}</p></td>
-        					<td class="text-center">{{item.options.add_value}} шт</td>
+        					<td class="text-center">{{item.options.kol_vo}} шт</td>
         					<td class="text-right">
-        						{{(item.options.stoimost * item.options.add_value).toLocaleString()}} ₽
+        						{{(item.options.stoimost * item.options.kol_vo).toLocaleString()}} ₽
         					</td>
     					</tr>
 					</table>
@@ -267,7 +267,7 @@
 
 		<div class="section" >
 			<div class="container">
-				<div class="data-row">
+				<div class="data-row" style="margin-bottom: 100px;">
 					<button class="blue-btn" v-if="!presetMode" @click="presPop = !presPop">Добавить в пресет</button>
 					<button class="blue-btn" v-if="presetMode && editorMode" @click="updatePreset()">
 					Обновить пресет</button>
@@ -517,7 +517,7 @@ import presetPop from '../components/presetPop.vue'
 							})
 						}
 						else{
-							prices.push(item.options.stoimost * item.options.add_value)
+							prices.push(item.options.stoimost * item.options.kol_vo)
 						}
 					}
 				})
@@ -565,7 +565,7 @@ import presetPop from '../components/presetPop.vue'
 				let prices = []
 				this.getOstalnoe.forEach(item =>{
 					if(item.value){
-						prices.push(item.options.stoimost * item.options.add_value)
+						prices.push(item.options.stoimost * item.options.kol_vo)
 					}
 				})
 				let final = 0
@@ -608,7 +608,7 @@ import presetPop from '../components/presetPop.vue'
 				let prices = []
 				this.getLocation.forEach(item =>{
 					if(item.value){
-						prices.push(item.options.stoimost * item.options.add_value)
+						prices.push(item.options.stoimost * item.options.kol_vo)
 					}
 				})
 				let final = 0
@@ -753,7 +753,7 @@ import presetPop from '../components/presetPop.vue'
 						if(item.type === 'SimpleRange'){
 							priceArr.push(item.options.kol_vo_dnej.stoimost * item.options.kol_vo_dnej.add_value + item.options.pererabtka.stoimost * item.options.pererabtka.add_value)
 						}else if(item.type === 'SingleSlider'){
-							priceArr.push(item.options.stoimost * item.options.add_value)
+							priceArr.push(item.options.stoimost * item.options.kol_vo)
 						}else if(item.type === 'Acter'){
 
 							// let prices = [] 
