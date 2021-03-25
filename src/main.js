@@ -24,8 +24,8 @@ store.dispatch("auth/VALIDATE", user);
 
 Vue.use(VueLazyload, {
   preLoad: 1.3,
-  error: 'dist/lazylogo.svg',
-  loading: 'dist/lazylogo.svg',
+  error: 'https://nikitapugachev.ru/wp-content/uploads/2021/03/lzld.jpg',
+  loading: 'https://nikitapugachev.ru/wp-content/uploads/2021/03/lzld.jpg',
   attempt: 1,
   listenEvents: [ 'scroll' ]
 })

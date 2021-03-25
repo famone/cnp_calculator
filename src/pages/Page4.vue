@@ -27,7 +27,7 @@
 			<div class="row data-row">
 				<div class="col-lg-2 col-sm-4 col-md-3" v-for="(cam, index) in category.items" :key="index">
 					<div class="rent-box">
-						<img v-lazy="cam.image"  alt="">
+						<img v-lazy="cam.image">
 						<p class="black-txt">{{cam.name}}</p>
 						<p class="price-cam" v-if="cam.count < 1">{{cam.price.toLocaleString()}} ₽ / смена</p>
 						<p class="price-cam" v-else>{{(cam.price * cam.count * cam.smen).toLocaleString()}} ₽ / {{cam.smen}} смен</p>
