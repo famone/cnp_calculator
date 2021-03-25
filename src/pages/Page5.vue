@@ -13,7 +13,7 @@
 
 
 			<div class="container">
-				<div class="col-lg-6">
+				<div class="col-lg-8">
 					<div class="data-row" v-for="item in subsl.fields">
 
 
@@ -24,9 +24,15 @@
 				<div v-if="item.type === 'SingleSlider' ">
 					<div class="editable">
 						<v-switch inset :label="item.name" v-model="item.value"></v-switch>
-						<button class="edit-mode-btn" @click="openFilmer(item, subsl.id)" v-if="editorMode">
-							<span class="mdi mdi-lead-pencil"> <span class="hidden-xs">Настроть</span></span>
-						</button>
+						<div>
+							<button class="edit-mode-btn" @click="openFilmer(item, subsl.id)" v-if="editorMode">
+								<span class="mdi mdi-lead-pencil"> <span class="hidden-xs">Настроть</span></span>
+							</button>
+							<button class="edit-mode-btn" @click="controlVisibility(item, subsl.id)"
+						v-if="editorMode">
+								<span class="mdi mdi-eye-off"> <span class="hidden-xs"> Скрыть</span></span>
+							</button>
+						</div>
 					</div>
 
 					<p class="white-txt" v-if="!item.value">

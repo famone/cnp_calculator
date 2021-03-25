@@ -61,11 +61,11 @@
 
 				<div class="col-lg-5">
 					<div class="data-row">
-						<h3>Отдельные калькуляторы со своими ценами</h3>
+						<h3>Мой калькулятор</h3>
 						<div class="presets" v-if="presets">
 							<router-link tag="div" to="/page-1" class="preset-btn add-preset">
 								<div class="plus"></div>
-								Добавить <br> пресет
+								Создать калькулятор
 							</router-link>
 							<div class="preset-btn" v-for="item in presets.data">
 								<div class="preset-actions">
@@ -75,9 +75,14 @@
 									<div class="take-preset" v-clipboard:copy="linkConstructor(item)">
 										<span class="mdi mdi-link-variant"></span>
 									</div>
+									<div class="take-preset" @click="delitePreset(item.slug)">
+										<img src="../assets/img/trash.svg" alt="">
+									</div>
 								</div>
 								{{item.nazvanie}}								
-								<div class="delite-preset" @click="delitePreset(item.slug)">✕</div>
+								<!-- <div class="delite-preset" @click="delitePreset(item.slug)">
+									<img src="../assets/img/trash.svg" alt="">
+								</div> -->
 							</div>
 						</div>
 						<loading v-else /> 

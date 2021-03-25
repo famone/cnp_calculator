@@ -22,16 +22,16 @@ router.beforeEach((to, from, next) => {
 
 	next()
 
-    if (store.getters["auth/getAuthenticated"]) {
-         next()
-    }else{
-        if (to.path != "/enter") {
-             next("/enter")
-         }
-         else {
-             next()
-         }
-    }
+    // if (store.getters["auth/getAuthenticated"]) {
+    //      next()
+    // }else{
+    //     if (to.path != "/enter") {
+    //          next("/enter")
+    //      }
+    //      else {
+    //          next()
+    //      }
+    // }
 })
 
 

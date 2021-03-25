@@ -561,6 +561,7 @@ textarea{
 	border-radius: 30px;
 	font-size: 13px;
 	white-space: nowrap;
+	margin-left: 10px;
 }
 .editable{
 	display:flex;
@@ -721,7 +722,7 @@ h2{
 	flex-wrap: wrap;
 }
 .preset-btn{
-	width: 30%;
+	width: 100%;
 	padding:30px 6px;
 	border:2px #3a3a3a solid;
 	border-radius: 20px;
