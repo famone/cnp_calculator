@@ -17,6 +17,7 @@
     "vue-awesome-swiper": "^4.1.1",
     "vue-clipboard2": "^0.3.1",
     "vue-cookies": "^1.7.0",
+    "vue-lazyload": "^1.3.3",
     "vue-nouislider": "^1.0.1",
     "vue-router": "^3.3.4",
     "vue-the-mask": "^0.11.1",

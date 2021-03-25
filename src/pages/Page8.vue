@@ -29,10 +29,11 @@
 							<button class="edit-mode-btn" @click="openFilmer(item, subsl.id)" v-if="editorMode">
 								<span class="mdi mdi-lead-pencil"> <span class="hidden-xs">Настроть</span></span>
 							</button>
-							<button class="edit-mode-btn" @click="controlVisibility(item, subsl.id)"
+							<button class="edit-mode-btn" @click="controlVisibility(item)"
 						v-if="editorMode">
-								<span class="mdi mdi-eye-off"> <span class="hidden-xs"> Скрыть</span></span>
-							</button>
+							<span class="mdi mdi-eye-off" v-if="item.visible"> <span class="hidden-xs"> Скрыть</span></span>
+							<span class="mdi mdi-eye" v-else> <span class="hidden-xs"> Показать</span></span>
+						</button>
 						</div>
 					</div>
 
@@ -110,6 +111,9 @@ import {mapState, mapGetters} from 'vuex'
 			}
 		},
 		methods: {
+			controlVisibility(item){
+				item.visible = !item.visible 
+			},
 			openFilmer(param){
 				this.edit_single = true
 				this.editing_single = param

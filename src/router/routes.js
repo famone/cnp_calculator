@@ -86,38 +86,110 @@ const routes = [
 		{
 			path: '/page-1/:name/:id',
 			component: Page1,
+			beforeEnter: (to, from, next) => {
+				console.log(store.getters["preset/getActivePreset"])
+				if(store.getters["preset/getActivePreset"].length){
+					next()
+				}else{
+					next("/profile")
+				}
+			}
 		},
 		{
 			path: '/page-2/:name/:id',
 			component: Page2,
+			beforeEnter: (to, from, next) => {
+				console.log(store.getters["preset/getActivePreset"])
+				if(store.getters["preset/getActivePreset"].length){
+					next()
+				}else{
+					next("/profile")
+				}
+			}
 		},
 		{
 			path: '/page-3/:name/:id',
 			component: Page3,
+			beforeEnter: (to, from, next) => {
+				console.log(store.getters["preset/getActivePreset"])
+				if(store.getters["preset/getActivePreset"].length){
+					next()
+				}else{
+					next("/profile")
+				}
+			}
 		},
 		{
 			path: '/page-4/:name/:id',
 			component: Page4,
+			beforeEnter: (to, from, next) => {
+				console.log(store.getters["preset/getActivePreset"])
+				if(store.getters["preset/getActivePreset"].length){
+					next()
+				}else{
+					next("/profile")
+				}
+			}
 		},
 		{
 			path: '/page-5/:name/:id',
 			component: Page5,
+			beforeEnter: (to, from, next) => {
+				console.log(store.getters["preset/getActivePreset"])
+				if(store.getters["preset/getActivePreset"].length){
+					next()
+				}else{
+					next("/profile")
+				}
+			}
 		},
 		{
 			path: '/page-6/:name/:id',
 			component: Page6,
+			beforeEnter: (to, from, next) => {
+				console.log(store.getters["preset/getActivePreset"])
+				if(store.getters["preset/getActivePreset"].length){
+					next()
+				}else{
+					next("/profile")
+				}
+			}
 		},
 		{
 			path: '/page-7/:name/:id',
 			component: Page7,
+			beforeEnter: (to, from, next) => {
+				console.log(store.getters["preset/getActivePreset"])
+				if(store.getters["preset/getActivePreset"].length){
+					next()
+				}else{
+					next("/profile")
+				}
+			}
 		},
 		{
 			path: '/page-9/:name/:id',
 			component: Page9,
+			beforeEnter: (to, from, next) => {
+				console.log(store.getters["preset/getActivePreset"])
+				if(store.getters["preset/getActivePreset"].length){
+					next()
+				}else{
+					next("/profile")
+				}
+			}
 		},
 		{
 			path: '/page-8/:name/:id',
 			component: Page8,
+			beforeEnter: (to, from, next) => {
+				console.log(store.getters["preset/getActivePreset"])
+				if(store.getters["preset/getActivePreset"].length){
+					next()
+				}else{
+					next("/profile")
+				}
+			}
 		},
 		{
 			path: '/calc/:login/:preset',

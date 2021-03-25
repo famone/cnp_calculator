@@ -72,7 +72,8 @@
 									<div class="take-preset" @click="setActivePreset(item.json, item.slug)">
 										<span class="mdi mdi-lead-pencil"></span>
 									</div>
-									<div class="take-preset" v-clipboard:copy="linkConstructor(item)">
+									<div class="take-preset" v-clipboard:copy="linkConstructor(item)" 
+									@click="snackbar = true">
 										<span class="mdi mdi-link-variant"></span>
 									</div>
 									<div class="take-preset" @click="delitePreset(item.slug)">
@@ -90,6 +91,15 @@
 				</div>
 				
 			</div>
+
+			<v-snackbar v-model="snackbar"> Ссылка скопирована в буфер обена
+		      <template v-slot:action="{ attrs }">
+		        <v-btn color="#2E97E6" text v-bind="attrs" @click="snackbar = false">
+		          Закрыть 
+		        </v-btn>
+		      </template>
+		    </v-snackbar>
+
 		</section>	
 
 
@@ -109,7 +119,8 @@ import axios from 'axios'
 		components: {loading},
 		data(){
 			return{
-				file: null
+				file: null,
+				snackbar: false
 			}
 		},
 		created(){

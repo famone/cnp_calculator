@@ -9,7 +9,8 @@ import Vuelidate from 'vuelidate'
 import 'vuetify/dist/vuetify.min.css'
 import Vuetify from 'vuetify'
 import VueClipboard from 'vue-clipboard2'
-
+import VueLazyload from 'vue-lazyload'
+ 
 Vue.use(Vuetify)
 import ru from 'vuetify/es5/locale/ru'
 
@@ -20,6 +21,14 @@ import 'swiper/css/swiper.css'
 const user = JSON.parse(localStorage.getItem("user"))
 store.dispatch("auth/VALIDATE", user);
 
+
+Vue.use(VueLazyload, {
+  preLoad: 1.3,
+  error: 'dist/lazylogo.svg',
+  loading: 'dist/lazylogo.svg',
+  attempt: 1,
+  listenEvents: [ 'scroll' ]
+})
 
 
 Vue.use(VueRouter) 

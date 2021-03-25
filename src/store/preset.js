@@ -45,17 +45,26 @@ const preset = {
         setPresetSlugs({commit}, payload){
             commit("SET_PRES_SLUGS", payload)
         },
-        updatePreset({commit}, pres){
+        // updatePreset({commit}, pres){
 
-            let jsonObj = {
-                json: pres.json
+        //     let jsonObj = {
+        //         json: pres.json
+        //     }
+
+        //     axios
+        //     .post(`https://nikitapugachev.ru/wp-json/np/v1/edit/calc/presets?user_id=${pres.user_id}&playlist_slug=${pres.name}`, jsonObj)
+        //     .then(res =>{
+        //         console.log(res.data)
+        //     })
+        // },
+        async updatePreset({ commit }, pres) {
+            try {
+                const { data } = await axios.post(`https://nikitapugachev.ru/wp-json/np/v1/edit/calc/presets?user_id=${pres.user_id}&playlist_slug=${pres.name}`, {json: pres.json})
+                return console.log(data)
             }
-
-            axios
-            .post(`https://nikitapugachev.ru/wp-json/np/v1/edit/calc/presets?user_id=${pres.user_id}&playlist_slug=${pres.name}`, jsonObj)
-            .then(res =>{
-                console.log(res.data)
-            })
+            catch (err) {
+                console.log('error')
+            }
         },
         clearActivePreset({commit}){
             commit("SET_ACTIVE_PRESET", null)

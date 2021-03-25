@@ -270,13 +270,22 @@
 				<div class="data-row" style="margin-bottom: 100px;">
 					<button class="blue-btn" v-if="!presetMode" @click="presPop = !presPop">Добавить в пресет</button>
 					<button class="blue-btn" v-if="presetMode && editorMode" @click="updatePreset()">
-					Обновить пресет</button>
+					Обновить калькулятор</button>
 				</div>
 			</div>
 		</div>
 
 
 		<presetPop v-if="presPop" @closePop="closePop" />
+
+
+		<v-snackbar v-model="snackbar"> Калькулятор успешно обновлен
+		      <template v-slot:action="{ attrs }">
+		        <v-btn color="#2E97E6" text v-bind="attrs" @click="snackbar = false">
+		          Закрыть 
+		        </v-btn>
+		      </template>
+		    </v-snackbar>
 
 
 
@@ -294,7 +303,8 @@ import presetPop from '../components/presetPop.vue'
 			return{
 				editorMode: false,
 				presetMode: false,
-				presPop: false
+				presPop: false,
+				snackbar: false
 			}
 		},
 		methods: {
@@ -323,7 +333,9 @@ import presetPop from '../components/presetPop.vue'
 					json: this.activePreset,
 					name: this.presetSlugs.preset
 				}
-				this.$store.dispatch('preset/updatePreset', pres)
+				this.$store.dispatch('preset/updatePreset', pres).then(()=>{
+					this.snackbar = true
+				})
 			},
 			getLargest(oblast){
 				let prices = []
