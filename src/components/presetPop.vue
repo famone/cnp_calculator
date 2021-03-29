@@ -40,6 +40,13 @@ import loading from '../components/loading.vue'
 		},
 		methods: {
 			addToPreset(){
+
+				if(!this.user){
+					this.$router.replace("/enter");
+					return
+				}
+
+
 				this.load = true
 
 				let pres = {
