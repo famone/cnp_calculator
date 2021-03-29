@@ -68,7 +68,7 @@
 					
 
 					<table>
-						<tr v-for="item in getSpecial" v-if="item.value && item.radio_value !== '' && item.type !== 'SimpleRange' ">
+						<tr v-for="item in getSpecial" v-if="item.value && item.radio_value !== '' && item.type !== 'SimpleRange' && item.type !== 'SingleSlider' ">
         					<td><p class="wh-table">{{item.name}}</p></td>
 
         					<td class="text-center" v-if="item.type === 'Number' "></td>
@@ -95,7 +95,7 @@
 
     					</tr>
 
-    					<tr v-if="item.value && item.type === 'SimpleRange'" v-for="item in getSpecial">
+    					<tr v-if="item.value && item.type === 'SimpleRange' " v-for="item in getSpecial">
     						<td><p class="wh-table">{{item.name}}</p></td>
     						<td class="text-center">{{item.options.kol_vo_dnej.add_value}} смен</td>
     						<td class="text-center">
@@ -104,7 +104,16 @@
     						<td class="text-right">
     							{{(item.options.kol_vo_dnej.stoimost * item.options.kol_vo_dnej.add_value + item.options.pererabtka.stoimost * item.options.pererabtka.add_value).toLocaleString()}}
     						 ₽</td>
-    							
+    					</tr>
+
+    					<tr v-if="item.type === 'SingleSlider' " v-for="item in getSpecial">
+    						<td><p class="wh-table">{{item.name}}</p></td>
+    						<td class="text-center">{{item.options.kol_vo}} кадров</td>
+    						<td class="text-center">
+    						</td>
+    						<td class="text-right">
+    							{{(item.options.kol_vo * item.options.stoimost).toLocaleString()}}
+    						 ₽</td>
     					</tr>
     					
 					</table>
@@ -417,7 +426,7 @@ import presetPop from '../components/presetPop.vue'
 				this.getSpecial.forEach(item =>{
 					if(item.id !== 420 && item.id !== 422 ){
 
-						if(item.value && item.radio_value !== '' && item.type !== 'SimpleRange'){
+						if(item.value && item.radio_value !== '' && item.type !== 'SimpleRange' && item.type !== 'SingleSlider'){
 							if(item.radio_itog.tip === 'fix' ){
 								withPrice.push(item.radio_itog.stoimost)
 							}else{
@@ -426,6 +435,10 @@ import presetPop from '../components/presetPop.vue'
 						}
 						if(item.value && item.type === 'SimpleRange'){
 							withPrice.push(item.options.kol_vo_dnej.stoimost * item.options.kol_vo_dnej.add_value + item.options.pererabtka.stoimost * item.options.pererabtka.add_value)
+						}
+
+						if(item.value && item.type === 'SingleSlider'){
+							withPrice.push(item.options.kol_vo * item.options.stoimost)
 						}
 					}
 				})

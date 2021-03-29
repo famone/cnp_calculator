@@ -14,8 +14,7 @@ const preset = {
 	mutations: {
         SET_PRESETS(state, payload){
             state.presets = payload
-            // console.log(payload.data[0])
-            if(payload){
+            if(payload.data){
                 state.activePreset = payload.data[0].json
                 state.activePresetName = payload.data[0].nazvanie
             }
@@ -45,12 +44,15 @@ const preset = {
             .get('https://nikitapugachev.ru/wp-json/np/v1/get/calc/presets?user_id=' + user.id)
             .then(res =>{
                 
-                let clientPres = {
+                commit("SET_PRESETS", res.data)
+                
+                if(res.data.data){
+                    let clientPres = {
                     login: user.user_nicename,
                     preset: res.data.data[0].slug
+                    }
+                    commit("SET_PRES_SLUGS", clientPres)
                 }
-                commit("SET_PRES_SLUGS", clientPres)
-                commit("SET_PRESETS", res.data)
             })
         },
         loadActivePreset({commit}, preset){

@@ -47,7 +47,8 @@
 
 					<div v-if="item.value">
 			      		<p class="white-txt">
-			      			<span class="blue-txt">от {{(item.options.stoimost * item.options.kol_vo).toLocaleString()}} ₽ / {{item.options.kol_vo}} шт</span>
+			      			<span class="blue-txt">от {{(item.options.stoimost * item.options.kol_vo).toLocaleString()}} ₽ / {{item.options.kol_vo}} {{item.options.edenicza}}
+			      			</span>
 			      		</p>
 			      		<v-slider v-if="item.id == 595" step="5" min="5" max="240" v-model="item.options.kol_vo"></v-slider>
 			      		<v-slider v-else step="1" min="1" max="30" v-model="item.options.kol_vo"></v-slider>

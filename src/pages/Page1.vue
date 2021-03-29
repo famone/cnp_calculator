@@ -125,13 +125,17 @@ import {mapState, mapGetters} from 'vuex'
 			},
 			allChrono(){
 				let chronoAmount = this.calc[0].fields[1].value
+
+
 				
 				if(this.presetMode){
 					this.activePreset[7].subsItems[0].fields[2].options.kol_vo = chronoAmount
 					this.activePreset[7].subsItems[0].fields[0].options[0].vremya = chronoAmount
+					this.activePreset[2].subsItems[6].fields[0].options.kol_vo = Math.round(chronoAmount/3)
 				}else{
 					this.calc[7].subsItems[0].fields[2].options.kol_vo = chronoAmount
 					this.calc[7].subsItems[0].fields[0].options[0].vremya = chronoAmount
+					this.calc[2].subsItems[6].fields[0].options.kol_vo = Math.round(chronoAmount/3)
 				}
 			},
 		},

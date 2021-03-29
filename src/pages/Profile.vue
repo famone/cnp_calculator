@@ -63,7 +63,7 @@
 					<div class="data-row">
 						<h3>Мой калькулятор</h3>
 						<div class="presets" v-if="presets">
-							<router-link tag="div" to="/page-1" class="preset-btn add-preset" v-if="!presets.data.length">
+							<router-link tag="div" to="/page-1" class="preset-btn add-preset" v-if="!presets.data">
 								<div class="plus"></div>
 								Создать калькулятор
 							</router-link>
@@ -76,14 +76,11 @@
 									@click="snackbar = true">
 										<span class="mdi mdi-link-variant"></span>
 									</div>
-									<div class="take-preset" @click="openConfirmPop(item.slug)"> <!-- delitePreset(item.slug) -->
+									<div class="take-preset" @click="openConfirmPop(item.slug)"> 
 										<img src="../assets/img/trash.svg" alt="">
 									</div>
 								</div>
-								{{item.nazvanie}}							
-								<!-- <div class="delite-preset" @click="delitePreset(item.slug)">
-									<img src="../assets/img/trash.svg" alt="">
-								</div> -->
+								{{item.nazvanie}}	
 							</div>
 						</div>
 						<loading v-else /> 

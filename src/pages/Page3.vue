@@ -10,6 +10,10 @@
 					@closeEditFilmer="closeEditFilmer"
 					:editing="editing_filmer"/>
 
+		<editSingle v-if="edit_single"  
+					@closeEditSingle="closeEditSingle"
+					:editing="editing_single"/>
+
 
 
 		<div v-for="subsl in getCalcPage.subsItems">
@@ -130,6 +134,42 @@
 
 
 
+				<!-- раскадровка -->
+
+				<div v-if="item.type === 'SingleSlider' && checEye(item.visible)">
+					<div class="editable">
+						<v-switch inset :label="item.name" v-model="item.value" :disabled="!item.visible"></v-switch>
+						
+						<div>
+							<button class="edit-mode-btn" @click="openSingle(item, subsl.id)" v-if="editorMode">
+								<span class="mdi mdi-lead-pencil"> <span class="hidden-xs">Настроть</span></span>
+							</button>
+							<button class="edit-mode-btn" @click="controlVisibility(item)"
+						v-if="editorMode" :class="{showme : !item.visible}">
+							<span class="mdi mdi-eye-off" v-if="item.visible"> <span class="hidden-xs"> Скрыть</span></span>
+							<span class="mdi mdi-eye" v-else> <span class="hidden-xs"> Показать</span></span>
+						</button>
+						</div>
+					</div>
+
+					<p class="white-txt" v-if="!item.value">
+						<span class="blue-txt op-5">от {{(item.options.stoimost).toLocaleString()}} ₽</span>
+					</p> 
+
+
+					<div v-if="item.value">
+			      		<p class="white-txt">
+			      			<span class="blue-txt">от {{(item.options.stoimost * item.options.kol_vo).toLocaleString()}} ₽ / {{item.options.kol_vo}} кадров</span>
+			      		</p>
+			      		<v-slider step="1" min="0" max="80" v-model="item.options.kol_vo"></v-slider>
+			      	</div>
+
+
+
+				</div>
+
+
+
 
 					</div>
 				</div>
@@ -151,10 +191,11 @@ import Inner from '../components/Inner.vue'
 import nextstep from '../components/nextstep.vue'
 import editDirector from '../components/edit/editDirector.vue'
 import editFilmer from '../components/edit/editFilmer.vue'
+import editSingle from '../components/edit/editSingle.vue'
 import {mapState, mapGetters} from 'vuex'
 
 	export default{
-		components: {Inner, nextstep, editDirector, editFilmer},
+		components: {Inner, nextstep, editDirector, editFilmer, editSingle},
 		data(){
 			return{
 				editorMode: false,
@@ -164,7 +205,9 @@ import {mapState, mapGetters} from 'vuex'
 				editing_category: null,
 				edit_filmer: false,
 				editing_filmer: [],
-				edit_filmer_cat: null
+				edit_filmer_cat: null,
+				edit_single: false,
+				editing_single: []
 			}
 		},
 		computed: {
@@ -232,6 +275,14 @@ import {mapState, mapGetters} from 'vuex'
 			closeEditFilmer(){
 				this.edit_filmer = false
 				this.editing_filmer = []
+			},
+			openSingle(param){
+				this.edit_single = true
+				this.editing_single = param
+			},
+			closeEditSingle(){
+				this.edit_single = false
+				this.editing_single = []
 			},
 			getPriceFrom(variks){
 				let compare1 = variks[0].stoimost
