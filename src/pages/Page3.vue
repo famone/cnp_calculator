@@ -15,7 +15,6 @@
 		<div v-for="subsl in getCalcPage.subsItems">
 			<Inner :innerTxt="subsl.name"/>
 
-			<!-- <pre>{{getCalcPage}}</pre> -->
 
 
 			<div class="container">
@@ -94,7 +93,6 @@
 				<!-- Свитчер с переработкой -->
 
 				<div v-if="item.type === 'SimpleRange' && checEye(item.visible)">
-					<pre>{{item}}</pre>
 					<div class="editable">
 						<v-switch inset :label="item.name" v-model="item.value" :disabled="!item.visible"></v-switch>
 						<div>
