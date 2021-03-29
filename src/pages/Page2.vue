@@ -75,7 +75,9 @@ import {mapState, mapGetters} from 'vuex'
 		computed: {
 			...mapGetters({ 
 				calc: "smeta/getCalc",
-				activePreset: "preset/getActivePreset"
+				activePreset: "preset/getActivePreset",
+				user: "auth/getAuthenticated",
+				presetSlugs: "preset/getPresetSlugs"
 			}),
 			getCalcPage(){
 				let page = ''
@@ -138,6 +140,15 @@ import {mapState, mapGetters} from 'vuex'
 			}else{
 				this.presetMode = false
 			}
-		}
+		},
+		// beforeRouteLeave(to, from, next){
+		// 		let pres = {
+		// 			user_id: this.user.id,
+		// 			json: this.activePreset,
+		// 			name: this.presetSlugs.preset
+		// 		}
+		// 		this.$store.dispatch('preset/updatePreset', pres)
+		// 		next()
+		// }
 	}
 </script>

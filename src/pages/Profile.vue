@@ -63,7 +63,7 @@
 					<div class="data-row">
 						<h3>Мой калькулятор</h3>
 						<div class="presets" v-if="presets">
-							<router-link tag="div" to="/page-1" class="preset-btn add-preset">
+							<router-link tag="div" to="/page-1" class="preset-btn add-preset" v-if="!presets.data.length">
 								<div class="plus"></div>
 								Создать калькулятор
 							</router-link>
@@ -76,11 +76,11 @@
 									@click="snackbar = true">
 										<span class="mdi mdi-link-variant"></span>
 									</div>
-									<div class="take-preset" @click="delitePreset(item.slug)">
+									<div class="take-preset" @click="openConfirmPop(item.slug)"> <!-- delitePreset(item.slug) -->
 										<img src="../assets/img/trash.svg" alt="">
 									</div>
 								</div>
-								{{item.nazvanie}}								
+								{{item.nazvanie}}							
 								<!-- <div class="delite-preset" @click="delitePreset(item.slug)">
 									<img src="../assets/img/trash.svg" alt="">
 								</div> -->
@@ -102,6 +102,8 @@
 
 		</section>	
 
+		<confirmDelite :delitingPreset="delitingPreset" v-if="delitingPreset !== '' " 
+		@closeConfirm="delitingPreset = '' " />
 
 
 	</div>
@@ -114,17 +116,19 @@
 import loading from '../components/loading.vue'
 import {mapGetters} from 'vuex'
 import axios from 'axios'
+import confirmDelite from '../components/confirmDelite.vue'
 
 	export default{
-		components: {loading},
+		components: {loading, confirmDelite},
 		data(){
 			return{
 				file: null,
-				snackbar: false
+				snackbar: false,
+				delitingPreset: ''
 			}
 		},
 		created(){
-			this.$store.dispatch('preset/GET_PRESETS', this.user.id)
+			this.$store.dispatch('preset/GET_PRESETS', this.user)
 		},
 		computed: {
 			...mapGetters({ 
@@ -133,6 +137,9 @@ import axios from 'axios'
 			}),
 		},
 		methods: {
+			openConfirmPop(slug){
+				this.delitingPreset = slug
+			},
 			linkConstructor(item){
 				let newLink = window.location.origin + '/calc/' + this.user.user_nicename + '/' + item.slug
 
@@ -144,22 +151,6 @@ import axios from 'axios'
 				// newLink.select()
 				document.execCommand("newLink");
 				
-			},
-			delitePreset(slug){
-
-				let preset = {
-					playlist_slug: slug,
-					user_id: this.user.id
-				}
-
-
-				axios
-				 .get(`https://nikitapugachev.ru/wp-json/np/v1/delete/calc/presets?user_id=${this.user.id}&playlist_slug=${slug}`)
-				 .then(res =>{
-				 	this.$store.dispatch('preset/GET_PRESETS', this.user.id)
-				 })
-
-
 			},
 			changeAvatar(){
 				this.file = this.$refs.file.files[0];

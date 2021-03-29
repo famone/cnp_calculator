@@ -2,11 +2,15 @@
 	<header>
 		<div class="container-fluid">
 			<div class="shapka">
-				<router-link tag="div" to="/" class="logo">
-					COST<br>	
- 					NIKITA<br>	
-					PUGACHEV	
-				</router-link>
+				<div class="logobox">
+					<router-link tag="div" :to="myPresetLink" class="logo">
+						COST<br>	
+ 						NIKITA<br>	
+						PUGACHEV	
+					</router-link>
+
+					<h4>{{activePresetName}}</h4>
+				</div>
 
 				<div class="navigation">
 					<!-- <button class="circle-btn">Попробуй бесплатно</button>
@@ -36,14 +40,42 @@
 import {mapGetters} from 'vuex'
 	export default{
 		computed: {
-			...mapGetters({ user: "auth/getAuthenticated"})
+			...mapGetters({ 
+				user: "auth/getAuthenticated",
+				activePreset: "preset/getActivePreset",
+				activePresetName: "preset/getActivePresetName",
+				presets: "preset/getPresets",
+				presetSlugs: "preset/getPresetSlugs"
+			}),
+			myPresetLink(){
+				if(this.activePreset && this.user){
+					return '/page-1/' + this.user.user_nicename + '/' + this.presets.data[0].slug
+				}else{
+					return '/'
+				}
+			}
 		},
 		methods: {
 			signOut(){
 				this.$store.dispatch('auth/SIGN_OUT').then(() => {
+					this.$store.dispatch("preset/clearActivePreset")
+					this.$store.dispatch("preset/clearActivePresetName")
         			this.$router.replace("/enter");
 				});
 			}
 		}
 	}
 </script>
+
+
+<style>
+.logobox{
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+.logobox h4{
+	color: #fff;
+	margin-left: 30px;
+}
+</style>

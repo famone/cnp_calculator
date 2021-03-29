@@ -21,7 +21,7 @@
 					</div>
 				</div>
 
-				<div class="col-lg-6" v-if="calc">
+				<div class="col-lg-5" v-if="calc">
 
 					<div class="additions">
 						<p class="white-txt" v-if="videoType">
@@ -35,20 +35,21 @@
 							</span>
 							сек
 						</p>
-						<p class="white-txt"><img src="../assets/img/date.svg" alt="">
+						<!-- <p class="white-txt"><img src="../assets/img/date.svg" alt="">
 							{{todayIs.toLocaleDateString()}}
-						</p>
+						</p> -->
 						<p class="white-txt"><img src="../assets/img/smen.svg" alt="">
 							{{smens}} смены
 						</p>
 					</div>
 				</div>
 
-				<div class="col-lg-2">
+				<div class="col-lg-3">
 					<div class="downloads">
-						<!-- <p class="white-txt">XLS</p>
-						<p class="white-txt">PDF</p> -->
-						<p class="white-txt pointer clearAll" @click="openConfirm = !openConfirm">
+						<p class="white-txt pointer clearAll" @click="updatePreset()" v-if="activePreset">
+							<img src="../assets/img/save.svg" alt="">Обновить
+						</p>
+						<p class="white-txt pointer clearAll" @click="openConfirm = !openConfirm" v-if="!activePreset">
 							<img src="../assets/img/trash.svg" alt="">Очистить
 						</p>
 					</div>
@@ -57,6 +58,13 @@
 		</div>
 	</div>
 	<Confirm v-if="openConfirm" @closeConfirm="openConfirm = !openConfirm" />
+	<v-snackbar v-model="snackbar"> Калькулятор успешно обновлен
+		      <template v-slot:action="{ attrs }">
+		        <v-btn color="#2E97E6" text v-bind="attrs" @click="snackbar = false">
+		          Закрыть 
+		        </v-btn>
+		      </template>
+		    </v-snackbar>
 	</div>
 </template>
 
@@ -71,7 +79,8 @@ import Confirm from '../components/Confirm.vue'
 			return{
 				todayIs: new Date(),
 				presetMode: false,
-				openConfirm: false
+				openConfirm: false,
+				snackbar: false,
 			}
 		},
 		props: {
@@ -80,10 +89,25 @@ import Confirm from '../components/Confirm.vue'
 				type: Number
 			}
 		},
+		methods: {
+			updatePreset(){
+
+				let pres = {
+					user_id: this.user.id,
+					json: this.activePreset,
+					name: this.presetSlugs.preset
+				}
+				this.$store.dispatch('preset/updatePreset', pres).then(()=>{
+					this.snackbar = true
+				})
+			},
+		},
 		computed: {
 			...mapGetters({ 
 				calc: "smeta/getCalc",
-				activePreset: "preset/getActivePreset"
+				activePreset: "preset/getActivePreset",
+				user: "auth/getAuthenticated",
+				presetSlugs: "preset/getPresetSlugs"
 			}),
 
 			calcPrice(){

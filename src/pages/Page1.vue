@@ -12,6 +12,14 @@
 		<div v-if="calc">
 			<div class="data-row"  v-for="item in getCalcPage.fields">
 
+				<!-- datepicker -->
+
+				<div v-if="item.type === 'Datepicker' ">
+					<h3>{{item.name}}</h3>
+					<v-date-picker  is-expanded  v-model="item.value" color="blue" :model-config="modelConfig" />
+					<br><br>
+				</div>
+
 				<!-- текстареа -->
 
 				<div v-if="item.type === 'Text' ">
@@ -82,33 +90,15 @@ import {mapState, mapGetters} from 'vuex'
 		data(){
 			return{
 				ex2: 5,
-				presetMode: false
+				presetMode: false,
+				checkDate: '',
+				modelConfig: {
+					type: 'string',
+					mask: 'DD-MM-YYYY', 
+				},
 			}
 		},
 		methods: {
-			// changeCity(item, e){
-			// 	if(item.value.includes('Другой')){
-			// 		let page = ''
-
-			// 		if(this.presetMode){
-			// 			page = this.activePreset.find(item => {
-			// 				return item.id == 22
-			// 			})
-			// 		}else{
-			// 			page = this.calc.find(item => {
-			// 				return item.id == 22
-			// 			})
-			// 		}
-
-			// 		let pageObj = page.fields.find(item =>{
-			// 			return item.id == 437
-			// 		})
-
-			// 		pageObj.value = e.target.value
-
-
-			// 	}
-			// },
 			showValRadio(val, obj){
 
 				let page = this.calc.find(item => {
@@ -148,13 +138,14 @@ import {mapState, mapGetters} from 'vuex'
 		computed: {
 			...mapGetters({ 
 				calc: "smeta/getCalc",
-				activePreset: "preset/getActivePreset"
+				activePreset: "preset/getActivePreset",
+				user: "auth/getAuthenticated",
+				presetSlugs: "preset/getPresetSlugs"
 			}),
 			getCalcPage(){
 				let page = ''
 
 				if(this.presetMode){
-					console.log(this.activePreset)
 					page = this.activePreset.find(item => {
 						return item.id == 22
 					})
@@ -174,7 +165,17 @@ import {mapState, mapGetters} from 'vuex'
 			}else{
 				this.presetMode = false
 			}
-		}
+		},
+		// beforeRouteLeave(to, from, next){
+		// 		let pres = {
+		// 			user_id: this.user.id,
+		// 			json: this.activePreset,
+		// 			name: this.presetSlugs.preset
+		// 		}
+		// 		this.$store.dispatch('preset/updatePreset', pres)
+				
+		// 		next()
+		// }
 	}
 </script>
 

@@ -21,15 +21,15 @@
 
 				<!-- Свитчер с переработкой -->
 
-				<div v-if="item.type === 'SingleSlider' ">
+				<div v-if="item.type === 'SingleSlider' && checEye(item.visible)">
 					<div class="editable">
-						<v-switch inset :label="item.name" v-model="item.value"></v-switch>
+						<v-switch inset :label="item.name" v-model="item.value" :disabled="!item.visible"></v-switch>
 						<div>
 							<button class="edit-mode-btn" @click="openFilmer(item, subsl.id)" v-if="editorMode">
 								<span class="mdi mdi-lead-pencil"> <span class="hidden-xs">Настроть</span></span>
 							</button>
 							<button class="edit-mode-btn" @click="controlVisibility(item)"
-						v-if="editorMode">
+						v-if="editorMode" :class="{showme : !item.visible}">
 							<span class="mdi mdi-eye-off" v-if="item.visible"> <span class="hidden-xs"> Скрыть</span></span>
 							<span class="mdi mdi-eye" v-else> <span class="hidden-xs"> Показать</span></span>
 						</button>
@@ -90,7 +90,8 @@ import {mapState, mapGetters} from 'vuex'
 			...mapGetters({ 
 				user: "auth/getAuthenticated",
 				calc: "smeta/getCalc",
-				activePreset: "preset/getActivePreset"
+				activePreset: "preset/getActivePreset",
+				presetSlugs: "preset/getPresetSlugs"
 			}),
 			getCalcPage(){
 				let page = ''
@@ -110,8 +111,29 @@ import {mapState, mapGetters} from 'vuex'
 			}
 		},
 		methods: {
+			checEye(vis){
+				if(this.presetMode){
+					
+					if(this.user){
+						if(!vis && this.presetSlugs.login !== this.user.user_nicename){
+							return false
+						}else{
+							return true
+						}
+					}else{
+						if(vis){
+							return true
+						}else{
+							return false
+						}
+					}
+				}else{
+					return true
+				}
+			},
 			controlVisibility(item){
 				item.visible = !item.visible 
+				item.value = false
 			},
 			openFilmer(param){
 				this.edit_single = true
@@ -135,6 +157,15 @@ import {mapState, mapGetters} from 'vuex'
 				this.presetMode = false
 				this.editorMode = true
 			}
-		}
+		},
+		// beforeRouteLeave(to, from, next){
+		// 		let pres = {
+		// 			user_id: this.user.id,
+		// 			json: this.activePreset,
+		// 			name: this.presetSlugs.preset
+		// 		}
+		// 		this.$store.dispatch('preset/updatePreset', pres)
+		// 		next()
+		// }
 	}
 </script>

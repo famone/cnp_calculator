@@ -6,7 +6,7 @@ const preset = {
 	namespaced: true,
 	state: {
         presets: null,
-        activePreset: [],
+        activePreset: null,
         activePresetName: '',
         allow: false,
         presetSlugs: {}
@@ -14,28 +14,42 @@ const preset = {
 	mutations: {
         SET_PRESETS(state, payload){
             state.presets = payload
+            // console.log(payload.data[0])
+            if(payload){
+                state.activePreset = payload.data[0].json
+                state.activePresetName = payload.data[0].nazvanie
+            }
         },
         SET_ACTIVE_PRESET(state, preset){
             state.activePreset = preset
         },
         SET_PRES_SLUGS(state, payload){
             state.presetSlugs = payload
+        },
+        CLEAR_NAME(state){
+             state.activePresetName = ''
         }
 	},
 	actions: {
-		addToPreset({commit}, payload){
-			// commit('SET_NEW_PRESET', payload)
+        async addToPreset({ commit }, payload) {
+            try {
+                const { data } = await axios.post('https://nikitapugachev.ru/wp-json/np/v1/set/calc/presets', payload)
+                return console.log(data)
+            }
+            catch (err) {
+                console.log('error')
+            }
+        },
+        GET_PRESETS({commit}, user){
             axios
-            .post('https://nikitapugachev.ru/wp-json/np/v1/set/calc/presets', payload)
-            .then(res => {
-                // пресет добавлен
-                console.log(res)
-            })
-		},
-        GET_PRESETS({commit}, id){
-            axios
-            .get('https://nikitapugachev.ru/wp-json/np/v1/get/calc/presets?user_id=' + id)
+            .get('https://nikitapugachev.ru/wp-json/np/v1/get/calc/presets?user_id=' + user.id)
             .then(res =>{
+                
+                let clientPres = {
+                    login: user.user_nicename,
+                    preset: res.data.data[0].slug
+                }
+                commit("SET_PRES_SLUGS", clientPres)
                 commit("SET_PRESETS", res.data)
             })
         },
@@ -45,18 +59,6 @@ const preset = {
         setPresetSlugs({commit}, payload){
             commit("SET_PRES_SLUGS", payload)
         },
-        // updatePreset({commit}, pres){
-
-        //     let jsonObj = {
-        //         json: pres.json
-        //     }
-
-        //     axios
-        //     .post(`https://nikitapugachev.ru/wp-json/np/v1/edit/calc/presets?user_id=${pres.user_id}&playlist_slug=${pres.name}`, jsonObj)
-        //     .then(res =>{
-        //         console.log(res.data)
-        //     })
-        // },
         async updatePreset({ commit }, pres) {
             try {
                 const { data } = await axios.post(`https://nikitapugachev.ru/wp-json/np/v1/edit/calc/presets?user_id=${pres.user_id}&playlist_slug=${pres.name}`, {json: pres.json})
@@ -68,7 +70,10 @@ const preset = {
         },
         clearActivePreset({commit}){
             commit("SET_ACTIVE_PRESET", null)
-        }
+        },
+        clearActivePresetName({commit}){
+            commit("CLEAR_NAME")
+        },
 
 	},
 	getters: {
@@ -80,6 +85,9 @@ const preset = {
         },
         getPresetSlugs(state){
             return state.presetSlugs
+        },
+        getActivePresetName(state){
+            return state.activePresetName
         }
 	}
 }

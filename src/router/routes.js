@@ -24,44 +24,101 @@ const routes = [
 		{
 			path: '/page-1',
 			component: Page1,
-			// beforeEnter: (to, from, next) => {
-		 //        if(!store.getters["auth/getAuthenticated"]){
-		 //        	alert('регайся лох')
-		 //        	next("/login")
-		 //        }
-		 //    }
+			beforeEnter: (to, from, next) => {
+				if(store.getters["preset/getActivePreset"]){
+					next("/profile")
+				}else{
+					next()
+				}
+			}
 		},
 		{
 			path: '/page-2',
-			component: Page2
+			component: Page2,
+			beforeEnter: (to, from, next) => {
+				if(store.getters["preset/getActivePreset"]){
+					next("/profile")
+				}else{
+					next()
+				}
+			}
 		},
 		{
 			path: '/page-3',
-			component: Page3
+			component: Page3,
+			beforeEnter: (to, from, next) => {
+				if(store.getters["preset/getActivePreset"]){
+					next("/profile")
+				}else{
+					next()
+				}
+			}
 		},
 		{
 			path: '/page-4',
-			component: Page4
+			component: Page4,
+			beforeEnter: (to, from, next) => {
+				if(store.getters["preset/getActivePreset"]){
+					next("/profile")
+				}else{
+					next()
+				}
+			}
 		},
 		{
 			path: '/page-5',
-			component: Page5
+			component: Page5,
+			beforeEnter: (to, from, next) => {
+				if(store.getters["preset/getActivePreset"]){
+					next("/profile")
+				}else{
+					next()
+				}
+			}
 		},
 		{
 			path: '/page-6',
-			component: Page6
+			component: Page6,
+			beforeEnter: (to, from, next) => {
+				if(store.getters["preset/getActivePreset"]){
+					next("/profile")
+				}else{
+					next()
+				}
+			}
 		},
 		{
 			path: '/page-7',
-			component: Page7
+			component: Page7,
+			beforeEnter: (to, from, next) => {
+				if(store.getters["preset/getActivePreset"]){
+					next("/profile")
+				}else{
+					next()
+				}
+			}
 		},
 		{
 			path: '/page-8',
-			component: Page8
+			component: Page8,
+			beforeEnter: (to, from, next) => {
+				if(store.getters["preset/getActivePreset"]){
+					next("/profile")
+				}else{
+					next()
+				}
+			}
 		},
 		{
 			path: '/page-9',
-			component: Page9
+			component: Page9,
+			beforeEnter: (to, from, next) => {
+				if(store.getters["preset/getActivePreset"]){
+					next("/profile")
+				}else{
+					next()
+				}
+			}
 		},
 		{
 			path: '/enter',
@@ -87,8 +144,7 @@ const routes = [
 			path: '/page-1/:name/:id',
 			component: Page1,
 			beforeEnter: (to, from, next) => {
-				console.log(store.getters["preset/getActivePreset"])
-				if(store.getters["preset/getActivePreset"].length){
+				if(store.getters["preset/getActivePreset"]){
 					next()
 				}else{
 					next("/profile")
@@ -99,8 +155,7 @@ const routes = [
 			path: '/page-2/:name/:id',
 			component: Page2,
 			beforeEnter: (to, from, next) => {
-				console.log(store.getters["preset/getActivePreset"])
-				if(store.getters["preset/getActivePreset"].length){
+				if(store.getters["preset/getActivePreset"]){
 					next()
 				}else{
 					next("/profile")
@@ -111,8 +166,7 @@ const routes = [
 			path: '/page-3/:name/:id',
 			component: Page3,
 			beforeEnter: (to, from, next) => {
-				console.log(store.getters["preset/getActivePreset"])
-				if(store.getters["preset/getActivePreset"].length){
+				if(store.getters["preset/getActivePreset"]){
 					next()
 				}else{
 					next("/profile")
@@ -123,8 +177,7 @@ const routes = [
 			path: '/page-4/:name/:id',
 			component: Page4,
 			beforeEnter: (to, from, next) => {
-				console.log(store.getters["preset/getActivePreset"])
-				if(store.getters["preset/getActivePreset"].length){
+				if(store.getters["preset/getActivePreset"]){
 					next()
 				}else{
 					next("/profile")
@@ -135,8 +188,7 @@ const routes = [
 			path: '/page-5/:name/:id',
 			component: Page5,
 			beforeEnter: (to, from, next) => {
-				console.log(store.getters["preset/getActivePreset"])
-				if(store.getters["preset/getActivePreset"].length){
+				if(store.getters["preset/getActivePreset"]){
 					next()
 				}else{
 					next("/profile")
@@ -147,8 +199,7 @@ const routes = [
 			path: '/page-6/:name/:id',
 			component: Page6,
 			beforeEnter: (to, from, next) => {
-				console.log(store.getters["preset/getActivePreset"])
-				if(store.getters["preset/getActivePreset"].length){
+				if(store.getters["preset/getActivePreset"]){
 					next()
 				}else{
 					next("/profile")
@@ -159,8 +210,7 @@ const routes = [
 			path: '/page-7/:name/:id',
 			component: Page7,
 			beforeEnter: (to, from, next) => {
-				console.log(store.getters["preset/getActivePreset"])
-				if(store.getters["preset/getActivePreset"].length){
+				if(store.getters["preset/getActivePreset"]){
 					next()
 				}else{
 					next("/profile")
@@ -171,8 +221,7 @@ const routes = [
 			path: '/page-9/:name/:id',
 			component: Page9,
 			beforeEnter: (to, from, next) => {
-				console.log(store.getters["preset/getActivePreset"])
-				if(store.getters["preset/getActivePreset"].length){
+				if(store.getters["preset/getActivePreset"]){
 					next()
 				}else{
 					next("/profile")
@@ -183,8 +232,7 @@ const routes = [
 			path: '/page-8/:name/:id',
 			component: Page8,
 			beforeEnter: (to, from, next) => {
-				console.log(store.getters["preset/getActivePreset"])
-				if(store.getters["preset/getActivePreset"].length){
+				if(store.getters["preset/getActivePreset"]){
 					next()
 				}else{
 					next("/profile")

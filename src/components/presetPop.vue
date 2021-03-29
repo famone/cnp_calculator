@@ -49,6 +49,7 @@ import loading from '../components/loading.vue'
 				}
 				this.$store.dispatch('preset/addToPreset', pres).then(() => {
 					this.$emit("closePop")
+					this.$router.replace("/profile");
 				});
 			},
 			closePop(){

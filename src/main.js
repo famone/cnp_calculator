@@ -10,6 +10,7 @@ import 'vuetify/dist/vuetify.min.css'
 import Vuetify from 'vuetify'
 import VueClipboard from 'vue-clipboard2'
 import VueLazyload from 'vue-lazyload'
+import VCalendar from 'v-calendar';
  
 Vue.use(Vuetify)
 import ru from 'vuetify/es5/locale/ru'
@@ -35,6 +36,7 @@ Vue.use(VueRouter)
 Vue.use(Vuelidate)
 Vue.use(require('vue-cookies'))
 Vue.use(VueClipboard)
+Vue.use(VCalendar);
 
 new Vue({
   el: '#app',

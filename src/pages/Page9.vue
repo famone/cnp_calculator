@@ -36,6 +36,14 @@
         					<td class="text-right" v-if="Array.isArray(item.value)">
         						<span v-for="mass in item.value">{{mass}},</span>
         					</td>
+        					<td class="text-right" v-else-if="item.type === 'Datepicker'">
+        						<span v-if="item.value !== '' ">
+        							{{item.value}}
+        							<!-- {{String(item.value.getDate())}} 
+        							 {{mounths[item.value.getMonth()]}} 
+        							 {{item.value.getFullYear()}} -->
+        						</span>
+        					</td>
         					<td class="text-right" v-else>{{item.value}}
         						<span v-if="item.id == 424"> сек</span>
         						<span v-if="item.id == 439 || item.id == 440 "> % : {{
@@ -268,7 +276,7 @@
 		<div class="section" >
 			<div class="container">
 				<div class="data-row" style="margin-bottom: 100px;">
-					<button class="blue-btn" v-if="!presetMode" @click="presPop = !presPop">Добавить в пресет</button>
+					<button class="blue-btn" v-if="!presetMode" @click="presPop = !presPop">Сохранить калькулятор</button>
 					<button class="blue-btn" v-if="presetMode && editorMode" @click="updatePreset()">
 					Обновить калькулятор</button>
 				</div>
@@ -304,7 +312,7 @@ import presetPop from '../components/presetPop.vue'
 				editorMode: false,
 				presetMode: false,
 				presPop: false,
-				snackbar: false
+				snackbar: false,
 			}
 		},
 		methods: {
@@ -814,6 +822,15 @@ import presetPop from '../components/presetPop.vue'
 				this.presetMode = false
 				this.editorMode = true
 			}
-		}
+		},
+		// beforeRouteLeave(to, from, next){
+		// 		let pres = {
+		// 			user_id: this.user.id,
+		// 			json: this.activePreset,
+		// 			name: this.presetSlugs.preset
+		// 		}
+		// 		this.$store.dispatch('preset/updatePreset', pres)
+		// 		next()
+		// }
 	}
 </script>

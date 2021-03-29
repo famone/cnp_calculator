@@ -48,17 +48,16 @@
 
 				<!-- Свитчер с проектом и сменой -->
 
-				<div v-if="item.type === 'Boolean' ">
-					
+				<div v-if="item.type === 'Boolean' && checEye(item.visible)">
 					<div class="editable">
-						<v-switch inset :label="item.name" v-model="item.value"></v-switch>
+						<v-switch inset :label="item.name" v-model="item.value" :disabled="!item.visible"></v-switch>
 						<div>
 							<button class="edit-mode-btn" @click="openEditDirector(item, subsl.id)"
 						v-if="editorMode">
 							<span class="mdi mdi-lead-pencil"> <span class="hidden-xs">Настроть</span></span>
 						</button>
 						<button class="edit-mode-btn" @click="controlVisibility(item)"
-						v-if="editorMode">
+						v-if="editorMode" :class="{showme : !item.visible}">
 							<span class="mdi mdi-eye-off" v-if="item.visible"> <span class="hidden-xs"> Скрыть</span></span>
 							<span class="mdi mdi-eye" v-else> <span class="hidden-xs"> Показать</span></span>
 						</button>
@@ -94,15 +93,16 @@
 
 				<!-- Свитчер с переработкой -->
 
-				<div v-if="item.type === 'SimpleRange' ">
+				<div v-if="item.type === 'SimpleRange' && checEye(item.visible)">
+					<pre>{{item}}</pre>
 					<div class="editable">
-						<v-switch inset :label="item.name" v-model="item.value"></v-switch>
+						<v-switch inset :label="item.name" v-model="item.value" :disabled="!item.visible"></v-switch>
 						<div>
 						<button class="edit-mode-btn" @click="openFilmer(item, subsl.id)" v-if="editorMode">
 							<span class="mdi mdi-lead-pencil"> <span class="hidden-xs">Настроть</span></span>
 						</button>
 						<button class="edit-mode-btn" @click="controlVisibility(item)"
-						v-if="editorMode">
+						v-if="editorMode" :class="{showme : !item.visible}">
 							<span class="mdi mdi-eye-off" v-if="item.visible"> <span class="hidden-xs"> Скрыть</span></span>
 							<span class="mdi mdi-eye" v-else> <span class="hidden-xs"> Показать</span></span>
 						</button>
@@ -173,7 +173,8 @@ import {mapState, mapGetters} from 'vuex'
 			...mapGetters({ 
 				user: "auth/getAuthenticated",
 				calc: "smeta/getCalc",
-				activePreset: "preset/getActivePreset"
+				activePreset: "preset/getActivePreset",
+				presetSlugs: "preset/getPresetSlugs"
 			}),
 			getCalcPage(){
 				let page = ''
@@ -193,8 +194,29 @@ import {mapState, mapGetters} from 'vuex'
 			}
 		},
 		methods: {
+			checEye(vis){
+				if(this.presetMode){
+					
+					if(this.user){
+						if(!vis && this.presetSlugs.login !== this.user.user_nicename){
+							return false
+						}else{
+							return true
+						}
+					}else{
+						if(vis){
+							return true
+						}else{
+							return false
+						}
+					}
+				}else{
+					return true
+				}
+			},
 			controlVisibility(item){
 				item.visible = !item.visible 
+				item.value = false
 			},
 			openEditDirector(param, subsl_id){
 				this.edit_director = true
@@ -271,11 +293,7 @@ import {mapState, mapGetters} from 'vuex'
 
 				
 
-				if(item.id !== 420){
-					return
-				}
-
-
+			if(item.id == 420){
 				// для оборудования
 				if(this.presetMode){
 					
@@ -320,7 +338,12 @@ import {mapState, mapGetters} from 'vuex'
 									if(field.type === 'SimpleRange'){
 										field.options.kol_vo_dnej.add_value = smenAmount
 									}
-
+									if(field.type === 'Boolean'){
+										field.options.varianty[1].add_value = smenAmount
+									}
+									if(field.type === 'Acter'){
+										field.options[0].kol_vo_smen = smenAmount
+									}
 									if(field.type === 'SingleSlider'){
 										field.options.kol_vo = smenAmount
 									}
@@ -337,7 +360,12 @@ import {mapState, mapGetters} from 'vuex'
 									if(field.type === 'SimpleRange'){
 										field.options.kol_vo_dnej.add_value = smenAmount
 									}
-
+									if(field.type === 'Boolean'){
+										field.options.varianty[1].add_value = smenAmount
+									}
+									if(field.type === 'Acter'){
+										field.options[0].kol_vo_smen = smenAmount
+									}
 									if(field.type === 'SingleSlider' && field.id !== 595){
 										field.options.kol_vo = smenAmount
 									}
@@ -347,12 +375,43 @@ import {mapState, mapGetters} from 'vuex'
 						}
 					})
 				}
+			}
+
+
+			if(item.id == 422){
+				// для всех переработок
+
+				if(this.presetMode){
+					let overAmount = this.activePreset[2].subsItems[0].fields[1].value
+					this.activePreset.forEach(page => {
+						if(page.calculated == true){
+							page.subsItems.forEach(sub => {
+								sub.fields.forEach(field =>{
+									if(field.type === 'SimpleRange'){
+										field.options.pererabtka.add_value = overAmount
+									}
+								})
+							})
+						}
+					})
+				}else{
+					let overAmount = this.calc[2].subsItems[0].fields[1].value
+					this.calc.forEach(page => {
+						if(page.calculated == true){
+							page.subsItems.forEach(sub => {
+								sub.fields.forEach(field =>{
+									if(field.type === 'SimpleRange'){
+										field.options.pererabtka.add_value = overAmount
+									}
+
+								})
+							})
+						}
+					})
+				}
+			}
 
 			
-
-
-
-
 			}
 		},
 		created(){
@@ -367,6 +426,17 @@ import {mapState, mapGetters} from 'vuex'
 				this.presetMode = false
 				this.editorMode = true
 			}
-		}
+		},
+		// beforeRouteLeave(to, from, next){
+		// 	if(this.activePreset){
+		// 		let pres = {
+		// 			user_id: this.user.id,
+		// 			json: this.activePreset,
+		// 			name: this.presetSlugs.preset
+		// 		}
+		// 		this.$store.dispatch('preset/updatePreset', pres)
+		// 	}
+		// 	next()
+		// }
 	}
 </script>

@@ -903,6 +903,15 @@ table tr td:last-child{
 	}
 
 
+
+
+/*show*/
+
+.showme{
+	color: #fff;
+	background-color: #2E97E6;
+}
+
 /*ADAPTIIIIIIIIIV*/
 
 
@@ -1064,5 +1073,13 @@ input[type=range]::-moz-range-thumb {
 
 
 
-
-
+.vc-highlight{
+	background-color:#2E97E6!important;
+}
+.vc-day-content:focus{
+	background-color:#2E97E6!important;
+	color: #fff;	
+}
+.vc-day{
+	z-index: 0!important;
+}
