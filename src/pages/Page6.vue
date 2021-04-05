@@ -25,12 +25,12 @@
 
 				<!-- Свитчер с актером -->
 
-				<div v-if="item.type === 'Acter' && checEye(item.visible) ">
+				<div v-if="item.type === 'Acter' && checEye(item.visible) " :class="{lessOpacity : !item.visible}">
 					<div class="editable">
 						<v-switch inset :label="item.name" v-model="item.value" :disabled="!item.visible"></v-switch>
 						<div>
 							<button class="edit-mode-btn" @click="openActor(item)" v-if="editorMode">
-								<span class="mdi mdi-lead-pencil"> <span class="hidden-xs">Настроть</span></span>
+								<span class="mdi mdi-lead-pencil"> <span class="hidden-xs">Настроить</span></span>
 							</button>
 							<button class="edit-mode-btn" @click="controlVisibility(item)"
 						v-if="editorMode" :class="{showme : !item.visible}">
@@ -69,12 +69,12 @@
 
 				<!-- Свитчер с переработкой -->
 
-				<div v-if="item.type === 'SimpleRange' && checEye(item.visible) ">
+				<div v-if="item.type === 'SimpleRange' && checEye(item.visible) " :class="{lessOpacity : !item.visible}">
 					<div class="editable">
 						<v-switch inset :label="item.name" v-model="item.value" :disabled="!item.visible"></v-switch>
 						<div>
 							<button class="edit-mode-btn" @click="openFilmer(item)" v-if="editorMode">
-								<span class="mdi mdi-lead-pencil"> <span class="hidden-xs">Настроть</span></span>
+								<span class="mdi mdi-lead-pencil"> <span class="hidden-xs">Настроить</span></span>
 							</button>
 							<button class="edit-mode-btn" @click="controlVisibility(item)"
 						v-if="editorMode" :class="{showme : !item.visible}">

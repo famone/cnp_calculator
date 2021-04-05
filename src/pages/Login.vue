@@ -54,6 +54,7 @@ export default{
 	        	password: this.user.password,
 			}
 			
+			this.$store.dispatch("preset/clearHeader")
 
 			// console.log(newUser)
 			this.$store.dispatch("auth/AUTH_REQUEST", form).then(() => {

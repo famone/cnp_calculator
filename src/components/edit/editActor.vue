@@ -5,17 +5,17 @@
 
 
 			<div class="ed-inp-row text-left">
-				<label for="">Интернет:</label>
+				<label for="">Интернет / ₽:</label>
 				<input type="number" :value="editing.options[0].oblast[0].stoimst" 
 				@input="changePrice($event, editing.options, 0, 'Интернет')">
 			</div>
 			<div class="ed-inp-row text-left">
-				<label for="">Кино:</label>
+				<label for="">Кино / ₽:</label>
 				<input type="number" :value="editing.options[0].oblast[1].stoimst"
 				@input="changePrice($event, editing.options, 1)">
 			</div>
 			<div class="ed-inp-row text-left">
-				<label for="">Телевидиние:</label>
+				<label for="">Телевидиние / ₽:</label>
 				<input type="number" :value="editing.options[0].oblast[2].stoimst"
 				@input="changePrice($event, editing.options, 2)">
 			</div>

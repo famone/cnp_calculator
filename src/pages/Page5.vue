@@ -21,12 +21,12 @@
 
 				<!-- Свитчер с переработкой -->
 
-				<div v-if="item.type === 'SingleSlider' && checEye(item.visible)">
+				<div v-if="item.type === 'SingleSlider' && checEye(item.visible)" :class="{lessOpacity : !item.visible}">
 					<div class="editable">
 						<v-switch inset :label="item.name" v-model="item.value" :disabled="!item.visible"></v-switch>
 						<div>
 							<button class="edit-mode-btn" @click="openFilmer(item, subsl.id)" v-if="editorMode">
-								<span class="mdi mdi-lead-pencil"> <span class="hidden-xs">Настроть</span></span>
+								<span class="mdi mdi-lead-pencil"> <span class="hidden-xs">Настроить</span></span>
 							</button>
 							<button class="edit-mode-btn" @click="controlVisibility(item)"
 						v-if="editorMode" :class="{showme : !item.visible}">

@@ -4,7 +4,7 @@
 			<h3 class="text-left">{{editing.name}}</h3>
 
 			 <div class="ed-inp-row text-left">
-				<label for="">Стоимость секунды монтажа:</label>
+				<label for="">Стоимость секунды монтажа / ₽:</label>
 				<input type="number" :value="editing.options[0].stoimost" @input="changePrice($event, editing.options)">
 			</div>
 

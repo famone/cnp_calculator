@@ -8,6 +8,7 @@
 			</div>
 		</section>
 
+
 		<section id="profile" v-if="user">
 			<div class="container">
 				<div class="col-lg-7">
@@ -35,8 +36,8 @@
 					<div class="data-row">
 						<h2>{{user.user_display_name}}</h2>
 						<p class="white-txt">Присоединился: <span class="blue-txt">{{user.registred}}</span></p>
-						<p class="white-txt">Тип профиля: <span class="blue-txt">{{user.status}}</span></p>
-						<button class="blue-btn">Оплатить подписку</button>
+						<!-- <p class="white-txt">Тип профиля: <span class="blue-txt">{{user.status}}</span></p>
+						<button class="blue-btn">Оплатить подписку</button> -->
 					</div>
 
 
@@ -54,7 +55,7 @@
 						<input type="text" :value="user.user_email" data-field="mail">
 					</div>
 
-					<button class="blue-btn">Сохранить</button>
+					<!-- <button class="blue-btn">Сохранить</button> -->
 
 
 				</div>

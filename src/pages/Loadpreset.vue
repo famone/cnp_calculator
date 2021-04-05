@@ -1,7 +1,12 @@
 <template>
 	<section id="p404">
 		<div class="container text-center">
-			<h1>Загружаем пресет</h1>
+			<h1>Калькулятор пользователя:</h1>
+			<h3 v-if="presetUser" style="color: #2E97E6;">{{presetUser}}</h3>
+			<router-link class="blue-btn" 
+			tag="button" :to=" '/page-1/' + this.$route.params.login + '/' + this.$route.params.preset ">
+				Перейти в калькулятор
+			</router-link>
 		</div>
 	</section>
 </template>
@@ -14,7 +19,8 @@ import {mapActions, mapGetters} from 'vuex'
 	export default{
 		computed: {
 			...mapGetters({ 
-				activePreset: "preset/getActivePreset"
+				activePreset: "preset/getActivePreset",
+				presetUser: "preset/getPresetUser"
 			})
 		},
 		
@@ -32,8 +38,12 @@ import {mapActions, mapGetters} from 'vuex'
                     this.$router.replace('/404')
                 }else{
                 	this.$store.dispatch('preset/loadActivePreset', res.data.playlist)
+                	console.log(res)
+                	this.$store.dispatch('preset/setPresetUser', res.data.user.data.display_name)
                 	this.$store.dispatch('preset/setPresetSlugs', clientPres)
-                    this.$router.replace(`/page-1/${clientPres.login}/${clientPres.preset}`)
+                	this.$store.dispatch('preset/presetNameActivate', res.data.name)
+
+                    // this.$router.replace(`/page-1/${clientPres.login}/${clientPres.preset}`)
                 }
             })
 

@@ -1,7 +1,7 @@
 <template>
 	<div class="edit-pop" @click="closeConfirm($emit)">
 		<div class="edit-pop-box text-center" @click.stop>
-			<h3>Вы уверены? {{delitingPreset}}</h3>
+			<h3>Вы уверены?</h3>
 			<button class="blue-btn" @click="closeConfirm($emit)">Отмена</button>
 			<button class="blue-btn" @click="delitePreset()" >Да</button>
 		</div>

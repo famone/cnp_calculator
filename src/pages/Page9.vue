@@ -3,7 +3,7 @@
 
 		<section id="itogoInner">
 			<div class="container">
-				<div class="col-lg-7">
+				<div class="col-lg-9">
 					<h3>Бюджет проекта</h3>
 <h1>
 {{Math.round((calcPrice + getOborudItog) + (calcPrice + getOborudItog)/100 * nalog + ((calcPrice + getOborudItog) + (calcPrice + getOborudItog)/100 * nalog)/100 * markUp ).toLocaleString()}} ₽
@@ -15,6 +15,13 @@
 						Math.round(((calcPrice + getOborudItog) + (calcPrice + getOborudItog)/100 * nalog)/100 * markUp).toLocaleString() 
 					}} ₽
 						</p> -->
+				</div>
+				<div class="col-lg-3">
+					<br>
+					<form>
+						<input type="text" placeholder="Ваш e-mail">
+						<button class="blue-btn" style="width: 100%;">Скачать PDF</button>
+					</form>
 				</div>
 			</div>
 		</section>
@@ -847,3 +854,18 @@ import presetPop from '../components/presetPop.vue'
 		// }
 	}
 </script>
+
+
+<style>
+input[type="text"] {
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 13px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #fff!important;
+    color: #000;
+    font-weight: 600!important;
+}
+</style>

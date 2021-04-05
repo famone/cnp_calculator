@@ -4,7 +4,7 @@
 			<h3 class="text-left">{{editing.name}}</h3>
 
 			<div v-for="(ed, index) in editing.options.varianty" class="ed-inp-row text-left">
-				<label for="">{{ed.nazvanie}}:</label>
+				<label for="">{{ed.nazvanie}} / ₽:</label>
 				<input type="number" :value="ed.stoimost"  @input="showVal($event, index)">
 			</div>
 			<button class="blue-btn" @click="closeEditDirector($emit)">Сохранить</button>

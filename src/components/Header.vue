@@ -9,7 +9,10 @@
 						PUGACHEV	
 					</router-link>
 
-					<h4>{{activePresetName}}</h4>
+					<div class="calc-info">
+						<p class="white-txt ma-0" v-if="presetUser">{{presetUser}} - </p> 
+						<p class="white-txt ma-0">{{activePresetName}}</p>
+					</div>
 				</div>
 
 				<div class="navigation">
@@ -27,7 +30,9 @@
 						Выход
 					</button>
 
-					<router-link v-if="!user" tag="button" to="/enter" class="enter-btn">Вход</router-link>
+					<router-link v-if="!user" tag="button" to="/enter" class="enter-btn" @click="clearHeader()">
+						Вход
+					</router-link>
 				</div>
 
 			</div>
@@ -45,7 +50,8 @@ import {mapGetters} from 'vuex'
 				activePreset: "preset/getActivePreset",
 				activePresetName: "preset/getActivePresetName",
 				presets: "preset/getPresets",
-				presetSlugs: "preset/getPresetSlugs"
+				presetSlugs: "preset/getPresetSlugs",
+				presetUser: "preset/getPresetUser"
 			}),
 			myPresetLink(){
 				if(this.activePreset && this.user){
@@ -62,7 +68,7 @@ import {mapGetters} from 'vuex'
 					this.$store.dispatch("preset/clearActivePresetName")
         			this.$router.replace("/enter");
 				});
-			}
+			},
 		}
 	}
 </script>
@@ -77,5 +83,14 @@ import {mapGetters} from 'vuex'
 .logobox h4{
 	color: #fff;
 	margin-left: 30px;
+}
+.calc-info{
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	margin-left: 25px;
+}
+.calc-info .white-txt{
+	padding-right: 5px!important;
 }
 </style>

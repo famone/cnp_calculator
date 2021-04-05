@@ -46,11 +46,18 @@
 
 				<div class="col-lg-3">
 					<div class="downloads">
-						<p class="white-txt pointer clearAll" @click="updatePreset()" v-if="activePreset">
+						<p class="white-txt pointer clearAll" @click="updatePreset()" 
+						v-if="activePreset && user && presetSlugs.login === user.user_nicename">
 							<img src="../assets/img/save.svg" alt="">Обновить
 						</p>
 						<p class="white-txt pointer clearAll" @click="openConfirm = !openConfirm" v-if="!activePreset">
 							<img src="../assets/img/trash.svg" alt="">Очистить
+						</p>
+
+						<!--  -->
+						<p class="white-txt pointer clearAll" @click="toDefault()" 
+						v-if="presetUser !== '' ">
+							<img src="../assets/img/trash.svg" alt="">Очистить подсчеты
 						</p>
 					</div>
 				</div>
@@ -90,6 +97,19 @@ import Confirm from '../components/Confirm.vue'
 			}
 		},
 		methods: {
+			//  к дефолтам
+			toDefault(){
+				this.activePreset.forEach(item =>{
+					if(item.calculated){
+						item.subsItems.forEach(sub => {
+							sub.fields.forEach(field =>{
+								field.value = false
+							})
+						})
+					}
+				})
+				console.log(this.activePreset)
+			},
 			updatePreset(){
 
 				let pres = {
@@ -107,7 +127,8 @@ import Confirm from '../components/Confirm.vue'
 				calc: "smeta/getCalc",
 				activePreset: "preset/getActivePreset",
 				user: "auth/getAuthenticated",
-				presetSlugs: "preset/getPresetSlugs"
+				presetSlugs: "preset/getPresetSlugs",
+				presetUser: "preset/getPresetUser"
 			}),
 
 			calcPrice(){

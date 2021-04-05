@@ -9,7 +9,8 @@ const preset = {
         activePreset: null,
         activePresetName: '',
         allow: false,
-        presetSlugs: {}
+        presetSlugs: {},
+        presetUser: ''
   	},
 	mutations: {
         SET_PRESETS(state, payload){
@@ -27,6 +28,12 @@ const preset = {
         },
         CLEAR_NAME(state){
              state.activePresetName = ''
+        },
+        SER_PRESET_USER(state, payload){
+            state.presetUser = payload
+        },
+        PRES_NAME_ACTIVATE(state, payload){
+            state.activePresetName = payload
         }
 	},
 	actions: {
@@ -76,6 +83,16 @@ const preset = {
         clearActivePresetName({commit}){
             commit("CLEAR_NAME")
         },
+        setPresetUser({commit}, payload){
+            commit("SER_PRESET_USER", payload)
+        },
+        presetNameActivate({commit}, payload){
+            commit("PRES_NAME_ACTIVATE", payload)
+        },
+        clearHeader({commit}){
+            let str = ''
+             commit("PRES_NAME_ACTIVATE", str)
+        }
 
 	},
 	getters: {
@@ -90,6 +107,9 @@ const preset = {
         },
         getActivePresetName(state){
             return state.activePresetName
+        },
+        getPresetUser(state){
+            return state.presetUser
         }
 	}
 }

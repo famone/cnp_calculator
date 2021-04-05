@@ -661,7 +661,6 @@ h2{
 	width: 100px;
 	border-radius: 50px;
 	position: relative;
-	background-image: url('https://www.kinonews.ru/insimgs/2019/newsimg/newsimg87089.jpg');
 }
 .verified{
 	position: absolute;
@@ -903,14 +902,35 @@ table tr td:last-child{
 	}
 
 
-
-
 /*show*/
 
 .showme{
 	color: #fff;
 	background-color: #2E97E6;
 }
+
+
+.lessOpacity .v-input{
+	opacity: .2;
+}
+.lessOpacity .op-5{
+	opacity: .2!important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*ADAPTIIIIIIIIIV*/
 
@@ -983,6 +1003,20 @@ a:focus{
 .pointer{
 	cursor: pointer;
 }
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
 /*
 
 

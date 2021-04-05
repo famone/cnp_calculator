@@ -51,13 +51,13 @@
 
 				<!-- Свитчер с проектом и сменой -->
 
-				<div v-if="item.type === 'Boolean' && checEye(item.visible)">
+				<div v-if="item.type === 'Boolean' && checEye(item.visible)" :class="{lessOpacity : !item.visible}">
 					<div class="editable">
 						<v-switch inset :label="item.name" v-model="item.value" :disabled="!item.visible"></v-switch>
 						<div>
 							<button class="edit-mode-btn" @click="openEditDirector(item, subsl.id)"
 						v-if="editorMode">
-							<span class="mdi mdi-lead-pencil"> <span class="hidden-xs">Настроть</span></span>
+							<span class="mdi mdi-lead-pencil"> <span class="hidden-xs">Настроить</span></span>
 						</button>
 						<button class="edit-mode-btn" @click="controlVisibility(item)"
 						v-if="editorMode" :class="{showme : !item.visible}">
@@ -96,12 +96,13 @@
 
 				<!-- Свитчер с переработкой -->
 
-				<div v-if="item.type === 'SimpleRange' && checEye(item.visible)">
+				<div v-if="item.type === 'SimpleRange' && checEye(item.visible)" :class="{lessOpacity : !item.visible}">
+					<!-- <pre>{{item}}</pre> -->
 					<div class="editable">
 						<v-switch inset :label="item.name" v-model="item.value" :disabled="!item.visible"></v-switch>
 						<div>
 						<button class="edit-mode-btn" @click="openFilmer(item, subsl.id)" v-if="editorMode">
-							<span class="mdi mdi-lead-pencil"> <span class="hidden-xs">Настроть</span></span>
+							<span class="mdi mdi-lead-pencil"> <span class="hidden-xs">Настроить</span></span>
 						</button>
 						<button class="edit-mode-btn" @click="controlVisibility(item)"
 						v-if="editorMode" :class="{showme : !item.visible}">
@@ -142,7 +143,7 @@
 						
 						<div>
 							<button class="edit-mode-btn" @click="openSingle(item, subsl.id)" v-if="editorMode">
-								<span class="mdi mdi-lead-pencil"> <span class="hidden-xs">Настроть</span></span>
+								<span class="mdi mdi-lead-pencil"> <span class="hidden-xs">Настроить</span></span>
 							</button>
 							<button class="edit-mode-btn" @click="controlVisibility(item)"
 						v-if="editorMode" :class="{showme : !item.visible}">

@@ -4,11 +4,11 @@
 			<h3 class="text-left">{{editing.name}}</h3>
 
 			<div class="ed-inp-row text-left">
-				<label for="">{{editing.options.kol_vo_dnej.nazvanie}}:</label>
+				<label for="">Кол-во смен / ₽:</label>
 				<input type="number" v-model="editing.options.kol_vo_dnej.stoimost">
 			</div>
 			<div class="ed-inp-row text-left">
-				<label for="">{{editing.options.pererabtka.nazvanie}}:</label>
+				<label for="">Переработка / ₽:</label>
 				<input type="number" v-model="editing.options.pererabtka.stoimost">
 			</div>
 			<button class="blue-btn" @click="closeEditFilmer($emit)">Сохранить</button>

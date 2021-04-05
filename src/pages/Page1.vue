@@ -14,9 +14,9 @@
 
 				<!-- datepicker -->
 
-				<div v-if="item.type === 'Datepicker' ">
+				<div v-if="item.type === 'Datepicker' " style="width: 50%;">
 					<h3>{{item.name}}</h3>
-					<v-date-picker  is-expanded  v-model="item.value" color="blue" :model-config="modelConfig" />
+					<v-date-picker :min-date='new Date()' is-expanded  v-model="item.value" color="blue" :model-config="modelConfig" />
 					<br><br>
 				</div>
 
