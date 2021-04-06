@@ -101,9 +101,24 @@ import Confirm from '../components/Confirm.vue'
 			toDefault(){
 				this.activePreset.forEach(item =>{
 					if(item.calculated){
+						console.log(item)
 						item.subsItems.forEach(sub => {
 							sub.fields.forEach(field =>{
-								field.value = false
+								if(field.type === 'Boolean'){
+									field.value = false
+								}
+								if(field.type === 'SimpleRange'){
+									field.value = false
+								}
+								if(field.type === 'SingleSlider'){
+									field.value = false
+								}
+								if(field.type === 'Acter'){
+									field.value = false
+								}
+								if(field.type === 'Montazh'){
+									field.value = false
+								}
 							})
 						})
 					}
