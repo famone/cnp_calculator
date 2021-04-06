@@ -5,12 +5,12 @@ import router from './router/index.js'
 import store from './store'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import VueTheMask from 'vue-the-mask'
-import Vuelidate from 'vuelidate'
 import 'vuetify/dist/vuetify.min.css'
 import Vuetify from 'vuetify'
 import VueClipboard from 'vue-clipboard2'
 import VueLazyload from 'vue-lazyload'
 import VCalendar from 'v-calendar';
+import Vuelidate from 'vuelidate'
  
 Vue.use(Vuetify)
 import ru from 'vuetify/es5/locale/ru'

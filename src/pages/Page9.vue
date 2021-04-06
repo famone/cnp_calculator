@@ -1,5 +1,5 @@
 <template>
-	<div v-if="calc">
+	<div v-if="calc" class="bigTable">
 
 		<section id="itogoInner">
 			<div class="container">
@@ -18,9 +18,13 @@
 				</div>
 				<div class="col-lg-3">
 					<br>
-					<form>
-						<input type="text" placeholder="Ваш e-mail">
-						<button class="blue-btn" style="width: 100%;">Скачать PDF</button>
+					<form >
+						<div class="errorLabel" v-if="($v.email.$dirty && !$v.email.required) || ($v.email.$dirty && !$v.email.email)">Поле обязательно для заполнения</div>
+
+						<input type="text" placeholder="Ваш e-mail" v-model="email" 
+						:class="{errorInp : ($v.email.$dirty && !$v.email.required) || ($v.email.$dirty && !$v.email.email)}">
+						
+						<button class="blue-btn" style="width: 100%;" @click.prevent="savePdf()" >Скачать PDF</button>
 					</form>
 				</div>
 			</div>
@@ -320,6 +324,14 @@
 import Inner from '../components/Inner.vue'
 import {mapState, mapGetters} from 'vuex'
 import presetPop from '../components/presetPop.vue'
+import axios from 'axios'
+
+var pdfMake = require('pdfmake/build/pdfmake.js');
+var pdfFonts = require('pdfmake/build/vfs_fonts.js');
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+var htmlToPdfmake = require("html-to-pdfmake");
+import { required, email, minLength } from "vuelidate/lib/validators";
+
 
 	export default{
 		components: {Inner, presetPop},
@@ -329,9 +341,56 @@ import presetPop from '../components/presetPop.vue'
 				presetMode: false,
 				presPop: false,
 				snackbar: false,
+				email: ''
 			}
 		},
+		validations: {
+			email:{
+				required,
+				email
+			},
+		},
 		methods: {
+			savePdf(){
+				if(this.$v.$invalid) {
+					this.$v.$touch();
+					return;
+				}
+
+
+
+					this.load = true
+
+				let emailBody = {
+					email: this.email
+				}
+
+				var form = new FormData();
+
+				for (var field in emailBody){
+					form.append(field, emailBody[field]);
+				};
+
+
+
+				axios
+				.post('https://nikitapugachev.ru/wp-json/np/v1/get/calc/pdf', form)
+				.then(res =>{
+					let bigTable = document.querySelector('.bigTable').innerHTML
+
+						var htmlConverted = htmlToPdfmake(bigTable);
+
+						console.log(htmlConverted)
+
+						var newPdf = {
+							content: htmlConverted
+						}
+
+						pdfMake.createPdf(newPdf).download();
+						this.email = ''
+				})
+
+			},
 			minCount(item){
 				item.count--
 			},
@@ -856,7 +915,7 @@ import presetPop from '../components/presetPop.vue'
 </script>
 
 
-<style>
+<style scoped>
 input[type="text"] {
     display: block;
     width: 100%;
@@ -868,4 +927,16 @@ input[type="text"] {
     color: #000;
     font-weight: 600!important;
 }
+.errorLabel{
+	color: red;
+	font-size: 14px;
+	font-weight: 400;
+	margin-bottom: 5px;
+}
+.errorInp{
+	border: 2px red solid!important;
+}
 </style>
+
+
+

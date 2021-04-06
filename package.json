@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "html-to-pdfmake": "^2.1.7",
     "imagemin-webpack-plugin": "^2.4.2",
+    "pdfmake": "^0.1.71",
     "swiper": "^5.4.5",
     "v-calendar": "^2.3.0",
     "vue": "^2.5.11",
