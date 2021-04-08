@@ -1,9 +1,9 @@
 <template>
-	<div v-if="calc" class="bigTable">
+	<div v-if="calc">
 
 		<section id="itogoInner">
 			<div class="container">
-				<div class="col-lg-9">
+				<div class="col-lg-9 tableTop">
 					<h3>Бюджет проекта</h3>
 <h1>
 {{Math.round((calcPrice + getOborudItog) + (calcPrice + getOborudItog)/100 * nalog + ((calcPrice + getOborudItog) + (calcPrice + getOborudItog)/100 * nalog)/100 * markUp ).toLocaleString()}} ₽
@@ -16,8 +16,8 @@
 					}} ₽
 						</p> -->
 				</div>
-				<div class="col-lg-3">
-					<br>
+				<div class="col-lg-3 save-pdf" v-if="!user">
+					<p class="small-grey">Заполните форму, чтобы получить расчет сметы калькулятора</p>
 					<form >
 						<div class="errorLabel" v-if="($v.email.$dirty && !$v.email.required) || ($v.email.$dirty && !$v.email.email)">Поле обязательно для заполнения</div>
 
@@ -27,12 +27,18 @@
 						<button class="blue-btn" style="width: 100%;" @click.prevent="savePdf()" >Скачать PDF</button>
 					</form>
 				</div>
+				<div class="col-lg-3 save-pdf" v-else>
+						<button class="blue-btn" style="width: 100%;" @click="savePdfUser()" >Скачать PDF</button>
+				</div>
 			</div>
 		</section>
 
 
 		<!-- вводные -->
 
+		<div class="bigTable">
+			
+	
 
 		<section id="itogTable">
 			<div class="container">
@@ -291,12 +297,15 @@
 			</div>
 		</section>
 
+		</div>
+
 
 
 		<div class="section" >
 			<div class="container">
 				<div class="data-row" style="margin-bottom: 100px;">
-					<button class="blue-btn" v-if="!presetMode" @click="presPop = !presPop">Сохранить калькулятор</button>
+					<router-link tag="button" to="/enter" class="blue-btn" v-if="!presetMode && !user">Войдите чтобы сохранить</router-link>
+					<button class="blue-btn" v-if="!presetMode && user" @click="presPop = !presPop">Сохранить калькулятор</button>
 					<button class="blue-btn" v-if="presetMode && editorMode" @click="updatePreset()">
 					Обновить калькулятор</button>
 				</div>
@@ -351,6 +360,19 @@ import { required, email, minLength } from "vuelidate/lib/validators";
 			},
 		},
 		methods: {
+			savePdfUser(){
+						let tableTop = document.querySelector('.tableTop').innerHTML 
+						let bigTable = document.querySelector('.bigTable').innerHTML
+
+						var htmlConverted = htmlToPdfmake(tableTop + bigTable);
+
+
+						var newPdf = {
+							content: htmlConverted
+						}
+
+						pdfMake.createPdf(newPdf).download();
+			},
 			savePdf(){
 				if(this.$v.$invalid) {
 					this.$v.$touch();
@@ -359,7 +381,7 @@ import { required, email, minLength } from "vuelidate/lib/validators";
 
 
 
-					this.load = true
+				this.load = true
 
 				let emailBody = {
 					email: this.email
@@ -376,11 +398,10 @@ import { required, email, minLength } from "vuelidate/lib/validators";
 				axios
 				.post('https://nikitapugachev.ru/wp-json/np/v1/get/calc/pdf', form)
 				.then(res =>{
-					let bigTable = document.querySelector('.bigTable').innerHTML
+						let tableTop = document.querySelector('.tableTop').innerHTML 
+						let bigTable = document.querySelector('.bigTable').innerHTML
 
-						var htmlConverted = htmlToPdfmake(bigTable);
-
-						console.log(htmlConverted)
+						var htmlConverted = htmlToPdfmake(tableTop + bigTable);
 
 						var newPdf = {
 							content: htmlConverted

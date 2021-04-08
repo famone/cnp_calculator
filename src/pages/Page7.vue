@@ -23,7 +23,7 @@
 
 	
 
-				<!-- Свитчер с переработкой -->
+				<!-- Свитчер с секундами -->
 
 				<div v-if="item.type === 'SingleSlider' && checEye(item.visible)" :class="{lessOpacity : !item.visible}">
 					<div class="editable">
@@ -47,11 +47,11 @@
 
 					<div v-if="item.value">
 			      		<p class="white-txt">
-			      			<span class="blue-txt">от {{(item.options.stoimost * item.options.kol_vo).toLocaleString()}} ₽ / {{item.options.kol_vo}} {{item.options.edenicza}}
+			      			<span class="blue-txt">от {{(item.options.stoimost * item.options.kol_vo).toLocaleString()}} ₽ / {{item.options.kol_vo}} сек
 			      			</span>
 			      		</p>
 			      		<v-slider v-if="item.id == 595" step="5" min="5" max="240" v-model="item.options.kol_vo"></v-slider>
-			      		<v-slider v-else step="1" min="1" max="30" v-model="item.options.kol_vo"></v-slider>
+			      		<v-slider v-else step="5" min="5" max="240" v-model="item.options.kol_vo"></v-slider>
 			      	</div>
 				</div>
 
@@ -72,9 +72,8 @@
 						</button>
 						</div>
 					</div>
-					<!-- <p class="red">{{}}</p> -->
 					<p class="white-txt" v-if="!item.value">
-						<span class="blue-txt op-5">от {{item.options[0].stoimost}} ₽</span>
+						<span class="blue-txt op-5">от {{parseInt(item.options[0].stoimost).toLocaleString()}} ₽</span>
 					</p> 
 
 				
@@ -85,7 +84,7 @@
 
 
 			      			<p class="white-txt">
-			      			{{index+1}}-й ролик	<span class="blue-txt">от {{rolik.vremya * rolik.stoimost}}  ₽ / {{rolik.vremya}} сек</span>
+			      			{{index+1}}-й ролик	<span class="blue-txt">от {{(rolik.vremya * rolik.stoimost).toLocaleString()}}  ₽ / {{rolik.vremya}} сек</span>
 			      			</p>
 			      			<v-slider step="5" min="5" max="240" v-model="rolik.vremya"></v-slider>
 			      			<textarea placeholder="Пример описания" v-model="rolik.opisanie"></textarea>

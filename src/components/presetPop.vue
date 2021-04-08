@@ -1,9 +1,9 @@
 <template>
 	<div class="edit-pop" @click="closePop">
 		<div class="edit-pop-box" @click.stop>
-			<h3 class="text-left">Добавить пресет</h3>
+			<h3 class="text-left">Сохранить калькулятор</h3>
 			<div class="ed-inp-row">
-				<label for="">Введите имя пресета:</label>
+				<label for="">Введите название калькулятора:</label>
 				<input type="text" v-model="presetName">
 			</div>
 			<div class="ed-inp-row text-center" v-if="load">

@@ -35,9 +35,10 @@
 							</span>
 							сек
 						</p>
-						<!-- <p class="white-txt"><img src="../assets/img/date.svg" alt="">
-							{{todayIs.toLocaleDateString()}}
-						</p> -->
+						<p class="white-txt">
+							<img src="../assets/img/chrono.svg" alt="">
+							{{getChrono}} сек
+						</p>
 						<p class="white-txt"><img src="../assets/img/smen.svg" alt="">
 							{{smens}} смены
 						</p>
@@ -57,7 +58,7 @@
 						<!--  -->
 						<p class="white-txt pointer clearAll" @click="toDefault()" 
 						v-if="presetUser !== '' ">
-							<img src="../assets/img/trash.svg" alt="">Очистить подсчеты
+							<img src="../assets/img/trash.svg" alt="">Очистить
 						</p>
 					</div>
 				</div>
@@ -251,6 +252,13 @@ import Confirm from '../components/Confirm.vue'
 
 				return FINAL_PRICE
 
+			},
+			getChrono(){
+				if(this.checkIfPreset){
+					return this.activePreset[0].fields[1].value
+				}else{
+					return this.calc[0].fields[1].value
+				}
 			},
 			videoType(){
 					

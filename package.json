@@ -28,7 +28,8 @@
     "vue-yandex-maps": "^0.10.8",
     "vuelidate": "^0.7.5",
     "vuetify": "^2.3.14",
-    "vuex": "^3.4.0"
+    "vuex": "^3.4.0",
+    "vuex-persistedstate": "^4.0.0-beta.3"
   },
   "browserslist": [
     "> 1%",

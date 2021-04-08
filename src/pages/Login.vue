@@ -55,6 +55,8 @@ export default{
 			}
 			
 			this.$store.dispatch("preset/clearHeader")
+			this.$store.dispatch('preset/setPresetAvatar', null)
+			this.$store.dispatch('preset/setPresetUser', null)
 
 			// console.log(newUser)
 			this.$store.dispatch("auth/AUTH_REQUEST", form).then(() => {

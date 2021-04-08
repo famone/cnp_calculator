@@ -10,6 +10,7 @@
 					</router-link>
 
 					<div class="calc-info">
+						<div v-if="presetAvatar" class="avatar" :style="{'background-image': 'url(' + presetAvatar + ')'}" style="margin-right: 5px;"></div>
 						<p class="white-txt ma-0" v-if="presetUser">{{presetUser}} - </p> 
 						<p class="white-txt ma-0">{{activePresetName}}</p>
 					</div>
@@ -20,7 +21,7 @@
 					<button class="servers"><img src="../assets/img/servers.svg" alt="">Сервисы</button> -->
 
 					<div v-if="user" class="avatar" :style="{'background-image': 'url(' + user.avatar + ')'}"></div>
-					<p v-if="user" class="white-txt" style="margin: 0 0 0 10px;">{{user.user_nicename}}</p>
+					<p v-if="user" class="white-txt" style="margin: 0 0 0 10px;">{{user.user_display_name}}</p>
 					<router-link v-if="user" tag="button" to="/profile" class="lk-btn">
 						<span class="mdi mdi-account-outline"></span>
 						Личный кабинет
@@ -30,7 +31,7 @@
 						Выход
 					</button>
 
-					<router-link v-if="!user" tag="button" to="/enter" class="enter-btn" @click="clearHeader()">
+					<router-link v-if="!user" tag="button" to="/enter" class="enter-btn">
 						Вход
 					</router-link>
 				</div>
@@ -51,7 +52,8 @@ import {mapGetters} from 'vuex'
 				activePresetName: "preset/getActivePresetName",
 				presets: "preset/getPresets",
 				presetSlugs: "preset/getPresetSlugs",
-				presetUser: "preset/getPresetUser"
+				presetUser: "preset/getPresetUser",
+				presetAvatar: "preset/getPresetAvatar"
 			}),
 			myPresetLink(){
 				if(this.activePreset && this.user){
@@ -68,7 +70,7 @@ import {mapGetters} from 'vuex'
 					this.$store.dispatch("preset/clearActivePresetName")
         			this.$router.replace("/enter");
 				});
-			},
+			}
 		}
 	}
 </script>

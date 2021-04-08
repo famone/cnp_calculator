@@ -2,6 +2,12 @@
 	<section id="p404">
 		<div class="container text-center">
 			<h1>Калькулятор пользователя:</h1>
+			<div class="avatar-box">
+				<div class="avatar" v-if="presetAvatar" :style="{'background-image': 'url(' + presetAvatar + ')'}">
+				</div>
+			</div>
+			<div class="avatar" v-if="presetAvatar" :style="{'background-image': 'url(' + presetAvatar + ')'}">
+			</div>
 			<h3 v-if="presetUser" style="color: #2E97E6;">{{presetUser}}</h3>
 			<router-link class="blue-btn" 
 			tag="button" :to=" '/page-1/' + this.$route.params.login + '/' + this.$route.params.preset ">
@@ -20,7 +26,8 @@ import {mapActions, mapGetters} from 'vuex'
 		computed: {
 			...mapGetters({ 
 				activePreset: "preset/getActivePreset",
-				presetUser: "preset/getPresetUser"
+				presetUser: "preset/getPresetUser",
+				presetAvatar: "preset/getPresetAvatar"
 			})
 		},
 		
@@ -38,10 +45,11 @@ import {mapActions, mapGetters} from 'vuex'
                     this.$router.replace('/404')
                 }else{
                 	this.$store.dispatch('preset/loadActivePreset', res.data.playlist)
-                	console.log(res)
+                	console.log(res.data.user_avatar)
                 	this.$store.dispatch('preset/setPresetUser', res.data.user.data.display_name)
                 	this.$store.dispatch('preset/setPresetSlugs', clientPres)
                 	this.$store.dispatch('preset/presetNameActivate', res.data.name)
+                	this.$store.dispatch('preset/setPresetAvatar', res.data.user_avatar) 
 
                     // this.$router.replace(`/page-1/${clientPres.login}/${clientPres.preset}`)
                 }
@@ -59,5 +67,12 @@ import {mapActions, mapGetters} from 'vuex'
 	display: flex;
 	justify-content: center;
 	align-items: center;
+} 
+.avatar-box{
+	justify-content: center;
+}
+.avatar{
+	margin-right: 0;
+	margin-bottom: 10px;
 }
 </style>

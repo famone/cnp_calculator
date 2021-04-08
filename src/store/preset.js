@@ -10,7 +10,8 @@ const preset = {
         activePresetName: '',
         allow: false,
         presetSlugs: {},
-        presetUser: ''
+        presetUser: '',
+        presetAvatar: '',
   	},
 	mutations: {
         SET_PRESETS(state, payload){
@@ -34,6 +35,9 @@ const preset = {
         },
         PRES_NAME_ACTIVATE(state, payload){
             state.activePresetName = payload
+        },
+        SET_PRES_AVATAR(state, ava){
+            state.presetAvatar = ava
         }
 	},
 	actions: {
@@ -92,6 +96,9 @@ const preset = {
         clearHeader({commit}){
             let str = ''
              commit("PRES_NAME_ACTIVATE", str)
+        },
+        setPresetAvatar({commit}, ava){
+            commit("SET_PRES_AVATAR", ava)
         }
 
 	},
@@ -110,6 +117,9 @@ const preset = {
         },
         getPresetUser(state){
             return state.presetUser
+        },
+        getPresetAvatar(state){
+            return state.presetAvatar
         }
 	}
 }

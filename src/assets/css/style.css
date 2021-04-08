@@ -496,16 +496,17 @@ textarea{
 	font-size: 18px;
 	background-color: #2E97E6;
 	border-radius: 5px;
-	padding: 13px;
+	padding: 0 13px;
 	cursor: pointer;
 }
-.plus, .minus{
-	height: 18px;
-	width: 18px;
-	background-position: center;
-	background-size: 18px;
-	background-repeat: no-repeat;
-	cursor: pointer;
+
+.plus, .minus {
+    height: 53px;
+    width: 30px;
+    background-position: center;
+    background-size: 18px;
+    background-repeat: no-repeat;
+    cursor: pointer;
 }
 .plus{
 	background-image: url(../img/plus.svg);
@@ -514,7 +515,7 @@ textarea{
 	background-image: url(../img/minus.svg);
 }
 .quantity span{
-	margin: 0 30px;
+	margin: 0 15px;
 }
 
 
@@ -781,7 +782,7 @@ h2{
 	padding-top: 40px;
 }
 .switch-cat{
-	background-color: #262626;
+	/*background-color: #262626;*/
 	color: #fff;
 	border-radius: 50px;
 	width: fit-content;
@@ -1117,3 +1118,10 @@ input[type=range]::-moz-range-thumb {
 .vc-day{
 	z-index: 0!important;
 }
+.is-disabled:focus{
+	background-color: transparent!important;
+}
+.is-disabled:hover{
+	background-color: transparent!important;
+}
+
