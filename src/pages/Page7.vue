@@ -28,7 +28,7 @@
 				<div v-if="item.type === 'SingleSlider' && checEye(item.visible)" :class="{lessOpacity : !item.visible}">
 					<div class="editable">
 						<v-switch inset :label="item.name" v-model="item.value" :disabled="!item.visible"></v-switch>
-						<div>
+						<div class="editable-btns">
 							<button class="edit-mode-btn" @click="openFilmer(item, subsl.id)" v-if="editorMode">
 								<span class="mdi mdi-lead-pencil"> <span class="hidden-xs">Настроить</span></span>
 							</button>
@@ -61,7 +61,7 @@
 				<div v-if="item.type === 'Montazh' && checEye(item.visible)" :class="{lessOpacity : !item.visible}">
 					<div class="editable">
 						<v-switch inset :label="item.name" v-model="item.value" :disabled="!item.visible"></v-switch>
-						<div>
+						<div class="editable-btns">
 							<button class="edit-mode-btn" @click="openMontazh(item)" v-if="editorMode">
 								<span class="mdi mdi-lead-pencil"> <span class="hidden-xs">Настроить</span></span>
 							</button>

@@ -1,6 +1,6 @@
 <template>
 	<div class="tabs" 
-	v-if="$route.path !== '/' && this.$route.path !== '/login' && this.$route.path !== '/enter' && this.$route.path !== '/profile' ">
+	v-if="$route.path !== '/' && this.$route.path !== '/login' && this.$route.path !== '/recovery' && this.$route.path !== '/signup' && this.$route.path !== '/enter' && this.$route.path !== '/profile' ">
 			<div class="container-fluid">
 				<div class="tabs-row">
 					<router-link tag="button" 

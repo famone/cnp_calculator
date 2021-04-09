@@ -920,8 +920,22 @@ table tr td:last-child{
 
 
 
+/*sign-links*/
 
-
+.sign-links{
+	text-align: center;
+	padding: 10px 0;
+}
+.sign-links a{
+	height: 100%;
+	transition: all .3s ease;
+	color: #2E97E6;
+	font-size: 14px;
+	font-weight: 500;
+}
+.sign-links a:hover{
+	opacity: 0.6;
+}
 
 
 
@@ -966,7 +980,34 @@ table tr td:last-child{
 	}
 	.preset-btn{
 		margin-right: 0;
-		width: 47%;
+		width: 100%;
+	}
+	.tabs{
+		display: flex;
+    	overflow-x: scroll;
+	}
+	#inner{
+		padding: 30px 0;
+	}
+	#inner h1{
+		line-height: 30px;
+		margin-bottom: 0;
+		font-size: 30px;        
+	}
+	.v-input--switch label{
+		font-size: 18px;
+	}
+	.editable-btns{
+		width: 80px;
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+	}
+	.tabs{
+		top: 59px;
+	}
+	.col-xs-6-imp{
+		width: 50%!important;
 	}
 }
 @media (max-width: 390px) {
@@ -977,6 +1018,24 @@ table tr td:last-child{
 }
 
 
+.tabs::-webkit-scrollbar {
+	display: none;
+}
+
+/* Track */
+.tabs::-webkit-scrollbar-track {
+	display: none;
+}
+
+/* Handle */
+.tabs::-webkit-scrollbar-thumb {
+	display: none;
+}
+
+/* Handle on hover */
+.tabs::-webkit-scrollbar-thumb:hover {
+	display: none;
+}
 
 
 

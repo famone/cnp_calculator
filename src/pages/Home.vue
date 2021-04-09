@@ -10,7 +10,7 @@
  					<button class="blue-btn">Поехали</button>
  				</router-link>
 			</div>
-			<div class="col-lg-6">
+			<div class="col-lg-6 hidden-xs">
 				<img src="../assets/img/vidosik.png" style="width: 100%;">
 			</div>
 

@@ -19,6 +19,12 @@
 				<div class="col-lg-3 save-pdf" v-if="!user">
 					<p class="small-grey">Заполните форму, чтобы получить расчет сметы калькулятора</p>
 					<form >
+
+
+						<input type="text" placeholder="Фио" v-model="name" 
+						:class="{errorInp : $v.name.$dirty && !$v.name.required}">
+
+
 						<div class="errorLabel" v-if="($v.email.$dirty && !$v.email.required) || ($v.email.$dirty && !$v.email.email)">Поле обязательно для заполнения</div>
 
 						<input type="text" placeholder="Ваш e-mail" v-model="email" 
@@ -350,14 +356,18 @@ import { required, email, minLength } from "vuelidate/lib/validators";
 				presetMode: false,
 				presPop: false,
 				snackbar: false,
-				email: ''
+				email: '',
+				name: ''
 			}
 		},
 		validations: {
 			email:{
 				required,
-				email
+				email,
 			},
+			name: {
+				required
+			}
 		},
 		methods: {
 			savePdfUser(){
@@ -384,6 +394,7 @@ import { required, email, minLength } from "vuelidate/lib/validators";
 				this.load = true
 
 				let emailBody = {
+					name_client: this.name,
 					email: this.email
 				}
 
@@ -409,6 +420,7 @@ import { required, email, minLength } from "vuelidate/lib/validators";
 
 						pdfMake.createPdf(newPdf).download();
 						this.email = ''
+						this.name = ''
 				})
 
 			},

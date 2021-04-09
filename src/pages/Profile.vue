@@ -35,25 +35,26 @@
 
 					<div class="data-row">
 						<h2>{{user.user_display_name}}</h2>
+						<h3>{{user.user_email}}</h3>
 						<p class="white-txt">Присоединился: <span class="blue-txt">{{user.registred}}</span></p>
 						<!-- <p class="white-txt">Тип профиля: <span class="blue-txt">{{user.status}}</span></p>
 						<button class="blue-btn">Оплатить подписку</button> -->
 					</div>
 
 
-					<div class="data-row profile-fields">
+					<!-- <div class="data-row profile-fields">
 						<label for="">Никнейм</label>
 						<input type="text" :value="user.user_nicename" data-field="nick">
 
 						<label for="">Имя и фамилия</label>
 						<input type="text" :value="user.user_display_name" data-field="name">
 
-						<!-- <label for="">Телефон</label>
+						 <label for="">Телефон</label>
 						<input type="text" :value="user.tel" data-field="tel"> -->
 
-						<label for="">E-mail</label>
+						<!-- <label for="">E-mail</label>
 						<input type="text" :value="user.user_email" data-field="mail">
-					</div>
+					</div>  -->
 
 					<!-- <button class="blue-btn">Сохранить</button> -->
 

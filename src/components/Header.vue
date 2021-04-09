@@ -9,7 +9,7 @@
 						PUGACHEV	
 					</router-link>
 
-					<div class="calc-info">
+					<div class="calc-info hidden-xs">
 						<div v-if="presetAvatar" class="avatar" :style="{'background-image': 'url(' + presetAvatar + ')'}" style="margin-right: 5px;"></div>
 						<p class="white-txt ma-0" v-if="presetUser">{{presetUser}} - </p> 
 						<p class="white-txt ma-0">{{activePresetName}}</p>
@@ -20,8 +20,8 @@
 					<!-- <button class="circle-btn">Попробуй бесплатно</button>
 					<button class="servers"><img src="../assets/img/servers.svg" alt="">Сервисы</button> -->
 
-					<div v-if="user" class="avatar" :style="{'background-image': 'url(' + user.avatar + ')'}"></div>
-					<p v-if="user" class="white-txt" style="margin: 0 0 0 10px;">{{user.user_display_name}}</p>
+					<div v-if="user" class="avatar hidden-xs" :style="{'background-image': 'url(' + user.avatar + ')'}"></div>
+					<p v-if="user" class="white-txt hidden-xs" style="margin: 0 0 0 10px;">{{user.user_display_name}}</p>
 					<router-link v-if="user" tag="button" to="/profile" class="lk-btn">
 						<span class="mdi mdi-account-outline"></span>
 						Личный кабинет

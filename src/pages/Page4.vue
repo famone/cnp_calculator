@@ -25,7 +25,7 @@
 
 			<div class="container-fluid">
 			<div class="row data-row">
-				<div class="col-lg-2 col-sm-4 col-md-3" v-for="(cam, index) in category.items" :key="index">
+				<div class="col-lg-2 col-md-3 col-sm-4 col-xs-6-imp" v-for="(cam, index) in category.items" :key="index">
 					<div class="rent-box">
 						<img v-lazy="cam.image">
 						<p class="black-txt">{{cam.name}}</p>

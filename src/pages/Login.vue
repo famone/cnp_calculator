@@ -8,12 +8,20 @@
 					<input type="text" v-model="user.login" placeholder="Логин">
 				</div>
 				<div class="form-box">
-					<input type="password" v-model="user.password" placeholder="Пароль">
+					<input type="password" style="margin-bottom: 0;" v-model="user.password" placeholder="Пароль">
+				</div>
+
+				<div class="sign-links">
+					<router-link tag="a" to="/recovery">Забыли пароль</router-link>
 				</div>
 
 				<div class="form-box">
 					<loading v-if="loadingLog" /> 
 					<button class="blue-btn" v-else>Войти</button>
+				</div>
+
+				<div class="sign-links">
+					<router-link tag="a" to="/signup">Зарегистрироваться</router-link>
 				</div>
 
 			</form>

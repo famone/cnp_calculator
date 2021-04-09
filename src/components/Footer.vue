@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="bottom-bar"  v-if="this.$route.path !== '/' && this.$route.path !== '/enter' && this.$route.path !== '/profile' && this.$route.name !== 'calc-route' ">
+		<div class="bottom-bar"  v-if="this.$route.path !== '/' && this.$route.path !== '/recovery' && this.$route.path !== '/enter' && this.$route.path !== '/signup' && this.$route.path !== '/profile' && this.$route.name !== 'calc-route' ">
 		<!-- <div class="progress" :style="{width: prgrss * 10 + '%'}"></div> -->
 
 		<div class="progress" :style="{width: (100/9) * prgrss + '%'}"></div>
@@ -21,7 +21,7 @@
 					</div>
 				</div>
 
-				<div class="col-lg-5" v-if="calc">
+				<div class="col-lg-5 hidden-xs" v-if="calc">
 
 					<div class="additions">
 						<p class="white-txt" v-if="videoType">

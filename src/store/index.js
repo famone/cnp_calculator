@@ -7,12 +7,16 @@ Vue.use(Vuex)
 import smeta from './smeta'
 import auth from './auth'
 import preset from './preset'
+import signup from './signup'
+import forgot from './forgot'
 
 export default new Vuex.Store({
 	// plugins: [createPersistedState()],
 	modules: {
 		smeta,
 		auth,
-		preset
+		preset,
+		signup,
+		forgot
 	}
 }) 

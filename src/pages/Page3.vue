@@ -54,7 +54,7 @@
 				<div v-if="item.type === 'Boolean' && checEye(item.visible)" :class="{lessOpacity : !item.visible}">
 					<div class="editable">
 						<v-switch inset :label="item.name" v-model="item.value" :disabled="!item.visible"></v-switch>
-						<div>
+						<div class="editable-btns">
 							<button class="edit-mode-btn" @click="openEditDirector(item, subsl.id)"
 						v-if="editorMode">
 							<span class="mdi mdi-lead-pencil"> <span class="hidden-xs">Настроить</span></span>
@@ -100,7 +100,7 @@
 					<!-- <pre>{{item}}</pre> -->
 					<div class="editable">
 						<v-switch inset :label="item.name" v-model="item.value" :disabled="!item.visible"></v-switch>
-						<div>
+						<div class="editable-btns">
 						<button class="edit-mode-btn" @click="openFilmer(item, subsl.id)" v-if="editorMode">
 							<span class="mdi mdi-lead-pencil"> <span class="hidden-xs">Настроить</span></span>
 						</button>
@@ -141,7 +141,7 @@
 					<div class="editable">
 						<v-switch inset :label="item.name" v-model="item.value" :disabled="!item.visible"></v-switch>
 						
-						<div>
+						<div class="editable-btns">
 							<button class="edit-mode-btn" @click="openSingle(item, subsl.id)" v-if="editorMode">
 								<span class="mdi mdi-lead-pencil"> <span class="hidden-xs">Настроить</span></span>
 							</button>

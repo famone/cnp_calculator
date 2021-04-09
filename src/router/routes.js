@@ -10,6 +10,8 @@ import Page7 from '../pages/Page7.vue'
 import Page8 from '../pages/Page8.vue'
 import Page9 from '../pages/Page9.vue'
 import Login from '../pages/Login.vue'
+import Signup from '../pages/Signup.vue'
+import Recovery from '../pages/Recovery.vue'
 import Profile from '../pages/Profile.vue'
 import Notfound from '../pages/Notfound.vue'
 import Loadpreset from '../pages/Loadpreset.vue'
@@ -123,6 +125,14 @@ const routes = [
 		{
 			path: '/enter',
 			component: Login
+		},
+		{
+			path: '/signup',
+			component: Signup
+		},
+		{
+			path: '/recovery',
+			component: Recovery
 		},
 		{
 			path: '/profile',
