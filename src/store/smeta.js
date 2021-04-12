@@ -7,7 +7,6 @@ const smeta = {
 		calc: null,
 		preloader: true,
 		nalog: null
-
   	},
 	mutations: {
 		SET_CALC(state, payload){
@@ -19,15 +18,24 @@ const smeta = {
 		}
 	},
 	actions: {
-		
 		getCalc({commit}){
 			axios
 			.get('https://nikitapugachev.ru/wp-json/np/v1/get/calc')
 			.then(res =>{
 				// console.log(res.data)
+				localStorage.setItem("calc", JSON.stringify(res.data.data));
 				commit('SET_CALC', res.data.data)
 				commit('SET_NALOG', res.data.data)
 			})
+		},
+		async GET_CALC({commit, state, dispatch }, calc){
+			if (calc) {
+                commit("SET_CALC", calc);
+                commit("SET_NALOG", calc);
+            }
+            if(!state.calc){
+            	return dispatch('getCalc')
+            }
 		}
 	},
 	getters: {

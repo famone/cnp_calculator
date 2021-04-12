@@ -16,7 +16,7 @@
 
 <script>
 import './assets/css/style.css'
-import {mapState} from 'vuex'
+import {mapState, mapGetters} from 'vuex'
 import Header from './components/Header.vue'
 import Tabs from './components/Tabs.vue'
 import Tabs2 from './components/Tabs2.vue'
@@ -29,11 +29,19 @@ export default{
     	returnRoute(){
     		return parseInt(this.$route.path.match(/\d+/))
     	},
-    	...mapState('smeta', ['preloader'])
+    	...mapState('smeta', ['preloader']),
+    	...mapGetters({
+    		calc: "smeta/getCalc"
+    	})
+    },
+    mounted(){
+    	setInterval(() => {
+    		localStorage.setItem("calc", JSON.stringify(this.calc));
+    	}, 2000)
     },
     created(){
     	// this.$router.replace('/404')
-    	this.$store.dispatch('smeta/getCalc')
+    	// this.$store.dispatch('smeta/getCalc')
     }  
 }
 </script>

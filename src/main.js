@@ -22,6 +22,9 @@ import 'swiper/css/swiper.css'
 const user = JSON.parse(localStorage.getItem("user"))
 store.dispatch("auth/VALIDATE", user);
 
+const calc = JSON.parse(localStorage.getItem("calc"))
+store.dispatch("smeta/GET_CALC", calc);
+
 
 Vue.use(VueLazyload, {
   preLoad: 1.3,
