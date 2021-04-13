@@ -1,5 +1,6 @@
 
 import axios from 'axios'
+import store from '.'
 import router from '../router/routes'
 
 const preset = {
@@ -56,6 +57,10 @@ const preset = {
             .then(res =>{
                 
                 commit("SET_PRESETS", res.data)
+            
+                    localStorage.removeItem("calc");
+                    // store.dispatch("smeta/clearCalc", {root:true})
+                
                 
                 if(res.data.data){
                     let clientPres = {

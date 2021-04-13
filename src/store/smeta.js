@@ -18,6 +18,9 @@ const smeta = {
 		}
 	},
 	actions: {
+		clearCalc({commit}){
+			commit('SET_CALC', null)
+		},
 		getCalc({commit}){
 			axios
 			.get('https://nikitapugachev.ru/wp-json/np/v1/get/calc')

@@ -31,13 +31,16 @@ export default{
     	},
     	...mapState('smeta', ['preloader']),
     	...mapGetters({
-    		calc: "smeta/getCalc"
+    		calc: "smeta/getCalc",
+			activePreset: "preset/getActivePreset"
     	})
     },
     mounted(){
-    	setInterval(() => {
-    		localStorage.setItem("calc", JSON.stringify(this.calc));
-    	}, 2000)
+		if(!this.activePreset){
+			setInterval(() => {
+				localStorage.setItem("calc", JSON.stringify(this.calc));
+			}, 5000)
+		}
     },
     created(){
     	// this.$router.replace('/404')
