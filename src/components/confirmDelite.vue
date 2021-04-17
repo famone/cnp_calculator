@@ -35,9 +35,9 @@ import {mapGetters} from 'vuex'
 				axios
 				 .get(`https://nikitapugachev.ru/wp-json/np/v1/delete/calc/presets?user_id=${this.user.id}&playlist_slug=${this.delitingPreset}`)
 				 .then(res =>{
-				 	this.$store.dispatch('preset/GET_PRESETS', this.user.id)
 				 	this.$store.dispatch('preset/clearActivePreset')
 				 	this.$store.dispatch('preset/clearActivePresetName')
+					 this.$store.dispatch('preset/GET_PRESETS', this.user.id)
 				 	this.closeConfirm()
 				 })
 

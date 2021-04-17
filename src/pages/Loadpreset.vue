@@ -41,9 +41,9 @@ import {mapActions, mapGetters} from 'vuex'
 			axios
             .get(`https://nikitapugachev.ru/wp-json/np/v1/calc/${clientPres.login}/${clientPres.preset}`)
             .then(res =>{
-                if(res.data.status == 404){
-                    this.$router.replace('/404')
-                }else{
+
+				console.log(res)
+				
                 	this.$store.dispatch('preset/loadActivePreset', res.data.playlist)
                 	console.log(res.data.user_avatar)
                 	this.$store.dispatch('preset/setPresetUser', res.data.user.data.display_name)
@@ -52,7 +52,7 @@ import {mapActions, mapGetters} from 'vuex'
                 	this.$store.dispatch('preset/setPresetAvatar', res.data.user_avatar) 
 
                     // this.$router.replace(`/page-1/${clientPres.login}/${clientPres.preset}`)
-                }
+                
             })
 
 			

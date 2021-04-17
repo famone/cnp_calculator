@@ -124,6 +124,21 @@ import Confirm from '../components/Confirm.vue'
 						})
 					}
 				})
+				// очиска оборудования
+				if(this.activePreset[3].products.cat.length){
+					this.activePreset[3].products.cat.forEach(item =>{
+						if(item.subsItems.length){
+							item.subsItems.forEach(sub =>{
+								if(sub.items.length){
+									sub.items.forEach(product =>{
+										product.count = 0
+									})
+								}
+							})
+						}
+					})
+				}
+
 				console.log(this.activePreset)
 			},
 			updatePreset(){

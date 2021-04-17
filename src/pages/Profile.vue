@@ -65,7 +65,7 @@
 					<div class="data-row">
 						<h3>Мой калькулятор</h3>
 						<div class="presets" v-if="presets">
-							<router-link tag="div" to="/page-1" class="preset-btn add-preset" v-if="!presets.data">
+							<router-link tag="div" to="/page-1" class="preset-btn add-preset">
 								<div class="plus"></div>
 								Создать калькулятор
 							</router-link>

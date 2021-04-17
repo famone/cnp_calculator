@@ -25,102 +25,39 @@ const routes = [
 		},
 		{
 			path: '/page-1',
-			component: Page1,
-			beforeEnter: (to, from, next) => {
-				if(store.getters["preset/getActivePreset"]){
-					next("/profile")
-				}else{
-					next()
-				}
-			}
+			component: Page1
 		},
 		{
 			path: '/page-2',
-			component: Page2,
-			beforeEnter: (to, from, next) => {
-				if(store.getters["preset/getActivePreset"]){
-					next("/profile")
-				}else{
-					next()
-				}
-			}
+			component: Page2
 		},
 		{
 			path: '/page-3',
-			component: Page3,
-			beforeEnter: (to, from, next) => {
-				if(store.getters["preset/getActivePreset"]){
-					next("/profile")
-				}else{
-					next()
-				}
-			}
+			component: Page3
 		},
 		{
 			path: '/page-4',
-			component: Page4,
-			beforeEnter: (to, from, next) => {
-				if(store.getters["preset/getActivePreset"]){
-					next("/profile")
-				}else{
-					next()
-				}
-			}
+			component: Page4
 		},
 		{
 			path: '/page-5',
-			component: Page5,
-			beforeEnter: (to, from, next) => {
-				if(store.getters["preset/getActivePreset"]){
-					next("/profile")
-				}else{
-					next()
-				}
-			}
+			component: Page5
 		},
 		{
 			path: '/page-6',
-			component: Page6,
-			beforeEnter: (to, from, next) => {
-				if(store.getters["preset/getActivePreset"]){
-					next("/profile")
-				}else{
-					next()
-				}
-			}
+			component: Page6
 		},
 		{
 			path: '/page-7',
-			component: Page7,
-			beforeEnter: (to, from, next) => {
-				if(store.getters["preset/getActivePreset"]){
-					next("/profile")
-				}else{
-					next()
-				}
-			}
+			component: Page7
 		},
 		{
 			path: '/page-8',
-			component: Page8,
-			beforeEnter: (to, from, next) => {
-				if(store.getters["preset/getActivePreset"]){
-					next("/profile")
-				}else{
-					next()
-				}
-			}
+			component: Page8
 		},
 		{
 			path: '/page-9',
-			component: Page9,
-			beforeEnter: (to, from, next) => {
-				if(store.getters["preset/getActivePreset"]){
-					next("/profile")
-				}else{
-					next()
-				}
-			}
+			component: Page9
 		},
 		{
 			path: '/enter',

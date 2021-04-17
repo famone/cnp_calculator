@@ -55,7 +55,7 @@ const auth = {
                 commit("SET_USER", null);
             }
         },
-        async SIGN_OUT({ commit }) {
+        async SIGN_OUT({ commit, dispatch }) {
             localStorage.removeItem("user");
             commit("SET_TOKEN", null);
             commit("SET_USER", null);
