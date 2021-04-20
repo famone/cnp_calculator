@@ -20,7 +20,7 @@
 					<!-- <button class="circle-btn">Попробуй бесплатно</button>
 					<button class="servers"><img src="../assets/img/servers.svg" alt="">Сервисы</button> -->
 
-					<button class="enter-btn mr-2" @click="bugsPop = true">
+					<button class="enter-btn mr-2" @click="openBugs($emit)" v-if="user">
 						Сообщить о баге
 					</button>
 
@@ -39,9 +39,6 @@
 						Вход
 					</router-link>
 				</div>
-				
-				<Bugs v-if="bugsPop" @hideBugs="bugsPop = false" />
-
 			</div>
 		</div>
 	</header>
@@ -50,15 +47,8 @@
 
 <script>
 import {mapGetters} from 'vuex'
-import Bugs from '../components/Bugs.vue'
 
 	export default{
-		components: {Bugs},
-		data(){
-			return{
-				bugsPop: false
-			}
-		},
 		computed: {
 			...mapGetters({ 
 				user: "auth/getAuthenticated",
@@ -78,6 +68,9 @@ import Bugs from '../components/Bugs.vue'
 			}
 		},
 		methods: {
+			openBugs(){
+				this.$emit("openBugs")
+			},
 			signOut(){
 				this.$store.dispatch('auth/SIGN_OUT').then(() => {
 					this.$store.dispatch("preset/clearActivePreset")

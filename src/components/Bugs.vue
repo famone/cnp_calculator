@@ -3,11 +3,6 @@
 		<div class="edit-pop-box text-center" @click.stop>
 			<h3 class="text-left">Сообщить о баге</h3>
 
-
-			<div class="ed-inp-row text-left">
-				<label for="">E-mail:</label>
-				<input type="text" v-model="email">
-			</div>
 			<div class="ed-inp-row text-left">
 				<label for="">Описание бага:</label>
 				<textarea v-model="bug"></textarea>
@@ -26,9 +21,16 @@
 <script>
 import loading from '../components/loading.vue'
 import axios from 'axios'
+import {mapGetters} from 'vuex'
 
 	export default{
 		components: {loading},
+		computed: {
+			...mapGetters({ 
+				user: "auth/getAuthenticated",
+				presets: "preset/getPresets"
+			}),
+		},
 		data(){
 			return{
 				load: false,
@@ -51,7 +53,7 @@ import axios from 'axios'
 				this.load = true
 
 				let emailBody = {
-				email: this.email,
+				email: this.user.user_email,
 				bug: this.bug
 			}
 

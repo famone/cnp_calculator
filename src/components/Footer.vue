@@ -51,13 +51,12 @@
 						v-if="activePreset && user && presetSlugs.login === user.user_nicename">
 							<img src="../assets/img/save.svg" alt="">Сохранить
 						</button>
-						<button class="lk-btn" @click="openConfirm = !openConfirm" v-if="!activePreset">
-							<img src="../assets/img/trash.svg" alt="">Сохранить
-						</button>
-
+						<p class="white-txt pointer clearAll" @click="openConfirm = !openConfirm" v-if="!activePreset">
+							<img src="../assets/img/trash.svg" alt="">Очистить
+						</p>
 						<!--  -->
 						<p class="white-txt pointer clearAll" @click="toDefault()" 
-						v-if="presetUser !== '' ">
+						v-if="activePreset !== '' ">
 							<img src="../assets/img/trash.svg" alt="">Очистить
 						</p>
 					</div>
