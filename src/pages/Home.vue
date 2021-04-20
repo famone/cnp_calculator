@@ -6,13 +6,19 @@
 				<h1>Добро пожаловать <br>
 					в калькулятор <br>
  					для составления сметы</h1>
- 				<router-link tag="a" to="/page-1">
- 					<button class="blue-btn">Поехали</button>
+ 				<router-link tag="a" to="/profile">
+ 					<button class="blue-btn">Начать</button>
  				</router-link>
 			</div>
 			<div class="col-lg-6 hidden-xs">
-				<img src="../assets/img/vidosik.png" style="width: 100%;">
+				<iframe title="vimeo-player" src="https://player.vimeo.com/video/538604185" frameborder="0" allowfullscreen></iframe>
 			</div>
-
 	</section>
 </template>
+
+<style scoped>
+iframe{
+	width: 100%;
+	height: 400px;
+}
+</style>

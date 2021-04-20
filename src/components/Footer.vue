@@ -47,13 +47,13 @@
 
 				<div class="col-lg-3">
 					<div class="downloads">
-						<p class="white-txt pointer clearAll" @click="updatePreset()" 
+						<button class="lk-btn" @click="updatePreset()" 
 						v-if="activePreset && user && presetSlugs.login === user.user_nicename">
-							<img src="../assets/img/save.svg" alt="">Обновить
-						</p>
-						<p class="white-txt pointer clearAll" @click="openConfirm = !openConfirm" v-if="!activePreset">
-							<img src="../assets/img/trash.svg" alt="">Очистить
-						</p>
+							<img src="../assets/img/save.svg" alt="">Сохранить
+						</button>
+						<button class="lk-btn" @click="openConfirm = !openConfirm" v-if="!activePreset">
+							<img src="../assets/img/trash.svg" alt="">Сохранить
+						</button>
 
 						<!--  -->
 						<p class="white-txt pointer clearAll" @click="toDefault()" 

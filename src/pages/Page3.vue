@@ -51,6 +51,7 @@
 
 				<!-- Свитчер с проектом и сменой -->
 
+
 				<div v-if="item.type === 'Boolean' && checEye(item.visible)" :class="{lessOpacity : !item.visible}">
 					<div class="editable">
 						<v-switch inset :label="item.name" v-model="item.value" :disabled="!item.visible"></v-switch>
@@ -385,11 +386,11 @@ import {mapState, mapGetters} from 'vuex'
 						if(page.calculated == true){
 							page.subsItems.forEach(sub => {
 								sub.fields.forEach(field =>{
-									if(field.type === 'SimpleRange'){
-										field.options.kol_vo_dnej.add_value = smenAmount
-									}
 									if(field.type === 'Boolean'){
 										field.options.varianty[1].add_value = smenAmount
+									}
+									if(field.type === 'SimpleRange'){
+										field.options.kol_vo_dnej.add_value = smenAmount
 									}
 									if(field.type === 'Acter'){
 										field.options[0].kol_vo_smen = smenAmount
@@ -407,11 +408,11 @@ import {mapState, mapGetters} from 'vuex'
 						if(page.calculated == true){
 							page.subsItems.forEach(sub => {
 								sub.fields.forEach(field =>{
-									if(field.type === 'SimpleRange'){
-										field.options.kol_vo_dnej.add_value = smenAmount
-									}
 									if(field.type === 'Boolean'){
 										field.options.varianty[1].add_value = smenAmount
+									}
+									if(field.type === 'SimpleRange'){
+										field.options.kol_vo_dnej.add_value = smenAmount
 									}
 									if(field.type === 'Acter'){
 										field.options[0].kol_vo_smen = smenAmount
@@ -476,6 +477,8 @@ import {mapState, mapGetters} from 'vuex'
 				this.presetMode = false
 				this.editorMode = true
 			}
+
+			console.log(this.calc)
 		},
 		// beforeRouteLeave(to, from, next){
 		// 	if(this.activePreset){

@@ -39,6 +39,9 @@ const preset = {
         },
         SET_PRES_AVATAR(state, ava){
             state.presetAvatar = ava
+        },
+        CHANGE_AMOUNT(state, payload){
+            state.presets = payload
         }
 	},
 	actions: {
@@ -55,12 +58,11 @@ const preset = {
             axios
             .get('https://nikitapugachev.ru/wp-json/np/v1/get/calc/presets?user_id=' + user.id)
             .then(res =>{
+
                 
                 commit("SET_PRESETS", res.data)
-            
-                    localStorage.removeItem("calc");
-                    // store.dispatch("smeta/clearCalc", {root:true})
-                
+
+                localStorage.removeItem("calc");
                 
                 if(res.data.data){
                     let clientPres = {
@@ -104,8 +106,11 @@ const preset = {
         },
         setPresetAvatar({commit}, ava){
             commit("SET_PRES_AVATAR", ava)
+        },
+        changePresetsAmount({commit}, payload){
+            console.log(payload)
+            commit("CHANGE_AMOUNT", payload)
         }
-
 	},
 	getters: {
         getPresets(state){

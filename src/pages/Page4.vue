@@ -9,7 +9,7 @@
 				<div class="col-lg-12 text-center">
 					<div class="switch-cat">
 						<button v-for="(filter, index) in getCategories"
-						@click="changeFilter(index, filter.txt)" 
+						@click="changeFilter(index, filter.txt)"
 						:class="{acFiletr : filter.active}">{{filter.txt}}</button>
 					</div>
 				</div>

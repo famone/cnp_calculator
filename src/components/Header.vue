@@ -20,6 +20,10 @@
 					<!-- <button class="circle-btn">Попробуй бесплатно</button>
 					<button class="servers"><img src="../assets/img/servers.svg" alt="">Сервисы</button> -->
 
+					<button class="enter-btn mr-2" @click="bugsPop = true">
+						Сообщить о баге
+					</button>
+
 					<div v-if="user" class="avatar hidden-xs" :style="{'background-image': 'url(' + user.avatar + ')'}"></div>
 					<p v-if="user" class="white-txt hidden-xs" style="margin: 0 0 0 10px;">{{user.user_display_name}}</p>
 					<router-link v-if="user" tag="button" to="/profile" class="lk-btn">
@@ -35,6 +39,8 @@
 						Вход
 					</router-link>
 				</div>
+				
+				<Bugs v-if="bugsPop" @hideBugs="bugsPop = false" />
 
 			</div>
 		</div>
@@ -44,7 +50,15 @@
 
 <script>
 import {mapGetters} from 'vuex'
+import Bugs from '../components/Bugs.vue'
+
 	export default{
+		components: {Bugs},
+		data(){
+			return{
+				bugsPop: false
+			}
+		},
 		computed: {
 			...mapGetters({ 
 				user: "auth/getAuthenticated",

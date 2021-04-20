@@ -36,11 +36,11 @@ export default{
     	})
     },
     mounted(){
-		if(!this.activePreset){
-			setInterval(() => {
-				localStorage.setItem("calc", JSON.stringify(this.calc));
-			}, 5000)
-		}
+		// if(!this.activePreset){
+		// 	setInterval(() => {
+		// 		localStorage.setItem("calc", JSON.stringify(this.calc));
+		// 	}, 5000)
+		// }
     },
     created(){
     	// this.$router.replace('/404')

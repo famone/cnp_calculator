@@ -37,7 +37,7 @@ import {mapGetters} from 'vuex'
 				 .then(res =>{
 				 	this.$store.dispatch('preset/clearActivePreset')
 				 	this.$store.dispatch('preset/clearActivePresetName')
-					 this.$store.dispatch('preset/GET_PRESETS', this.user.id)
+					this.$store.dispatch('preset/changePresetsAmount', res.data)
 				 	this.closeConfirm()
 				 })
 
