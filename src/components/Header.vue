@@ -16,16 +16,13 @@
 					</div>
 				</div>
 
-				<div class="navigation">
-					<!-- <button class="circle-btn">Попробуй бесплатно</button>
-					<button class="servers"><img src="../assets/img/servers.svg" alt="">Сервисы</button> -->
-
+				<div class="navigation hidden-xs">
 					<button class="enter-btn mr-2" @click="openBugs($emit)" v-if="user">
 						Сообщить о баге
 					</button>
 
-					<div v-if="user" class="avatar hidden-xs" :style="{'background-image': 'url(' + user.avatar + ')'}"></div>
-					<p v-if="user" class="white-txt hidden-xs" style="margin: 0 0 0 10px;">{{user.user_display_name}}</p>
+					<div v-if="user" class="avatar" :style="{'background-image': 'url(' + user.avatar + ')'}"></div>
+					<p v-if="user" class="white-txt" style="margin: 0 0 0 10px;">{{user.user_display_name}}</p>
 					<router-link v-if="user" tag="button" to="/profile" class="lk-btn">
 						<span class="mdi mdi-account-outline"></span>
 						Личный кабинет
@@ -39,6 +36,46 @@
 						Вход
 					</router-link>
 				</div>
+
+				<div class="burger hidden-lg hidden-md hidden-sm" :class="{burgerAc: mobileMenu}" @click="mobileMenu = !mobileMenu">
+					<span></span>
+					<span></span>
+				</div>
+
+
+				<div class="mobileNav" v-if="mobileMenu">
+
+					<div>
+						<button class="enter-btn" @click="openBugs($emit)" v-if="user">
+						Сообщить о баге
+					</button>
+					<br>
+
+					<div class="d-flex justify-center align-center mt-4">
+						<div v-if="user" class="avatar" :style="{'background-image': 'url(' + user.avatar + ')'}"></div>
+						<p v-if="user" class="white-txt" style="margin: 0 0 0 10px;">{{user.user_display_name}}</p>
+					</div>
+					<br>
+					<router-link v-if="user" tag="button" to="/profile" class="lk-btn" style="margin:0px;">
+						<span class="mdi mdi-account-outline"></span>
+						Личный кабинет
+					</router-link>
+					
+
+
+					<button v-if="user" @click="signOut()" class="exit-btn">
+						<span class="mdi mdi-exit-to-app"></span> 
+						Выход
+					</button>
+
+					<router-link v-if="!user" tag="button" to="/enter" class="enter-btn">
+						Вход
+					</router-link>
+					</div>
+
+				</div>
+
+
 			</div>
 		</div>
 	</header>
@@ -49,6 +86,11 @@
 import {mapGetters} from 'vuex'
 
 	export default{
+		data(){
+			return{
+				mobileMenu: false
+			}
+		},
 		computed: {
 			...mapGetters({ 
 				user: "auth/getAuthenticated",

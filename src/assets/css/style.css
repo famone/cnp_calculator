@@ -65,12 +65,54 @@ h3{
 
 
 
+
+/* mobile nav */
+.burger{
+	height: 36px;
+	width: 36px;
+	position: relative;
+	cursor: pointer;
+}
+.burger span{
+	height: 2px;
+	width: 100%;
+	background-color:#fff;
+	position: absolute;
+	left: 0;
+	top: 8px;
+	transition: all .3s ease;
+}
+.burger span:last-child{
+	top: 28px;
+}
+.burgerAc span{
+	transform: rotate(135deg);
+	top: 18px;
+}
+.burgerAc span:last-child{
+	transform: rotate(-135deg);
+	top: 18px;
+}
+.mobileNav{
+	height: calc(100vh - 56px);
+	width: 100%;
+	position: fixed;
+	z-index: 100;
+	background-color: #000;
+	left: 0;
+	top: 56px;
+	text-align: center;
+	padding: 40px 0;
+}
+/* mobile nav */
+
+
 header{
 	padding: 10px 0;
 	position: sticky;
 	top: 0;
 	background-color: #1A1A1A;
-	z-index: 100;
+	z-index: 110;
 }
 .logo{
 	cursor: pointer;
@@ -1024,7 +1066,7 @@ table tr td:last-child{
 		align-items: center;
 	}
 	.tabs{
-		top: 59px;
+		top: 56px;
 	}
 	.col-xs-6-imp{
 		width: 50%!important;
