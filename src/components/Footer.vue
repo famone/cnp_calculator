@@ -15,7 +15,7 @@
 						<p class="white-txt">Всего: 
 {{Math.round((calcPrice + getOborudItog) + (calcPrice + getOborudItog)/100 * nalog + ((calcPrice + getOborudItog) + (calcPrice + getOborudItog)/100 * nalog)/100 * markUp ).toLocaleString()}}
 						 ₽</p>
-						<p class="small-grey">Включая налоги {{nalog}}% : 
+						<p class="small-grey hidden-xs">Включая налоги {{nalog}}% : 
 						{{  Math.round((calcPrice + getOborudItog)/100 * nalog).toLocaleString() }} ₽</p>
 						<!-- <p class="white-txt">С налогом: {{calcPrice + (calcPrice/100 * calc[0].fields[7].value)}}</p> -->
 					</div>
@@ -51,12 +51,11 @@
 						v-if="activePreset && user && presetSlugs.login === user.user_nicename">
 							<img src="../assets/img/save.svg" alt="">Сохранить
 						</button>
-						<p class="white-txt pointer clearAll" @click="openConfirm = !openConfirm" v-if="!activePreset">
+						<!-- <p class="white-txt pointer clearAll" @click="openConfirm = !openConfirm" v-if="!activePreset">
 							<img src="../assets/img/trash.svg" alt="">Очистить
-						</p>
+						</p> -->
 						<!--  -->
-						<p class="white-txt pointer clearAll" @click="toDefault()" 
-						v-if="activePreset !== '' ">
+						<p class="white-txt pointer clearAll" @click="openConfirm = true">
 							<img src="../assets/img/trash.svg" alt="">Очистить
 						</p>
 					</div>
@@ -97,49 +96,6 @@ import Confirm from '../components/Confirm.vue'
 			}
 		},
 		methods: {
-			//  к дефолтам
-			toDefault(){
-				this.activePreset.forEach(item =>{
-					if(item.calculated){
-						console.log(item)
-						item.subsItems.forEach(sub => {
-							sub.fields.forEach(field =>{
-								if(field.type === 'Boolean'){
-									field.value = false
-								}
-								if(field.type === 'SimpleRange'){
-									field.value = false
-								}
-								if(field.type === 'SingleSlider'){
-									field.value = false
-								}
-								if(field.type === 'Acter'){
-									field.value = false
-								}
-								if(field.type === 'Montazh'){
-									field.value = false
-								}
-							})
-						})
-					}
-				})
-				// очиска оборудования
-				if(this.activePreset[3].products.cat.length){
-					this.activePreset[3].products.cat.forEach(item =>{
-						if(item.subsItems.length){
-							item.subsItems.forEach(sub =>{
-								if(sub.items.length){
-									sub.items.forEach(product =>{
-										product.count = 0
-									})
-								}
-							})
-						}
-					})
-				}
-
-				console.log(this.activePreset)
-			},
 			updatePreset(){
 
 				let pres = {

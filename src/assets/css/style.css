@@ -730,6 +730,7 @@ h2{
 }
 .clearAll{
 	transition: all .3s ease;
+	padding:8px 0;
 }
 .clearAll:hover{
 	color: #2E97E6;
