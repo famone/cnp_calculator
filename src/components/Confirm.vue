@@ -64,6 +64,39 @@ import {mapGetters} from 'vuex'
 							})
 						}
 					})
+					// очистка вводных
+					this.activePreset[0].fields.forEach(item =>{
+						if(item.type === 'Radio' || item.type === 'Datepicker' || item.type === 'Text' ){
+							item.value = ''
+						}
+						if(item.type === 'Checkbox'){
+							item.value = []
+						}
+						if(item.id == 439 || item.id == 440){
+							item.value = 0
+						}
+						if(item.id == 424){
+							item.value = 5
+						}
+					})
+					this.activePreset[1].subsItems.forEach(sub =>{
+						console.log(sub)
+						sub.fields.forEach(field =>{
+							if(field.type === 'Radio' || field.type === 'Text'){
+								field.value = ''
+							}
+							if(field.type === 'Checkbox'){
+								field.value = []
+							}
+							if(field.type === 'Range'){
+								field.value = [14, 60]
+							}
+						})
+					})
+
+					// очистка хрона
+					this.activePreset[2].subsItems[0].fields[0].value = 1
+					this.activePreset[2].subsItems[0].fields[1].value = 0
 
 				}else{
 					this.calc.forEach(item =>{
@@ -101,6 +134,41 @@ import {mapGetters} from 'vuex'
 							})
 						}
 					})
+
+					// очистка вводных
+					this.calc[0].fields.forEach(item =>{
+						if(item.type === 'Radio' || item.type === 'Datepicker' || item.type === 'Text' ){
+							item.value = ''
+						}
+						if(item.type === 'Checkbox'){
+							item.value = []
+						}
+						if(item.id == 439 || item.id == 440){
+							item.value = 0
+						}
+						if(item.id == 424){
+							item.value = 5
+						}
+					})
+					this.calc[1].subsItems.forEach(sub =>{
+						console.log(sub)
+						sub.fields.forEach(field =>{
+							if(field.type === 'Radio' || field.type === 'Text'){
+								field.value = ''
+							}
+							if(field.type === 'Checkbox'){
+								field.value = []
+							}
+							if(field.type === 'Range'){
+								field.value = [14, 60]
+							}
+						})
+					})
+
+					// очистка хрона
+					this.calc[2].subsItems[0].fields[0].value = 1
+					this.calc[2].subsItems[0].fields[1].value = 0
+
 
 				}
 				this.$emit('closeConfirm')

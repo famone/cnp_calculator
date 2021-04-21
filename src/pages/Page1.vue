@@ -13,7 +13,7 @@
 			<div class="data-row"  v-for="item in getCalcPage.fields">
 
 				<!-- datepicker -->
-
+			
 				<div v-if="item.type === 'Datepicker' " style="width: 50%;">
 					<h3>{{item.name}}</h3>
 					<v-date-picker :min-date='new Date()' is-expanded  v-model="item.value" color="blue" :model-config="modelConfig" />

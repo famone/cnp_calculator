@@ -24,10 +24,10 @@
 				<div class="col-lg-5 hidden-xs" v-if="calc">
 
 					<div class="additions">
-						<p class="white-txt" v-if="videoType">
+						<!--<p class="white-txt" v-if="videoType">
 							<img src="../assets/img/addition.svg" alt="">
 							{{videoType}}
-						</p>
+						</p>-->
 						<p class="white-txt" v-if="getMontaj">
 							<img src="../assets/img/monticon.svg" alt="">
 							<span v-for="(timer, index) in getMontaj">{{timer}}

@@ -1,6 +1,7 @@
 <template>
 	<div class="edit-pop" @click="hideBugs($emit)">
 		<div class="edit-pop-box text-center" @click.stop>
+			<div class="cross" @click="hideBugs($emit)">✕</div>
 			<h3 class="text-left">Сообщить о баге</h3>
 
 			<div class="ed-inp-row text-left">
@@ -79,3 +80,15 @@ import {mapGetters} from 'vuex'
 		}
 	}
 </script>
+
+<style scoped>
+.edit-pop-box{
+	position: relative;
+}
+.cross{
+	color: #fff;
+	position: absolute;
+	right: 15px;
+	top:10px;
+}
+</style>
