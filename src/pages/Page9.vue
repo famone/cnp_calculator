@@ -309,7 +309,7 @@
 
 		<div class="section" >
 			<div class="container">
-				<div class="data-row" style="margin-bottom: 100px;">
+				<div class="data-row" style="margin-bottom: 120px;">
 					<router-link tag="button" to="/enter" class="blue-btn" v-if="!presetMode && !user">Войдите чтобы сохранить</router-link>
 					<button class="blue-btn" v-if="!presetMode && user" @click="presPop = !presPop">Сохранить калькулятор</button>
 					<button class="blue-btn" v-if="presetMode && editorMode" @click="updatePreset()">

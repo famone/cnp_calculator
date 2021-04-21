@@ -48,7 +48,7 @@
 				<div class="col-lg-3">
 					<div class="downloads">
 						<button class="lk-btn" @click="updatePreset()" 
-						v-if="activePreset && user && presetSlugs.login === user.user_nicename">
+						v-if="user && presetSlugs.login === user.user_nicename && this.$route.params.id !== undefined">
 							<img src="../assets/img/save.svg" alt="">Сохранить
 						</button>
 						<!-- <p class="white-txt pointer clearAll" @click="openConfirm = !openConfirm" v-if="!activePreset">

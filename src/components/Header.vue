@@ -9,7 +9,7 @@
 						PUGACHEV	
 					</router-link>
 
-					<div class="calc-info hidden-xs">
+					<div class="calc-info">
 						<div v-if="presetAvatar" class="avatar" :style="{'background-image': 'url(' + presetAvatar + ')'}" style="margin-right: 5px;"></div>
 						<p class="white-txt ma-0" v-if="presetUser">{{presetUser}} - </p> 
 						<p class="white-txt ma-0">{{activePresetName}}</p>
@@ -43,7 +43,7 @@
 				</div>
 
 
-				<div class="mobileNav" v-if="mobileMenu">
+				<div class="mobileNav" v-if="mobileMenu" @click="mobileMenu = !mobileMenu">
 
 					<div>
 						<button class="enter-btn" @click="openBugs($emit)" v-if="user">
