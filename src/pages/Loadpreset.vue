@@ -42,11 +42,12 @@ import {mapActions, mapGetters} from 'vuex'
             .get(`https://nikitapugachev.ru/wp-json/np/v1/calc/${clientPres.login}/${clientPres.preset}`)
             .then(res =>{
 
-				console.log(res)
+					console.log(res)
 				
                 	this.$store.dispatch('preset/loadActivePreset', res.data.playlist)
                 	console.log(res.data.user_avatar)
                 	this.$store.dispatch('preset/setPresetUser', res.data.user.data.display_name)
+					this.$store.dispatch('preset/setPresetEmail', res.data.user.data.user_email)
                 	this.$store.dispatch('preset/setPresetSlugs', clientPres)
                 	this.$store.dispatch('preset/presetNameActivate', res.data.name)
                 	this.$store.dispatch('preset/setPresetAvatar', res.data.user_avatar) 

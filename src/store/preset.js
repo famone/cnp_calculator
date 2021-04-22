@@ -13,6 +13,7 @@ const preset = {
         presetSlugs: {},
         presetUser: '',
         presetAvatar: '',
+        presetEmail: null
   	},
 	mutations: {
         SET_PRESETS(state, payload){
@@ -42,6 +43,9 @@ const preset = {
         },
         CHANGE_AMOUNT(state, payload){
             state.presets = payload
+        },
+        SET_PRES_EMAIL(state, payload){
+            state.presetEmail = payload
         }
 	},
 	actions: {
@@ -110,6 +114,9 @@ const preset = {
         changePresetsAmount({commit}, payload){
             console.log(payload)
             commit("CHANGE_AMOUNT", payload)
+        },
+        setPresetEmail({commit}, payload){
+            commit("SET_PRES_EMAIL", payload)
         }
 	},
 	getters: {
@@ -130,6 +137,9 @@ const preset = {
         },
         getPresetAvatar(state){
             return state.presetAvatar
+        },
+        getPresetEmail(state){
+            return state.presetEmail
         }
 	}
 }

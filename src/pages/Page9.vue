@@ -3,7 +3,7 @@
 
 		<section id="itogoInner">
 			<div class="container">
-				<div class="col-lg-9 tableTop">
+				<div class="col-lg-8 tableTop">
 					<h3>Бюджет проекта</h3>
 <h1>
 {{Math.round((calcPrice + getOborudItog) + (calcPrice + getOborudItog)/100 * nalog + ((calcPrice + getOborudItog) + (calcPrice + getOborudItog)/100 * nalog)/100 * markUp ).toLocaleString()}} ₽
@@ -16,25 +16,24 @@
 					}} ₽
 						</p> -->
 				</div>
-				<div class="col-lg-3 save-pdf" v-if="!user">
+				<div class="col-lg-4 save-pdf">
 					<p class="small-grey">Заполните форму, чтобы получить расчет сметы калькулятора</p>
 					<form >
-
 
 						<input type="text" placeholder="Фио" v-model="name" 
 						:class="{errorInp : $v.name.$dirty && !$v.name.required}">
 
-
-						<div class="errorLabel" v-if="($v.email.$dirty && !$v.email.required) || ($v.email.$dirty && !$v.email.email)">Поле обязательно для заполнения</div>
-
 						<input type="text" placeholder="Ваш e-mail" v-model="email" 
 						:class="{errorInp : ($v.email.$dirty && !$v.email.required) || ($v.email.$dirty && !$v.email.email)}">
-						
-						<button class="blue-btn" style="width: 100%;" @click.prevent="savePdf()" >Скачать PDF</button>
+						<div class="text-center">
+							<Loading v-if="load" />
+							<button v-else class="blue-btn" style="width: 100%;" @click.prevent="newPdf()">
+								Отправить PDF
+							</button>
+							
+							<p class="blue-txt" v-if="success"><br>PDF успешно отправлен на почту</p>
+						</div>
 					</form>
-				</div>
-				<div class="col-lg-3 save-pdf" v-else>
-						<button class="blue-btn" style="width: 100%;" @click="savePdfUser()" >Скачать PDF</button>
 				</div>
 			</div>
 		</section>
@@ -346,10 +345,11 @@ var pdfFonts = require('pdfmake/build/vfs_fonts.js');
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 var htmlToPdfmake = require("html-to-pdfmake");
 import { required, email, minLength } from "vuelidate/lib/validators";
+import Loading from '../components/loading.vue'
 
 
 	export default{
-		components: {Inner, presetPop},
+		components: {Inner, presetPop, Loading},
 		data(){
 			return{
 				editorMode: false,
@@ -357,7 +357,9 @@ import { required, email, minLength } from "vuelidate/lib/validators";
 				presPop: false,
 				snackbar: false,
 				email: '',
-				name: ''
+				name: '',
+				load: false,
+				success: false
 			}
 		},
 		validations: {
@@ -370,60 +372,68 @@ import { required, email, minLength } from "vuelidate/lib/validators";
 			}
 		},
 		methods: {
-			savePdfUser(){
-						let tableTop = document.querySelector('.tableTop').innerHTML 
-						let bigTable = document.querySelector('.bigTable').innerHTML
-
-						var htmlConverted = htmlToPdfmake(tableTop + bigTable);
-
-
-						var newPdf = {
-							content: htmlConverted
-						}
-
-						pdfMake.createPdf(newPdf).download();
-			},
-			savePdf(){
+			newPdf(){
 				if(this.$v.$invalid) {
 					this.$v.$touch();
 					return;
 				}
 
-
-
 				this.load = true
 
-				let emailBody = {
-					name_client: this.name,
-					email: this.email
-				}
 
-				var form = new FormData();
-
-				for (var field in emailBody){
-					form.append(field, emailBody[field]);
-				};
-
-
-
-				axios
-				.post('https://nikitapugachev.ru/wp-json/np/v1/get/calc/pdf', form)
-				.then(res =>{
-						let tableTop = document.querySelector('.tableTop').innerHTML 
+				let tableTop = document.querySelector('.tableTop').innerHTML 
 						let bigTable = document.querySelector('.bigTable').innerHTML
 
 						var htmlConverted = htmlToPdfmake(tableTop + bigTable);
+
 
 						var newPdf = {
 							content: htmlConverted
 						}
 
-						pdfMake.createPdf(newPdf).download();
-						this.email = ''
-						this.name = ''
-				})
+
+
+				const pdfDocGenerator = pdfMake.createPdf(newPdf);
+					pdfDocGenerator.getBase64((data) => {
+						let emailBody = {}
+
+						if(this.presetEmail){
+							 emailBody = {
+								pdf: data, 
+								email: this.presetEmail, 
+								email_from: this.email, 
+								name_client: this.name
+							}
+						}else{
+							 emailBody = {
+								pdf: data, 
+								email: this.user.user_email, 
+								email_from: this.email, 
+								name_client: this.name
+							}
+						}
+
+					
+						
+						axios
+						.post('https://nikitapugachev.ru/wp-json/np/v1/get/calc/pdf', emailBody)
+						.then(res =>{
+							this.load = false;
+							this.name = '';
+							this.email = '';
+							this.success = true;
+						})
+						.catch(err =>{
+							alert('Что-то пошло не так')
+						})
+
+
+					})
+					
+					
 
 			},
+			
 			minCount(item){
 				item.count--
 			},
@@ -469,7 +479,8 @@ import { required, email, minLength } from "vuelidate/lib/validators";
 				calc: "smeta/getCalc",
 				user: "auth/getAuthenticated",
 				activePreset: "preset/getActivePreset",
-				presetSlugs: "preset/getPresetSlugs"
+				presetSlugs: "preset/getPresetSlugs",
+				presetEmail: "preset/getPresetEmail"
 			}),
 
 			getVvodnie(){
