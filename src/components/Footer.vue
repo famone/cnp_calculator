@@ -28,6 +28,10 @@
 							<img src="../assets/img/addition.svg" alt="">
 							{{videoType}}
 						</p>-->
+						<p class="white-txt">
+							<img src="../assets/img/chrono.svg" alt="">
+							{{getChrono}} сек
+						</p>
 						<p class="white-txt" v-if="getMontaj">
 							<img src="../assets/img/monticon.svg" alt="">
 							<span v-for="(timer, index) in getMontaj">{{timer}}
@@ -35,10 +39,7 @@
 							</span>
 							сек
 						</p>
-						<p class="white-txt">
-							<img src="../assets/img/chrono.svg" alt="">
-							{{getChrono}} сек
-						</p>
+						
 						<p class="white-txt"><img src="../assets/img/smen.svg" alt="">
 							{{smens}} смены
 						</p>

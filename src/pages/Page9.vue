@@ -20,7 +20,7 @@
 					<p class="small-grey">Заполните форму, чтобы получить расчет сметы калькулятора</p>
 					<form >
 
-						<input type="text" placeholder="Фио" v-model="name" 
+						<input type="text" placeholder="Имя" v-model="name" 
 						:class="{errorInp : $v.name.$dirty && !$v.name.required}">
 
 						<input type="text" placeholder="Ваш e-mail" v-model="email" 
@@ -28,10 +28,10 @@
 						<div class="text-center">
 							<Loading v-if="load" />
 							<button v-else class="blue-btn" style="width: 100%;" @click.prevent="newPdf()">
-								Отправить PDF
+								Отправить смету
 							</button>
 							
-							<p class="blue-txt" v-if="success"><br>PDF успешно отправлен на почту</p>
+							<p class="blue-txt" v-if="success"><br>Отправлено</p>
 						</div>
 					</form>
 				</div>

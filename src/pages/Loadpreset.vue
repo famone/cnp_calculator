@@ -9,6 +9,7 @@
 			<div class="avatar" v-if="presetAvatar" :style="{'background-image': 'url(' + presetAvatar + ')'}">
 			</div>
 			<h3 v-if="presetUser" style="color: #2E97E6;">{{presetUser}}</h3>
+			<h3>{{activePresetName}}</h3>
 			<router-link class="blue-btn" 
 			tag="button" :to=" '/page-1/' + this.$route.params.login + '/' + this.$route.params.preset ">
 				Перейти в калькулятор
@@ -27,7 +28,8 @@ import {mapActions, mapGetters} from 'vuex'
 			...mapGetters({ 
 				activePreset: "preset/getActivePreset",
 				presetUser: "preset/getPresetUser",
-				presetAvatar: "preset/getPresetAvatar"
+				presetAvatar: "preset/getPresetAvatar",
+				activePresetName: "preset/getActivePresetName",
 			})
 		},
 		
