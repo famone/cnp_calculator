@@ -6,10 +6,10 @@
 					в калькулятор <br>
  					для составления сметы</h1>
 				<div class="copyright d-flex justify-start align-center">
-					<a href="https://www.instagram.com/nikitapugachev/" class="mr-10">
+					<a href="https://www.instagram.com/nikitapugachev/" class="mr-10" target="_blank">
 						<p class="white-txt">Идея - <img src="../assets/img/logo.svg" style="height:15px;"></p>
 					</a>
-					<a href="https://webink.site/">
+					<a href="https://webink.site/" target="_blank">
 						<p class="white-txt">Разработка - <img src="../assets/img/webinklogo.svg" style="height:18px;"></p>
 					</a>
 				</div>
