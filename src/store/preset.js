@@ -20,7 +20,7 @@ const preset = {
             state.presets = payload
             if(payload.data){
                 state.activePreset = payload.data[0].json
-                state.activePresetName = payload.data[0].nazvanie
+                //state.activePresetName = payload.data[0].nazvanie
             }
         },
         SET_ACTIVE_PRESET(state, preset){
