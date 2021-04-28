@@ -10,14 +10,34 @@ import Vuetify from 'vuetify'
 import VueClipboard from 'vue-clipboard2'
 import VueLazyload from 'vue-lazyload'
 import VCalendar from 'v-calendar';
-import Vuelidate from 'vuelidate'
+import Vuelidate from 'vuelidate';
+import * as Sentry from "@sentry/vue";
+import { Integrations } from "@sentry/tracing";
+
  
 Vue.use(Vuetify)
 import ru from 'vuetify/es5/locale/ru'
 
-
-
 import 'swiper/css/swiper.css'
+
+const isDev = process.env.NODE_ENV !== 'production'
+Vue.config.performance = isDev
+
+  if (isDev === false) {
+    Sentry.init({
+      Vue: Vue,
+      dsn: "https://19ed4bbd46ff400e9ffb1b80c3d25294@o588714.ingest.sentry.io/5739125",
+      integrations: [
+        new Integrations.BrowserTracing(),
+      ],
+      tracingOptions: {
+        trackComponents: true,
+      },
+      tracesSampleRate: 1.0,
+    })
+  }
+
+
 
 const user = JSON.parse(localStorage.getItem("user"))
 store.dispatch("auth/VALIDATE", user);

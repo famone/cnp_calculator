@@ -10,6 +10,8 @@
     "build": "cross-env NODE_ENV=production webpack --mode production --progress --hide-modules"
   },
   "dependencies": {
+    "@sentry/tracing": "^6.3.1",
+    "@sentry/vue": "^6.3.1",
     "axios": "^0.21.1",
     "html-to-pdfmake": "^2.1.7",
     "imagemin-webpack-plugin": "^2.4.2",
