@@ -27,7 +27,7 @@
 										<img src="../assets/img/reboot.svg" alt="">
 										Обновить изображение
 									</div>
-									<!-- <input type="file" ref="file" @change="changeAvatar"> -->
+									
 									
 								</div>
 						</div>
@@ -168,6 +168,7 @@ import confirmDelite from '../components/confirmDelite.vue'
 				 .post('https://nikitapugachev.ru/wp-json/np/v1/add/avatar', form2)
 				 .then(res =>{
 				 	console.log(res)
+					this.$store.dispatch("auth/changeAvatar", res.data.avatar)
 				 })
 			},
 			setActivePreset(preset, slug){

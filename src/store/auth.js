@@ -13,6 +13,10 @@ const auth = {
 		},
 		SET_TOKEN(state, token) {
             state.token = token;
+        },
+        CHANGE_AVATAR(state, avatar){
+            state.user.avatar = avatar
+            localStorage.setItem("user", JSON.stringify(state.user));
         }
 	},
 	actions: {
@@ -59,6 +63,10 @@ const auth = {
             localStorage.removeItem("user");
             commit("SET_TOKEN", null);
             commit("SET_USER", null);
+        },
+        changeAvatar({commit}, avatar){
+            localStorage.removeItem("user");
+            commit("CHANGE_AVATAR", avatar)
         }
 	},
 	getters: {

@@ -744,6 +744,11 @@ h2{
 	color: #2E97E5;
 	padding:5px;
 	position: relative;
+	transition: all .3s ease;
+	cursor: pointer;
+}
+.new-avatar:hover{
+	opacity: .6;
 }
 .new-avatar img{
 	margin-right: 8px;
