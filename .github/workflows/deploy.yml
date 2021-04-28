@@ -28,6 +28,15 @@ jobs:
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: ./dist/
         server-dir: /public_html/nikitapugachev.com/dist/
+    
+    - name: Create Sentry release
+      uses: getsentry/action-release@v1
+      env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: webink
+          SENTRY_PROJECT: npcost
+      with:
+          environment: prod
 
     - name: send message to tg
       uses: appleboy/telegram-action@master
