@@ -156,7 +156,7 @@ import confirmDelite from '../components/confirmDelite.vue'
 
 				let userData = {
 					avatar: this.file,
-					id: this.user.id
+					user_id: this.user.id
 				}
 				var form2 = new FormData();
 
