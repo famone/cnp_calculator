@@ -52,7 +52,8 @@
 								<span v-else>сек</span>
 			      			</span>
 			      		</p>
-			      		<v-slider v-if="item.id == 595" step="5" min="5" max="240" v-model="item.options.kol_vo"></v-slider>
+			      		<v-slider v-if="item.id == 595 || item.id == 2337" step="5" min="5" max="240" 
+						  v-model="item.options.kol_vo"></v-slider>
 			      		<v-slider v-else step="1" min="1" max="30" v-model="item.options.kol_vo"></v-slider>
 			      	</div>
 				</div>

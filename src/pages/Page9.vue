@@ -68,9 +68,12 @@
         					</td>
         					<td class="text-right" v-else>{{item.value}}
         						<span v-if="item.id == 424"> сек</span>
-        						<span v-if="item.id == 439 || item.id == 440 "> % : {{
-						Math.round(((calcPrice + getOborudItog) + (calcPrice + getOborudItog)/100 * nalog)/100 * markUp).toLocaleString() 
-					}} ₽</span>
+        						<span v-if="item.id == 439"> % : {{
+									Math.round(((calcPrice + getOborudItog) + (calcPrice + getOborudItog)/100 * nalog)/100 * markUp).toLocaleString() 
+								}} ₽</span>
+								<span v-if="item.id == 440 "> % : {{
+									(Math.round((calcPrice + getOborudItog)/100 * nalog) - Math.round(((calcPrice + getOborudItog) + (calcPrice + getOborudItog)/100 * nalog)/100 * markUp)).toLocaleString() 
+								}} ₽</span>
         					</td>
     					</tr>
 					</table>
@@ -268,7 +271,11 @@
 					<table>
 						<tr v-if="item.value && item.type === 'SingleSlider'" v-for="item in getPost">
     						<td><p class="wh-table">{{item.name}}</p></td>
-    						 <td class="text-center">{{item.options.kol_vo}} шт</td>
+    						 <td class="text-center">
+								 {{item.options.kol_vo}} 
+								 <span v-if="item.id == 594 || item.id == 596">шт</span>
+								 <span v-else>сек</span>
+							</td>
     						<td class="text-right">{{(item.options.kol_vo * item.options.stoimost).toLocaleString()}} ₽</td> 
     							
     					</tr>

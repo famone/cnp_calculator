@@ -91,7 +91,7 @@
 				
 			</div>
 
-			<v-snackbar v-model="snackbar"> Ссылка скопирована в буфер обена
+			<v-snackbar v-model="snackbar"> Ссылка скопирована в буфер обмена
 		      <template v-slot:action="{ attrs }">
 		        <v-btn color="#2E97E6" text v-bind="attrs" @click="snackbar = false">
 		          Закрыть 
