@@ -83,17 +83,23 @@
 						</button>
 						</div>
 					</div>
-
+					
 					<p class="white-txt" v-if="!item.value">
 						<span class="blue-txt op-5">от {{(item.options.kol_vo_dnej.stoimost).toLocaleString()}} ₽</span>
 					</p> 
 
 
 					<div v-if="item.value">
-			      		<p class="white-txt">Кол-во дней 
-			      			<span class="blue-txt">от {{(item.options.kol_vo_dnej.stoimost * item.options.kol_vo_dnej.add_value).toLocaleString()}} ₽ / {{item.options.kol_vo_dnej.add_value}} cмен </span>
+			      		<p class="white-txt">
+							<span v-if="item.id == 2459">Кол-во сек</span>
+							<span v-else>Кол-во дней</span>
+			      			<span class="blue-txt">от {{(item.options.kol_vo_dnej.stoimost * item.options.kol_vo_dnej.add_value).toLocaleString()}} ₽ / {{item.options.kol_vo_dnej.add_value}} 
+								  <span v-if="item.id == 2459">сек</span>
+								  <span v-else>cмен</span>
+							  </span>
 			      		</p>
-			      		<v-slider step="1" min="1" max="30" v-model="item.options.kol_vo_dnej.add_value"></v-slider>
+						<v-slider v-if="item.id == 2459" step="5" min="5" max="240" v-model="item.options.kol_vo_dnej.add_value"></v-slider>
+			      		<v-slider v-else step="1" min="1" max="30" v-model="item.options.kol_vo_dnej.add_value"></v-slider>
 
 			      		<p class="white-txt">Переработка
 			      			<span class="blue-txt">от {{(item.options.pererabtka.stoimost * item.options.pererabtka.add_value).toLocaleString()}} ₽ / {{item.options.pererabtka.add_value}} час</span>
